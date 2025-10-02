@@ -1,0 +1,4685 @@
+{
+  "categories": [
+    {
+      "id": "mevalar_sabzavotlar",
+      "name": "Mevalar va Sabzavotlar 🍎"
+    },
+    {
+      "id": "drinks",
+      "name": "Ichimliklar 🥤"
+    },
+    {
+      "id": "dairy_cheese",
+      "name": "Sut mahsulotlari va Pishloqlar 🧀"
+    },
+    {
+      "id": "oils_fats",
+      "name": "Yog'lar 🧈"
+    },
+    {
+      "id": "meat_sausage",
+      "name": "Go'sht va kolbasa mahsulotlari 🍖"
+    },
+    {
+      "id": "sweets_bakery",
+      "name": "Shirinliklar, Pechenye va Pishiriqlar 🍪"
+    },
+    {
+      "id": "candies_gum",
+      "name": "Konfetlar va Saqichlar 🍬"
+    },
+    {
+      "id": "snacks",
+      "name": "Sneklar va Gazaklar 🥨"
+    },
+    {
+      "id": "pasta_noodles",
+      "name": "Makaron mahsulotlari 🍝"
+    },
+    {
+      "id": "household_hygiene",
+      "name": "Maishiy kimyo va Gigiyena 🧼"
+    },
+    {
+      "id": "stationery",
+      "name": "Kanselyariya 📝"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "category": "sweets_bakery",
+      "name": "Pechenye 'Kunjutlik Konti Klas' (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 32000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/hxgrc8K6/1.png"
+    },
+    {
+      "id": 2,
+      "category": "sweets_bakery",
+      "name": "Pechenye 'Arabika' (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 30000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/FkTPnwmf/photo-30-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 3,
+      "category": "sweets_bakery",
+      "name": "Pechenye 'Sladko' (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 32000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/zW0yxzXm/photo-28-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 4,
+      "category": "sweets_bakery",
+      "name": "Kreker 'Krember' tuzli (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 35000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/8L94RFfN/2.webp"
+    },
+    {
+      "id": 5,
+      "category": "sweets_bakery",
+      "name": "Pechenye 'Pochemuchka' (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 33000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/ymh7LPvq/3.png"
+    },
+    {
+      "id": 6,
+      "category": "sweets_bakery",
+      "name": "Pechenye 'Toplenniy' (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 32000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/jks1TrB3/photo-25-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 7,
+      "category": "sweets_bakery",
+      "name": "Pechenye 'Tvorojniy' (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 0,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": ""
+    },
+    {
+      "id": 8,
+      "category": "sweets_bakery",
+      "name": "Pechenye 'Ovsyanoye' (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 40000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/2YkWcZpZ/4.png"
+    },
+    {
+      "id": 9,
+      "category": "sweets_bakery",
+      "name": "Pechenye 'Harflik' (alfavit) (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 28000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/1tc7nfqJ/5.png"
+    },
+    {
+      "id": 10,
+      "category": "sweets_bakery",
+      "name": "Pechenye 'Bugdoylik' (pshenichnoye) (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 28000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/LzytYhcC/photo-29-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 11,
+      "category": "sweets_bakery",
+      "name": "Pechenye 'Palochka' (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 28000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": ""
+    },
+    {
+      "id": 12,
+      "category": "sweets_bakery",
+      "name": "Pechenye 'Sutli' (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 28000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/YFbkxGpC/photo-24-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 13,
+      "category": "sweets_bakery",
+      "name": "Pechenye 'LG' (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 28000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/Xrn03BMJ/photo-23-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 14,
+      "category": "sweets_bakery",
+      "name": "Pechenye 'Tuya' (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 28000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": ""
+    },
+    {
+      "id": 15,
+      "category": "sweets_bakery",
+      "name": "Suxari (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 38000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/HTPbMPys/6.jpg"
+    },
+    {
+      "id": 16,
+      "category": "sweets_bakery",
+      "name": "Pirojnoye 'Panda Pie'",
+      "price": 55000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/wfCHHz6/photo-31-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 17,
+      "category": "sweets_bakery",
+      "name": "Pechenye 'Isko Oreo'",
+      "price": 40000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/HfM8GkHB/7.webp"
+    },
+    {
+      "id": 18,
+      "category": "sweets_bakery",
+      "name": "Pechenye 'Kunjutlik Shokolad' (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 45000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/nsFLgCkW/8.png"
+    },
+    {
+      "id": 19,
+      "category": "sweets_bakery",
+      "name": "Pechenye 'Zarqand' (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 55000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/cSVkLHtN/9.png"
+    },
+    {
+      "id": 20,
+      "category": "sweets_bakery",
+      "name": "Podushechki 'Sfad' (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 35000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/sJDvVTTW/10.png"
+    },
+    {
+      "id": 21,
+      "category": "sweets_bakery",
+      "name": "Podushechki 'Panda' (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 35000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/VpBck9x2/photo-38-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 22,
+      "category": "sweets_bakery",
+      "name": "Pechenye 'Zebra'",
+      "price": 35000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/8n7K1Kk2/11.jpg"
+    },
+    {
+      "id": 23,
+      "category": "sweets_bakery",
+      "name": "Vafli 'Panda'",
+      "price": 40000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/qLnk2Tmq/12.png"
+    },
+    {
+      "id": 24,
+      "category": "sweets_bakery",
+      "name": "Vafli 'Zgushonniy'",
+      "price": 50000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/xqmTp6Tq/13.jpg"
+    },
+    {
+      "id": 25,
+      "category": "sweets_bakery",
+      "name": "Vafli 'Krember Zgushonniy'",
+      "price": 48000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/CK1f0c7b/14.png"
+    },
+    {
+      "id": 26,
+      "category": "sweets_bakery",
+      "name": "Vafli 'Krember Shokoladlik'",
+      "price": 48000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/dJJtS34j/15.jpg"
+    },
+    {
+      "id": 27,
+      "category": "sweets_bakery",
+      "name": "Pryanik 'Ideal'",
+      "price": 28000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/QFnXz050/photo-40-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 28,
+      "category": "sweets_bakery",
+      "name": "Pryanik 'Zarbod'",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 29,
+      "category": "sweets_bakery",
+      "name": "Pryanik 'Hilol'",
+      "price": 30000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/CswhTQnm/photo-35-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 30,
+      "category": "drinks",
+      "name": "Coca-Cola 0.5L",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/WN411zyw/16.jpg"
+    },
+    {
+      "id": 31,
+      "category": "drinks",
+      "name": "Coca-Cola 1.0L",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Vc8DvqPt/17.jpg"
+    },
+    {
+      "id": 32,
+      "category": "drinks",
+      "name": "Coca-Cola 1.5L",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Vc8DvqPt/17.jpg"
+    },
+    {
+      "id": 33,
+      "category": "drinks",
+      "name": "Coca-Cola 2.0L",
+      "price": 20000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Vc8DvqPt/17.jpg"
+    },
+    {
+      "id": 34,
+      "category": "drinks",
+      "name": "Fanta 0.5L",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/tpkhTV74/18.webp"
+    },
+    {
+      "id": 35,
+      "category": "drinks",
+      "name": "Fanta 1.0L",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/tpkhTV74/18.webp"
+    },
+    {
+      "id": 36,
+      "category": "drinks",
+      "name": "Fanta 1.5L",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/tpkhTV74/18.webp"
+    },
+    {
+      "id": 37,
+      "category": "drinks",
+      "name": "Fanta 2.0L",
+      "price": 20000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/tpkhTV74/18.webp"
+    },
+    {
+      "id": 38,
+      "category": "drinks",
+      "name": "Pepsi 0.33L",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/MDJB1GSx/19.webp"
+    },
+    {
+      "id": 39,
+      "category": "drinks",
+      "name": "Pepsi 0.5L",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/MDJB1GSx/19.webp"
+    },
+    {
+      "id": 40,
+      "category": "drinks",
+      "name": "Coca-Cola (banka) 0.33L",
+      "price": 7000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/hFg5Ddhr/21.jpg"
+    },
+    {
+      "id": 41,
+      "category": "drinks",
+      "name": "Coca-Cola (banka) 0.45L",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/hFg5Ddhr/21.jpg"
+    },
+    {
+      "id": 42,
+      "category": "drinks",
+      "name": "Fanta (banka) 0.33L",
+      "price": 7000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 43,
+      "category": "drinks",
+      "name": "Fanta (banka) 0.45L",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 44,
+      "category": "drinks",
+      "name": "Pepsi (banka) 0.33L",
+      "price": 7000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/3mFqxxkJ/20.webp"
+    },
+    {
+      "id": 45,
+      "category": "drinks",
+      "name": "Pepsi (banka) 0.45L",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/3mFqxxkJ/20.webp"
+    },
+    {
+      "id": 46,
+      "category": "drinks",
+      "name": "Pepsi 1.0L",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/MDJB1GSx/19.webp"
+    },
+    {
+      "id": 47,
+      "category": "drinks",
+      "name": "Pepsi 1.5L",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/MDJB1GSx/19.webp"
+    },
+    {
+      "id": 48,
+      "category": "drinks",
+      "name": "Pepsi 2.0L",
+      "price": 20000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/MDJB1GSx/19.webp"
+    },
+    {
+      "id": 49,
+      "category": "drinks",
+      "name": "Sprite 0.5L",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/6kLZFqD/23.jpg"
+    },
+    {
+      "id": 50,
+      "category": "drinks",
+      "name": "Sprite 1.0L",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/6kLZFqD/23.jpg"
+    },
+    {
+      "id": 51,
+      "category": "drinks",
+      "name": "Sprite 1.5L",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/6kLZFqD/23.jpg"
+    },
+    {
+      "id": 52,
+      "category": "drinks",
+      "name": "Sprite (banka) 0.33L",
+      "price": 7000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/0Rn8TZDT/24.jpg"
+    },
+    {
+      "id": 53,
+      "category": "drinks",
+      "name": "Fuze Tea 0.5L",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/jk42V4L4/25.jpg"
+    },
+    {
+      "id": 54,
+      "category": "drinks",
+      "name": "Fuze Tea 1.0L",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/jk42V4L4/25.jpg"
+    },
+    {
+      "id": 55,
+      "category": "drinks",
+      "name": "Fuze Tea 1.5L",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/jk42V4L4/25.jpg"
+    },
+    {
+      "id": 56,
+      "category": "drinks",
+      "name": "Fuze Tea (banka) 0.45L",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/PGCngqYt/26.webp"
+    },
+    {
+      "id": 57,
+      "category": "drinks",
+      "name": "Mountain Dew 0.5L",
+      "price": 7000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/1tV6hk0V/27.jpg"
+    },
+    {
+      "id": 58,
+      "category": "drinks",
+      "name": "Mountain Dew 1.0L",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/1tV6hk0V/27.jpg"
+    },
+    {
+      "id": 59,
+      "category": "drinks",
+      "name": "Mountain Dew (banka) 0.33L",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/KjjhFJc3/28.jpg"
+    },
+    {
+      "id": 60,
+      "category": "drinks",
+      "name": "Adrenaline Rush (kichik)",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/LhqFVVhM/30.jpg"
+    },
+    {
+      "id": 61,
+      "category": "drinks",
+      "name": "Adrenaline Rush (katta)",
+      "price": 17000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/677NkKfV/29.jpg"
+    },
+    {
+      "id": 62,
+      "category": "drinks",
+      "name": "Rockstar (kichik)",
+      "price": 9000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/pvMT2vbg/31.jpg"
+    },
+    {
+      "id": 63,
+      "category": "drinks",
+      "name": "Rockstar (katta)",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/pvMT2vbg/31.jpg"
+    },
+    {
+      "id": 64,
+      "category": "drinks",
+      "name": "Flash (Uzbekistan)",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/0RsQRJbX/32.webp"
+    },
+    {
+      "id": 65,
+      "category": "drinks",
+      "name": "Flash (Russia)",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/0RsQRJbX/32.webp"
+    },
+    {
+      "id": 66,
+      "category": "drinks",
+      "name": "Mohito (klubnika)",
+      "price": 13000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/hFnVPsM6/34.webp"
+    },
+    {
+      "id": 67,
+      "category": "drinks",
+      "name": "Mohito (laym)",
+      "price": 13000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/RG8gTcbX/35.webp"
+    },
+    {
+      "id": 68,
+      "category": "drinks",
+      "name": "Mohito (kok)",
+      "price": 13000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/fzBTHzhs/37.jpg"
+    },
+    {
+      "id": 69,
+      "category": "drinks",
+      "name": "Mohito (mango)",
+      "price": 13000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/MDWD4ZK3/36.webp"
+    },
+    {
+      "id": 70,
+      "category": "drinks",
+      "name": "Mohito (anor)",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 71,
+      "category": "drinks",
+      "name": "Gorilla",
+      "price": 13000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/W40RymXg/38.webp"
+    },
+    {
+      "id": 72,
+      "category": "drinks",
+      "name": "Milliy Cola 0.5L",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/KxC2Y5NJ/39.jpg"
+    },
+    {
+      "id": 73,
+      "category": "drinks",
+      "name": "Milliy Cola 1.0L",
+      "price": 9000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/KxC2Y5NJ/39.jpg"
+    },
+    {
+      "id": 74,
+      "category": "drinks",
+      "name": "Milliy Cola 1.5L",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/KxC2Y5NJ/39.jpg"
+    },
+    {
+      "id": 75,
+      "category": "drinks",
+      "name": "Milliy Cola Mohito 0.5L",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/m5rn6rmv/40.jpg"
+    },
+    {
+      "id": 76,
+      "category": "drinks",
+      "name": "Milliy Cola Mohito 1.5L",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/m5rn6rmv/40.jpg"
+    },
+    {
+      "id": 77,
+      "category": "drinks",
+      "name": "AysTea (qora) 0.5L",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/v4TCjLhC/41.jpg"
+    },
+    {
+      "id": 78,
+      "category": "drinks",
+      "name": "AysTea (qora) 1.25L",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/v4TCjLhC/41.jpg"
+    },
+    {
+      "id": 79,
+      "category": "drinks",
+      "name": "AysTea (ko'k) 0.5L",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/ZRPg0CCw/42.jpg"
+    },
+    {
+      "id": 80,
+      "category": "drinks",
+      "name": "AysTea (ko'k) 1.25L",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/ZRPg0CCw/42.jpg"
+    },
+    {
+      "id": 81,
+      "category": "drinks",
+      "name": "Arctea (qora) 0.5L",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/84TgkbML/43.jpg"
+    },
+    {
+      "id": 82,
+      "category": "drinks",
+      "name": "Arctea (qora) 1.25L",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/84TgkbML/43.jpg"
+    },
+    {
+      "id": 83,
+      "category": "drinks",
+      "name": "Arctea (ko'k) 0.5L",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/9kt0Vcxw/44.jpg"
+    },
+    {
+      "id": 84,
+      "category": "drinks",
+      "name": "Arctea (ko'k) 1.25L",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/9kt0Vcxw/44.jpg"
+    },
+    {
+      "id": 85,
+      "category": "drinks",
+      "name": "Dinay (0.5L, 6 xil)",
+      "price": 9000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/whqVMxcC/45.jpg"
+    },
+    {
+      "id": 86,
+      "category": "drinks",
+      "name": "Dinay (1.0L, 6 xil)",
+      "price": 13000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/whqVMxcC/45.jpg"
+    },
+    {
+      "id": 87,
+      "category": "drinks",
+      "name": "Montella suvi 0.5L",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/fdYF6b9c/46.jpg"
+    },
+    {
+      "id": 88,
+      "category": "drinks",
+      "name": "Montella suvi 1.0L",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/fdYF6b9c/46.jpg"
+    },
+    {
+      "id": 89,
+      "category": "drinks",
+      "name": "Montella suvi 1.5L",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/fdYF6b9c/46.jpg"
+    },
+    {
+      "id": 90,
+      "category": "drinks",
+      "name": "Montella (mevali) 0.5L",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/q3bm8J7R/47.jpg"
+    },
+    {
+      "id": 91,
+      "category": "drinks",
+      "name": "Family suvi 0.5L",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/cSNYYDf1/48.webp"
+    },
+    {
+      "id": 92,
+      "category": "drinks",
+      "name": "Family suvi 1.0L",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/cSNYYDf1/48.webp"
+    },
+    {
+      "id": 93,
+      "category": "drinks",
+      "name": "Family suvi 1.5L",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/cSNYYDf1/48.webp"
+    },
+    {
+      "id": 94,
+      "category": "drinks",
+      "name": "Family (mevali) 0.5L (4 xil)",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/rGxK52NJ/49.jpg"
+    },
+    {
+      "id": 95,
+      "category": "drinks",
+      "name": "Hydrolife (eko) 0.5L",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/WWJm04by/50.jpg"
+    },
+    {
+      "id": 96,
+      "category": "drinks",
+      "name": "Hydrolife (eko) 1.0L",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/WWJm04by/50.jpg"
+    },
+    {
+      "id": 97,
+      "category": "drinks",
+      "name": "Hydrolife (eko) 1.5L",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/WWJm04by/50.jpg"
+    },
+    {
+      "id": 98,
+      "category": "drinks",
+      "name": "Hydrolife (gazli) 0.5L",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/7xRFs7b2/51.jpg"
+    },
+    {
+      "id": 99,
+      "category": "drinks",
+      "name": "Hydrolife (gazli) 1.0L",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/7xRFs7b2/51.jpg"
+    },
+    {
+      "id": 100,
+      "category": "drinks",
+      "name": "Hydrolife (gazli) 1.5L",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/7xRFs7b2/51.jpg"
+    },
+    {
+      "id": 101,
+      "category": "drinks",
+      "name": "Montella (gazli) 0.5L",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/7xdrvqLg/52.jpg"
+    },
+    {
+      "id": 102,
+      "category": "drinks",
+      "name": "Montella (gazli) 1.0L",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/7xdrvqLg/52.jpg"
+    },
+    {
+      "id": 103,
+      "category": "drinks",
+      "name": "Montella (gazli) 1.5L",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/7xdrvqLg/52.jpg"
+    },
+    {
+      "id": 104,
+      "category": "drinks",
+      "name": "Family (gazli) 0.5L",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/DDF4H2wh/53.webp"
+    },
+    {
+      "id": 105,
+      "category": "drinks",
+      "name": "Family (gazli) 1.0L",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/DDF4H2wh/53.webp"
+    },
+    {
+      "id": 106,
+      "category": "drinks",
+      "name": "Family (gazli) 1.5L",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/DDF4H2wh/53.webp"
+    },
+    {
+      "id": 107,
+      "category": "drinks",
+      "name": "Family suvi 10L",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/tMRvybfy/54.webp"
+    },
+    {
+      "id": 108,
+      "category": "drinks",
+      "name": "Hydrolife suvi 10L",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/PsHjLT8n/55.jpg"
+    },
+    {
+      "id": 109,
+      "category": "drinks",
+      "name": "Zam-zam suvi 10L",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/GZwHpRH/56.jpg"
+    },
+    {
+      "id": 110,
+      "category": "drinks",
+      "name": "Zam-zam suvi 5L",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/GZwHpRH/56.jpg"
+    },
+    {
+      "id": 111,
+      "category": "drinks",
+      "name": "Hydrolife suvi 5L",
+      "price": 7000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/PsHjLT8n/55.jpg"
+    },
+    {
+      "id": 112,
+      "category": "drinks",
+      "name": "Natakhtari (nok) 1.0L",
+      "price": 21000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Z6HpFzMK/57.webp"
+    },
+    {
+      "id": 113,
+      "category": "drinks",
+      "name": "Natakhtari (nok) 2.0L",
+      "price": 38000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Z6HpFzMK/57.webp"
+    },
+    {
+      "id": 114,
+      "category": "drinks",
+      "name": "Natakhtari (apelsin) 1.0L",
+      "price": 21000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/DDdS8Gtw/58.webp"
+    },
+    {
+      "id": 115,
+      "category": "drinks",
+      "name": "Natakhtari (apelsin) 2.0L",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/DDdS8Gtw/58.webp"
+    },
+    {
+      "id": 116,
+      "category": "drinks",
+      "name": "Royal",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/6cjKt6GD/59.jpg"
+    },
+    {
+      "id": 117,
+      "category": "drinks",
+      "name": "Flavis (anor) 0.5L",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/vCVw5FcQ/60.jpg"
+    },
+    {
+      "id": 118,
+      "category": "drinks",
+      "name": "Flavis (anor) 1.25L",
+      "price": 13000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/vCVw5FcQ/60.jpg"
+    },
+    {
+      "id": 119,
+      "category": "drinks",
+      "name": "Flavis (mohito) 0.5L",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/5W1THsdw/61.jpg"
+    },
+    {
+      "id": 120,
+      "category": "drinks",
+      "name": "Flavis (mohito) 1.25L",
+      "price": 13000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/5W1THsdw/61.jpg"
+    },
+    {
+      "id": 121,
+      "category": "drinks",
+      "name": "Flavis (mohito klubnika) 0.5L",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/PZwzsjPW/photo-79-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 122,
+      "category": "drinks",
+      "name": "Flavis (mohito klubnika) 1.25L",
+      "price": 13000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/PZwzsjPW/photo-79-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 123,
+      "category": "drinks",
+      "name": "Flavis (ko'k) 0.5L",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 124,
+      "category": "drinks",
+      "name": "Flavis (ko'k) 1.25L",
+      "price": 13000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 125,
+      "category": "drinks",
+      "name": "Flavis (nok) 0.5L",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 126,
+      "category": "drinks",
+      "name": "Flavis (nok) 1.25L",
+      "price": 13000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 127,
+      "category": "drinks",
+      "name": "Borjomi (banka) 0.33L",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/mrpVmwHC/62.webp"
+    },
+    {
+      "id": 128,
+      "category": "drinks",
+      "name": "Borjomi (banka, mevali) 0.33L",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Z6HbRHVw/64.webp"
+    },
+    {
+      "id": 129,
+      "category": "drinks",
+      "name": "Borjomi 0.5L",
+      "price": 18000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Z6HbRHVw/64.webp"
+    },
+    {
+      "id": 130,
+      "category": "drinks",
+      "name": "Borjomi 1.5L",
+      "price": 25000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Z6HbRHVw/64.webp"
+    },
+    {
+      "id": 131,
+      "category": "drinks",
+      "name": "Chortoq (shisha)",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/RG4PPh1s/65.jpg"
+    },
+    {
+      "id": 132,
+      "category": "drinks",
+      "name": "Chortoq 1.0L",
+      "price": 13000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/JWmkN9Wf/66.webp"
+    },
+    {
+      "id": 133,
+      "category": "drinks",
+      "name": "Chortoq 1.5L",
+      "price": 17000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/JWmkN9Wf/66.webp"
+    },
+    {
+      "id": 134,
+      "category": "drinks",
+      "name": "Kelajak 0.5L",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/nS6TR7N/67.jpg"
+    },
+    {
+      "id": 135,
+      "category": "drinks",
+      "name": "Kelajak (shisha)",
+      "price": 13000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/nS6TR7N/67.jpg"
+    },
+    {
+      "id": 136,
+      "category": "drinks",
+      "name": "Kelajak 1.0L",
+      "price": 13000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/nS6TR7N/67.jpg"
+    },
+    {
+      "id": 137,
+      "category": "drinks",
+      "name": "Garden 0.5L",
+      "price": 9000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/JRh997JQ/68.jpg"
+    },
+    {
+      "id": 138,
+      "category": "drinks",
+      "name": "Garden 1.0L",
+      "price": 18000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/JRh997JQ/68.jpg"
+    },
+    {
+      "id": 139,
+      "category": "drinks",
+      "name": "Garden (olma) 0.5L",
+      "price": 9000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/d0yYZ8cf/69.webp"
+    },
+    {
+      "id": 140,
+      "category": "drinks",
+      "name": "Garden (olma) 1.0L",
+      "price": 18000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/d0yYZ8cf/69.webp"
+    },
+    {
+      "id": 141,
+      "category": "drinks",
+      "name": "Mikko (nok) 0.5L",
+      "price": 7000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/9mjkHh0s/72.jpg"
+    },
+    {
+      "id": 142,
+      "category": "drinks",
+      "name": "Mikko (nok) 1.0L",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/9mjkHh0s/72.jpg"
+    },
+    {
+      "id": 143,
+      "category": "drinks",
+      "name": "Mikko (olma) 0.5L",
+      "price": 7000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/XkXTCM3P/70.jpg"
+    },
+    {
+      "id": 144,
+      "category": "drinks",
+      "name": "Mikko (olma) 1.0L",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/XkXTCM3P/70.jpg"
+    },
+    {
+      "id": 145,
+      "category": "drinks",
+      "name": "Mikko (anor) 0.5L",
+      "price": 7000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Swzmr7mw/71.jpg"
+    },
+    {
+      "id": 146,
+      "category": "drinks",
+      "name": "Mikko (anor) 1.0L",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Swzmr7mw/71.jpg"
+    },
+    {
+      "id": 147,
+      "category": "drinks",
+      "name": "Pulpıy (apelsin) 0.5L",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/qMPvYZpj/73.jpg"
+    },
+    {
+      "id": 148,
+      "category": "drinks",
+      "name": "Pulpıy (apelsin) 1.0L",
+      "price": 22000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/qMPvYZpj/73.jpg"
+    },
+    {
+      "id": 149,
+      "category": "drinks",
+      "name": "Lipton (limon) 0.5L",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/gLk2npDd/74.jpg"
+    },
+    {
+      "id": 150,
+      "category": "drinks",
+      "name": "Lipton (limon) 1.0L",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/gLk2npDd/74.jpg"
+    },
+    {
+      "id": 151,
+      "category": "drinks",
+      "name": "Lipton (limon) 1.5L",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/gLk2npDd/74.jpg"
+    },
+    {
+      "id": 152,
+      "category": "drinks",
+      "name": "Lipton (malina) 0.5L",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/9HKs4zQt/75.jpg"
+    },
+    {
+      "id": 153,
+      "category": "drinks",
+      "name": "Lipton (malina) 1.0L",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/9HKs4zQt/75.jpg"
+    },
+    {
+      "id": 154,
+      "category": "drinks",
+      "name": "Lipton (malina) 1.5L",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/9HKs4zQt/75.jpg"
+    },
+    {
+      "id": 155,
+      "category": "drinks",
+      "name": "Montella (anor) 0.45L",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/ynV3ppH3/photo-74-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 156,
+      "category": "drinks",
+      "name": "Montella (banka, assortimentda) 0.45L",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 157,
+      "category": "drinks",
+      "name": "Chernogolovka (dyushes) 0.5L",
+      "price": 7000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/9HKs4zQt/75.jpg"
+    },
+    {
+      "id": 158,
+      "category": "drinks",
+      "name": "Chernogolovka (dyushes) 1.0L",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/9HKs4zQt/75.jpg"
+    },
+    {
+      "id": 159,
+      "category": "drinks",
+      "name": "Chernogolovka (dyushes) 1.5L",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/9HKs4zQt/75.jpg"
+    },
+    {
+      "id": 160,
+      "category": "drinks",
+      "name": "Chernogolovka (dyushes) 2.0L",
+      "price": 18000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/9HKs4zQt/75.jpg"
+    },
+    {
+      "id": 161,
+      "category": "drinks",
+      "name": "Chernogolovka (limonad) 0.5L",
+      "price": 7000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/yBcsp0Cp/77.png"
+    },
+    {
+      "id": 162,
+      "category": "drinks",
+      "name": "Chernogolovka (limonad) 1.0L",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/yBcsp0Cp/77.png"
+    },
+    {
+      "id": 163,
+      "category": "drinks",
+      "name": "Chernogolovka (limonad) 1.5L",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/yBcsp0Cp/77.png"
+    },
+    {
+      "id": 164,
+      "category": "drinks",
+      "name": "Chernogolovka (limonad) 2.0L",
+      "price": 18000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/yBcsp0Cp/77.png"
+    },
+    {
+      "id": 165,
+      "category": "drinks",
+      "name": "Chernogolovka (buratino) 0.5L",
+      "price": 7000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/KpmM3810/78.png"
+    },
+    {
+      "id": 166,
+      "category": "drinks",
+      "name": "Chernogolovka (buratino) 1.0L",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/KpmM3810/78.png"
+    },
+    {
+      "id": 167,
+      "category": "drinks",
+      "name": "Chernogolovka (buratino) 1.5L",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/KpmM3810/78.png"
+    },
+    {
+      "id": 168,
+      "category": "drinks",
+      "name": "Chernogolovka (buratino) 2.0L",
+      "price": 18000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/KpmM3810/78.png"
+    },
+    {
+      "id": 169,
+      "category": "drinks",
+      "name": "Chernogolovka (limon-laym) 1.0L",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 170,
+      "category": "drinks",
+      "name": "Chernogolovka (limon-laym) 1.5L",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 171,
+      "category": "drinks",
+      "name": "Chernogolovka (limon-laym) 2.0L",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 172,
+      "category": "drinks",
+      "name": "Chernogolovka (tarxun) 1.0L",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/4wq3G3v7/79.png"
+    },
+    {
+      "id": 173,
+      "category": "drinks",
+      "name": "Chernogolovka (tarxun) 1.5L",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/4wq3G3v7/79.png"
+    },
+    {
+      "id": 174,
+      "category": "drinks",
+      "name": "Chernogolovka (ays-kola) 1.5L",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/XrXGGYHd/photo-17-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 175,
+      "category": "drinks",
+      "name": "Chernogolovka (gilos) 1.5L",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/cKzSFnWK/photo-76-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 176,
+      "category": "drinks",
+      "name": "ASU (limon) 0.5L",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/PGXQwj08/80.jpg"
+    },
+    {
+      "id": 177,
+      "category": "drinks",
+      "name": "ASU (limon) 1.0L",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/PGXQwj08/80.jpg"
+    },
+    {
+      "id": 178,
+      "category": "drinks",
+      "name": "ASU (limon) 1.5L",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/PGXQwj08/80.jpg"
+    },
+    {
+      "id": 179,
+      "category": "drinks",
+      "name": "ASU (shaftoli) 0.5L",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/7dxfhrHh/81.jpg"
+    },
+    {
+      "id": 180,
+      "category": "drinks",
+      "name": "ASU (shaftoli) 1.0L",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/7dxfhrHh/81.jpg"
+    },
+    {
+      "id": 181,
+      "category": "drinks",
+      "name": "ASU (shaftoli) 1.5L",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/7dxfhrHh/81.jpg"
+    },
+    {
+      "id": 182,
+      "category": "drinks",
+      "name": "ASU (klubnika) 0.5L",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/mrDx5PzQ/82.png"
+    },
+    {
+      "id": 183,
+      "category": "drinks",
+      "name": "ASU (klubnika) 1.0L",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/mrDx5PzQ/82.png"
+    },
+    {
+      "id": 184,
+      "category": "drinks",
+      "name": "AVA (banka, limonad)",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/sdLBtHnW/84.jpg"
+    },
+    {
+      "id": 185,
+      "category": "drinks",
+      "name": "AVA (banka, shaftoli)",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/F4P3J7Yz/85.jpg"
+    },
+    {
+      "id": 186,
+      "category": "drinks",
+      "name": "AVA 1.5L (limonad)",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 187,
+      "category": "drinks",
+      "name": "AVA 1.5L (dyushes)",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 188,
+      "category": "drinks",
+      "name": "Kavsar",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/DP65Mx5G/photo-89-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 189,
+      "category": "drinks",
+      "name": "Mors",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/4wPFmp2r/86.jpg"
+    },
+    {
+      "id": 190,
+      "category": "drinks",
+      "name": "Kvas",
+      "price": 7000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/svsKXRNg/photo-91-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 191,
+      "category": "drinks",
+      "name": "Sok Bliss (5 xil)",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/jZZQjWNP/87.webp"
+    },
+    {
+      "id": 192,
+      "category": "drinks",
+      "name": "Sok Dena (6 xil)",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/hFjbD0nS/88.jpg"
+    },
+    {
+      "id": 193,
+      "category": "drinks",
+      "name": "Sok Viko (3 xil)",
+      "price": 20000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/pBqF534S/89.jpg"
+    },
+    {
+      "id": 194,
+      "category": "drinks",
+      "name": "Sok Dobriy (3 xil)",
+      "price": 22000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/FL32kRWZ/90.webp"
+    },
+    {
+      "id": 195,
+      "category": "dairy_cheese",
+      "name": "Qaymoq Sladkiy Mir",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/wFw6CZKJ/photo-63-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 196,
+      "category": "dairy_cheese",
+      "name": "Smetana Sladkiy Mir",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/pjjW1X6M/photo-74-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 197,
+      "category": "dairy_cheese",
+      "name": "Qatiq Sladkiy Mir (bankalik)",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/35Ckk4Yk/Gemini-Generated-Image-68lyvw68lyvw68ly-2.png"
+    },
+    {
+      "id": 198,
+      "category": "dairy_cheese",
+      "name": "Smetana Sladkiy Mir (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 20000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/whk2Z5Z2/photo-60-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 199,
+      "category": "dairy_cheese",
+      "name": "Tvorog Sladkiy Mir (mayizli, kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 35000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/Y7X9vLnF/photo-58-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 200,
+      "category": "dairy_cheese",
+      "name": "Tvorog Bombazza Sladkiy Mir",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 201,
+      "category": "dairy_cheese",
+      "name": "Qatiq Sladkiy Mir 1.5%",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 202,
+      "category": "dairy_cheese",
+      "name": "Qatiq Sladkiy Mir 0.5%",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 203,
+      "category": "dairy_cheese",
+      "name": "Qatiq Xamidov (o'rtacha)",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/BVYcjRWy/photo-75-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 204,
+      "category": "dairy_cheese",
+      "name": "Qatiq Jaydari (o'rtacha)",
+      "price": 13000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/SHsgd1B/photo-59-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 205,
+      "category": "dairy_cheese",
+      "name": "Qatiq Xamidov (kichik)",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/1GFDvpCD/photo-65-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 206,
+      "category": "oils_fats",
+      "name": "Saryog' Donna (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 75000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/prfPY1y7/91.jpg"
+    },
+    {
+      "id": 207,
+      "category": "oils_fats",
+      "name": "Saryog' Kiyevskiy (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 60000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/S4zw0kvc/photo-69-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 208,
+      "category": "oils_fats",
+      "name": "Saryog' Kremlovskiy",
+      "price": 13000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/MDJ2t55k/92.jpg"
+    },
+    {
+      "id": 209,
+      "category": "oils_fats",
+      "name": "Saryog' Ukrainskiy",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/7thjbjJz/photo-11-2025-09-25-19-18-02.jpg"
+    },
+    {
+      "id": 210,
+      "category": "oils_fats",
+      "name": "Saryog' President (katta)",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/pv2JGF4C/93.png"
+    },
+    {
+      "id": 211,
+      "category": "oils_fats",
+      "name": "Saryog' President (kichik)",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/pv2JGF4C/93.png"
+    },
+    {
+      "id": 212,
+      "category": "oils_fats",
+      "name": "Saryog' Bon Debut",
+      "price": 27000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/LyhWZ88/94.jpg"
+    },
+    {
+      "id": 213,
+      "category": "oils_fats",
+      "name": "Saryog' Lactel",
+      "price": 37000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/CpgxjRGG/95.jpg"
+    },
+    {
+      "id": 214,
+      "category": "oils_fats",
+      "name": "Saryog' Bravo",
+      "price": 27000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/wrSVh6X8/96.jpg"
+    },
+    {
+      "id": 215,
+      "category": "oils_fats",
+      "name": "Qaymoq Xamidov",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/7dXmQDPm/photo-71-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 216,
+      "category": "oils_fats",
+      "name": "Yog' Yarko 1.0L",
+      "price": 27000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/27cgfjDD/100.jpg"
+    },
+    {
+      "id": 217,
+      "category": "oils_fats",
+      "name": "Yog' Yarko 5.0L",
+      "price": 135000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/HTRb6MVM/101.webp"
+    },
+    {
+      "id": 218,
+      "category": "oils_fats",
+      "name": "Yog' Yarko 0.5L",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/27cgfjDD/100.jpg"
+    },
+    {
+      "id": 219,
+      "category": "oils_fats",
+      "name": "Yog' Avedov 5.0L",
+      "price": 135000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/KprfQVDh/102.jpg"
+    },
+    {
+      "id": 220,
+      "category": "oils_fats",
+      "name": "Yog' Aray 5.0L",
+      "price": 120000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/bjR8MDJJ/104.jpg"
+    },
+    {
+      "id": 221,
+      "category": "oils_fats",
+      "name": "Yog' Milter 5.0L",
+      "price": 120000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/jjfx52V/106.jpg"
+    },
+    {
+      "id": 222,
+      "category": "oils_fats",
+      "name": "Yog' Milter 1.0L",
+      "price": 23000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/NddCYbDc/105.jpg"
+    },
+    {
+      "id": 223,
+      "category": "oils_fats",
+      "name": "Yog' Avedov 2.0L",
+      "price": 55000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/849H02Tb/103.jpg"
+    },
+    {
+      "id": 224,
+      "category": "oils_fats",
+      "name": "Yog' Zlatojar 2.0L",
+      "price": 55000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/HpzvTvy6/108.jpg"
+    },
+    {
+      "id": 225,
+      "category": "oils_fats",
+      "name": "Yog' Zlatojar 3.0L",
+      "price": 73000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/t5JmCrb/107.png"
+    },
+    {
+      "id": 226,
+      "category": "oils_fats",
+      "name": "Yog' Yarko 2.0L",
+      "price": 55000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/27cgfjDD/100.jpg"
+    },
+    {
+      "id": 227,
+      "category": "oils_fats",
+      "name": "Paxta yog' Saxovat 1.0L",
+      "price": 24000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Nggk5bKP/photo-19-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 228,
+      "category": "oils_fats",
+      "name": "Paxta yog' Saxovat 2.8L",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 229,
+      "category": "oils_fats",
+      "name": "Paxta yog' Farg'ona 3.0L",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 230,
+      "category": "oils_fats",
+      "name": "Saryog' Butter (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 35000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/zH42CfkR/photo-72-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 231,
+      "category": "oils_fats",
+      "name": "Saryog' Milter (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 0,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": ""
+    },
+    {
+      "id": 232,
+      "category": "oils_fats",
+      "name": "Margarin Milter",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/d45v3VbJ/109.jpg"
+    },
+    {
+      "id": 233,
+      "category": "oils_fats",
+      "name": "Saryog' Maselko",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/S7GHvhKN/110.jpg"
+    },
+    {
+      "id": 234,
+      "category": "oils_fats",
+      "name": "Saryog' Shchedroye Leto (katta)",
+      "price": 16000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/5xWfK4bH/111.jpg"
+    },
+    {
+      "id": 235,
+      "category": "oils_fats",
+      "name": "Saryog' Shchedroye Leto (kichik)",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/5xWfK4bH/111.jpg"
+    },
+    {
+      "id": 236,
+      "category": "oils_fats",
+      "name": "Shokoladli saryog' Milter",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Fqscf7f8/112.png"
+    },
+    {
+      "id": 237,
+      "category": "meat_sausage",
+      "name": "Tovuq grudinga",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/XrD05dDK/113.jpg"
+    },
+    {
+      "id": 238,
+      "category": "meat_sausage",
+      "name": "Tovuq qanot",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/qMJyY7hh/114.webp"
+    },
+    {
+      "id": 239,
+      "category": "meat_sausage",
+      "name": "Tovuq okorochka",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 240,
+      "category": "meat_sausage",
+      "name": "Tovuq golen",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/KpQGptxF/116.png"
+    },
+    {
+      "id": 241,
+      "category": "meat_sausage",
+      "name": "Butun tovuq",
+      "price": 52000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/N2gkK7nP/photo-9-2025-09-25-19-18-02.jpg"
+    },
+    {
+      "id": 242,
+      "category": "meat_sausage",
+      "name": "Doktorskaya kolbasa TIM 850gr",
+      "price": 60000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/0S4pn8z/photo-55-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 243,
+      "category": "meat_sausage",
+      "name": "Doktorskaya kolbasa Andalus 900gr",
+      "price": 85000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/21PcvMHC/117.jpg"
+    },
+    {
+      "id": 244,
+      "category": "meat_sausage",
+      "name": "Doktorskaya kolbasa Toxtaniyoz 900",
+      "price": 100000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/5hGHTD33/118.jpg"
+    },
+    {
+      "id": 245,
+      "category": "meat_sausage",
+      "name": "Kolbasa 'Dlya Zavtraka' 900gr",
+      "price": 57000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/jPMvH5PV/photo-56-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 246,
+      "category": "meat_sausage",
+      "name": "Kolbasa 'Pokiza' 820gr",
+      "price": 45000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Kjp09S82/photo-52-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 247,
+      "category": "meat_sausage",
+      "name": "Kopchyonniy salami Sherin",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/x8YJvxrC/119.jpg"
+    },
+    {
+      "id": 248,
+      "category": "meat_sausage",
+      "name": "Kopchyonniy salami Rozmetov",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/F4wc9gQs/120.jpg"
+    },
+    {
+      "id": 249,
+      "category": "meat_sausage",
+      "name": "TIM Portugalskiy 1105gr",
+      "price": 85000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/jSYXgXG/photo-51-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 250,
+      "category": "meat_sausage",
+      "name": "TIM Moskovskiy 500gr",
+      "price": 42000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/1Yb3rWCb/photo-53-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 251,
+      "category": "meat_sausage",
+      "name": "Kopchyonniy Toxtaniyoz",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 252,
+      "category": "meat_sausage",
+      "name": "Sosiska TIM (uzun)",
+      "price": 3000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/GvSbtZ5Z/121.jpg"
+    },
+    {
+      "id": 253,
+      "category": "meat_sausage",
+      "name": "Sosiska TIM (semiz)",
+      "price": 2500,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/RGF1R7Zq/Gemini-Generated-Image-68lyvw68lyvw68ly.png"
+    },
+    {
+      "id": 254,
+      "category": "meat_sausage",
+      "name": "Sosiska TIM (12 talik)",
+      "price": 18000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/TD0NWKvR/122.jpg"
+    },
+    {
+      "id": 255,
+      "category": "meat_sausage",
+      "name": "Indeyka 250gr",
+      "price": 23000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/VpjRQ180/Gemini-Generated-Image-615rvk615rvk615r.png"
+    },
+    {
+      "id": 256,
+      "category": "meat_sausage",
+      "name": "Rulet mol go'shti 250gr",
+      "price": 27000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/VpSsf5pS/Gemini-Generated-Image-pp8akdpp8akdpp8a.png"
+    },
+    {
+      "id": 257,
+      "category": "dairy_cheese",
+      "name": "Syr Akbel 200gr",
+      "price": 23000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/PsshQwtp/97.jpg"
+    },
+    {
+      "id": 258,
+      "category": "dairy_cheese",
+      "name": "Syr Ukrainskiy",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 259,
+      "category": "dairy_cheese",
+      "name": "Syr plavlenniy",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/DD6bxZn3/photo-57-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 260,
+      "category": "dairy_cheese",
+      "name": "Syr Xanskiy 840gr",
+      "price": 70000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Pvvc8K2j/98.jpg"
+    },
+    {
+      "id": 261,
+      "category": "dairy_cheese",
+      "name": "Syr 100%",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/ZZvMHm3/Gemini-Generated-Image-68lyvw68lyvw68ly-1.png"
+    },
+    {
+      "id": 262,
+      "category": "dairy_cheese",
+      "name": "Syr palochka",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/MyqfJ55c/99.jpg"
+    },
+    {
+      "id": 263,
+      "category": "sweets_bakery",
+      "name": "Bublik",
+      "price": 28000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/bg08Mrzh/photo-36-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 264,
+      "category": "sweets_bakery",
+      "name": "Xarfli pechenye",
+      "price": 28000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/ynd6P1Mx/photo-27-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 265,
+      "category": "sweets_bakery",
+      "name": "Bambuk pechenye",
+      "price": 28000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 266,
+      "category": "sweets_bakery",
+      "name": "Bug'doyli pechenye",
+      "price": 28000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/LzytYhcC/photo-29-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 267,
+      "category": "sweets_bakery",
+      "name": "Sutli pechenye",
+      "price": 28000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/YFbkxGpC/photo-24-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 268,
+      "category": "sweets_bakery",
+      "name": "LG pechenye",
+      "price": 28000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Xrn03BMJ/photo-23-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 269,
+      "category": "sweets_bakery",
+      "name": "Tuya pechenye",
+      "price": 28000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 270,
+      "category": "sweets_bakery",
+      "name": "Kunjutli pechenye",
+      "price": 33000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/hxgrc8K6/1.png"
+    },
+    {
+      "id": 271,
+      "category": "sweets_bakery",
+      "name": "Arabika pechenye",
+      "price": 28000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/FkTPnwmf/photo-30-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 272,
+      "category": "sweets_bakery",
+      "name": "Sladko pechenye",
+      "price": 33000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/zW0yxzXm/photo-28-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 273,
+      "category": "sweets_bakery",
+      "name": "Kreker Krember (tuzli)",
+      "price": 35000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/8L94RFfN/2.webp"
+    },
+    {
+      "id": 274,
+      "category": "sweets_bakery",
+      "name": "Oreshki pechenye",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 275,
+      "category": "sweets_bakery",
+      "name": "Kreker Krember (toplennoe)",
+      "price": 33000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/jks1TrB3/photo-25-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 276,
+      "category": "sweets_bakery",
+      "name": "Kreker Krember (tvorojnoe)",
+      "price": 33000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 277,
+      "category": "sweets_bakery",
+      "name": "Suxari",
+      "price": 35000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/HTPbMPys/6.jpg"
+    },
+    {
+      "id": 278,
+      "category": "sweets_bakery",
+      "name": "Kreker Krember (sgushyonnoe)",
+      "price": 33000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/gbYL7CqJ/photo-34-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 279,
+      "category": "sweets_bakery",
+      "name": "Pryanik Ideal",
+      "price": 28000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/QFnXz050/photo-40-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 280,
+      "category": "sweets_bakery",
+      "name": "Pryanik Zarbod",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 281,
+      "category": "sweets_bakery",
+      "name": "Pryanik Hilol",
+      "price": 30000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/CswhTQnm/photo-35-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 282,
+      "category": "sweets_bakery",
+      "name": "Pechenye ovsyannoye",
+      "price": 40000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/2YkWcZpZ/4.png"
+    },
+    {
+      "id": 283,
+      "category": "sweets_bakery",
+      "name": "Shokoladli palochka",
+      "price": 40000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/zhVRDtXn/photo-37-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 284,
+      "category": "sweets_bakery",
+      "name": "Pechenye Bondie (kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 0,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/RTXnSBDp/photo-10-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 285,
+      "category": "sweets_bakery",
+      "name": "Vafli Vecherniye Ogni Krember",
+      "price": 45000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/dJJtS34j/15.jpg"
+    },
+    {
+      "id": 286,
+      "category": "sweets_bakery",
+      "name": "Vafli Molochniy Krember",
+      "price": 45000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/CK1f0c7b/14.png"
+    },
+    {
+      "id": 287,
+      "category": "sweets_bakery",
+      "name": "Vafli sgushyonnoy",
+      "price": 47000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/xqmTp6Tq/13.jpg"
+    },
+    {
+      "id": 288,
+      "category": "sweets_bakery",
+      "name": "Vafli Panda",
+      "price": 40000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/qLnk2Tmq/12.png"
+    },
+    {
+      "id": 289,
+      "category": "sweets_bakery",
+      "name": "Pechenye Zebra",
+      "price": 35000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/8n7K1Kk2/11.jpg"
+    },
+    {
+      "id": 290,
+      "category": "sweets_bakery",
+      "name": "Pechenye s pudroy",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 291,
+      "category": "sweets_bakery",
+      "name": "Podushechki (to'rtburchak)",
+      "price": 35000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/VpBck9x2/photo-38-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 292,
+      "category": "sweets_bakery",
+      "name": "Podushechki (dumaloq)",
+      "price": 35000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/sJDvVTTW/10.png"
+    },
+    {
+      "id": 293,
+      "category": "sweets_bakery",
+      "name": "Panda Pie",
+      "price": 55000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/wfCHHz6/photo-31-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 294,
+      "category": "sweets_bakery",
+      "name": "Pechenye Bananchik (s pudroy)",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 295,
+      "category": "sweets_bakery",
+      "name": "Isko Oreo",
+      "price": 40000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/HfM8GkHB/7.webp"
+    },
+    {
+      "id": 296,
+      "category": "sweets_bakery",
+      "name": "Shokolad Bitkoin",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 297,
+      "category": "sweets_bakery",
+      "name": "Shokolad Mavis",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 298,
+      "category": "sweets_bakery",
+      "name": "Shokolad (qimmat)",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 299,
+      "category": "sweets_bakery",
+      "name": "Vafli Vecher (pachkalik, katta)",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/3q0kxB8/224.webp"
+    },
+    {
+      "id": 300,
+      "category": "sweets_bakery",
+      "name": "Vafli Vecher (pachkalik, kichik)",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/3q0kxB8/224.webp"
+    },
+    {
+      "id": 301,
+      "category": "sweets_bakery",
+      "name": "Vafli Molochniy (katta)",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/RkSHbzWL/225.webp"
+    },
+    {
+      "id": 302,
+      "category": "sweets_bakery",
+      "name": "Vafli Molochniy (kichik)",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/RkSHbzWL/225.webp"
+    },
+    {
+      "id": 303,
+      "category": "sweets_bakery",
+      "name": "Vafli Sladonej (katta)",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/JWhmVPQC/photo-83-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 304,
+      "category": "sweets_bakery",
+      "name": "Vafli Sladonej (kichik)",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/JWhmVPQC/photo-83-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 305,
+      "category": "sweets_bakery",
+      "name": "Pechenye Konti Klass (kunjutli)",
+      "price": 33000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/hxgrc8K6/1.png"
+    },
+    {
+      "id": 306,
+      "category": "sweets_bakery",
+      "name": "Pryanik Konti",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/dw7gLXfm/photo-40-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 307,
+      "category": "sweets_bakery",
+      "name": "Pechenye Konti (boshqa xil)",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 308,
+      "category": "sweets_bakery",
+      "name": "Pryanik Konti (katta upakovka)",
+      "price": 24000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/dw7gLXfm/photo-40-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 309,
+      "category": "sweets_bakery",
+      "name": "Vafli Yashkino (3 xil, katta)",
+      "price": 16000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/RGLshDTx/233.png"
+    },
+    {
+      "id": 310,
+      "category": "sweets_bakery",
+      "name": "Vafli Yashkino (3 xil, kichik)",
+      "price": 9000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/CkqYyBN/234.webp"
+    },
+    {
+      "id": 311,
+      "category": "sweets_bakery",
+      "name": "Vafelniy tort Yashkino (shokoladli)",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/hJwN5VM0/232.jpg"
+    },
+    {
+      "id": 312,
+      "category": "sweets_bakery",
+      "name": "Vafelniy tort Yashkino (kichik)",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/hJwN5VM0/232.jpg"
+    },
+    {
+      "id": 313,
+      "category": "sweets_bakery",
+      "name": "Kruassan Yashkino (3 xil)",
+      "price": 18000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/fVZXhLtx/235.webp"
+    },
+    {
+      "id": 314,
+      "category": "sweets_bakery",
+      "name": "Marmelad Yashkino (15 xil)",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 315,
+      "category": "sweets_bakery",
+      "name": "Batonchik '2 bait' (kichik)",
+      "price": 3000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/vCS2PQ02/photo-11-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 316,
+      "category": "sweets_bakery",
+      "name": "Batonchik '2 bait' (katta)",
+      "price": 3000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/vCS2PQ02/photo-11-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 317,
+      "category": "sweets_bakery",
+      "name": "Velona",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/21zbNTpK/226.png"
+    },
+    {
+      "id": 318,
+      "category": "sweets_bakery",
+      "name": "Bruni (kichik)",
+      "price": 2000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/fY2N1qkt/228.jpg"
+    },
+    {
+      "id": 319,
+      "category": "sweets_bakery",
+      "name": "Bruni (katta)",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/CKmSZ8NW/227.webp"
+    },
+    {
+      "id": 320,
+      "category": "sweets_bakery",
+      "name": "Ponchik",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/xScJ0HCx/229.webp"
+    },
+    {
+      "id": 321,
+      "category": "sweets_bakery",
+      "name": "Biskvit",
+      "price": 3000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Lh22tjQs/230.webp"
+    },
+    {
+      "id": 322,
+      "category": "sweets_bakery",
+      "name": "Pankeyk",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/gbnhDJM8/231.jpg"
+    },
+    {
+      "id": 323,
+      "category": "sweets_bakery",
+      "name": "Bulochka Baraka (7 xil)",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/8g4tbncq/photo-36-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 324,
+      "category": "sweets_bakery",
+      "name": "Bulochka Farrux (7 xil)",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 325,
+      "category": "sweets_bakery",
+      "name": "Vafli-chips Krafers (katta)",
+      "price": 26000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 326,
+      "category": "sweets_bakery",
+      "name": "Vafli-chips Krafers (kichik)",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/nqz060kD/photo-86-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 327,
+      "category": "sweets_bakery",
+      "name": "Kukuruz (gulli, katta)",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 328,
+      "category": "sweets_bakery",
+      "name": "Kukuruz (gulli, kichik)",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 329,
+      "category": "sweets_bakery",
+      "name": "Kukuruz (oddiy, kichik)",
+      "price": 2000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 330,
+      "category": "sweets_bakery",
+      "name": "Kukuruz (oddiy, katta)",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 331,
+      "category": "candies_gum",
+      "name": "Konfetlar (mayda, kg, 10 xil)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 65000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/ks1gQnWL/photo-35-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 332,
+      "category": "candies_gum",
+      "name": "Konfetlar (katta, qimmat, kg, 7 xil)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 75000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/7xJnDkcH/photo-37-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 333,
+      "category": "candies_gum",
+      "name": "Kinder (shtuchniy)",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/FLzB39L4/123.png"
+    },
+    {
+      "id": 334,
+      "category": "candies_gum",
+      "name": "Kinder Joy",
+      "price": 20000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/SX3gXMkC/125.jpg"
+    },
+    {
+      "id": 335,
+      "category": "candies_gum",
+      "name": "Kinder Syurpriz",
+      "price": 19000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/YBd7zZDd/124.jpg"
+    },
+    {
+      "id": 336,
+      "category": "candies_gum",
+      "name": "Kinder (pachkali, 2 xil)",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 337,
+      "category": "candies_gum",
+      "name": "Orbit (6 xil)",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/N6fb8KMd/127.jpg"
+    },
+    {
+      "id": 338,
+      "category": "candies_gum",
+      "name": "Orbit (katta, 2 xil)",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/N6fb8KMd/127.jpg"
+    },
+    {
+      "id": 339,
+      "category": "candies_gum",
+      "name": "Sticks (4 xil)",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/HLCsFCKF/photo-7-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 340,
+      "category": "candies_gum",
+      "name": "Krokant (katta)",
+      "price": 3000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/HLnH66cH/128.jpg"
+    },
+    {
+      "id": 341,
+      "category": "candies_gum",
+      "name": "Chio Rio (katta)",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/BHdG03YG/236.webp"
+    },
+    {
+      "id": 342,
+      "category": "candies_gum",
+      "name": "Chupa Chups (eng kichik)",
+      "price": 1000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/tMcYGqmg/photo-56-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 343,
+      "category": "candies_gum",
+      "name": "Chupa Chups (o'rtacha)",
+      "price": 2000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/r22JS7yX/photo-62-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 344,
+      "category": "candies_gum",
+      "name": "Chupa Chups (katta)",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/7dLT3B9y/photo-60-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 345,
+      "category": "candies_gum",
+      "name": "Konfetlar (mayda, 6 xil)",
+      "price": 65000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/ks1gQnWL/photo-35-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 346,
+      "category": "candies_gum",
+      "name": "Kango (3 xil)",
+      "price": 2000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/zhgNcjqD/129.png"
+    },
+    {
+      "id": 347,
+      "category": "candies_gum",
+      "name": "Zizi (pachkalik, 3 xil)",
+      "price": 2000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 348,
+      "category": "candies_gum",
+      "name": "Zizi (donalik)",
+      "price": 500,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/prf2wYP6/130.jpg"
+    },
+    {
+      "id": 349,
+      "category": "candies_gum",
+      "name": "Yashkino Yota (2 xil)",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 350,
+      "category": "candies_gum",
+      "name": "M&M's (arzon, katta)",
+      "price": 60000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 351,
+      "category": "candies_gum",
+      "name": "M&M's (arzon, kg)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 60000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": ""
+    },
+    {
+      "id": 352,
+      "category": "candies_gum",
+      "name": "Delis (donalik)",
+      "price": 1000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/TxTZT21S/photo-54-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 353,
+      "category": "snacks",
+      "name": "Lays chips (20 xil)",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Y7kJcbmg/134.webp"
+    },
+    {
+      "id": 354,
+      "category": "snacks",
+      "name": "Chears chips (20 xil)",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/pBJ68QGf/135.webp"
+    },
+    {
+      "id": 355,
+      "category": "snacks",
+      "name": "Qurtob Retro (mayda)",
+      "price": 1000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/mr2pYJ4J/photo-70-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 356,
+      "category": "snacks",
+      "name": "Qurtob Retro (katta)",
+      "price": 1500,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/mr2pYJ4J/photo-70-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 357,
+      "category": "snacks",
+      "name": "Qurtob (yog'li, dona)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 1000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/mr2pYJ4J/photo-70-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 358,
+      "category": "snacks",
+      "name": "Qurtob (mayda, dona)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 500,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/mr2pYJ4J/photo-70-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 359,
+      "category": "snacks",
+      "name": "Qurtob (kopchyonniy, dona)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 1000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/mr2pYJ4J/photo-70-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 360,
+      "category": "snacks",
+      "name": "Qurtob (sho'r, dona)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 1000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/mr2pYJ4J/photo-70-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 361,
+      "category": "snacks",
+      "name": "Mashxur Qurtob",
+      "price": 1000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/mr2pYJ4J/photo-70-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 362,
+      "category": "snacks",
+      "name": "Semechka 7echka (katta)",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 363,
+      "category": "snacks",
+      "name": "Semechka 7echka (kichik)",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 364,
+      "category": "snacks",
+      "name": "Semechka Mega (sho'r)",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/7JFzpmny/136.jpg"
+    },
+    {
+      "id": 365,
+      "category": "snacks",
+      "name": "Semechka Mega (tuzsiz)",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/7JFzpmny/136.jpg"
+    },
+    {
+      "id": 366,
+      "category": "snacks",
+      "name": "Semechka Djin (6 xil)",
+      "price": 9000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/YFphY2kj/137.jpg"
+    },
+    {
+      "id": 367,
+      "category": "snacks",
+      "name": "Semechka ermak 160gr",
+      "price": 20000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/WNXDhWGL/139.jpg"
+    },
+    {
+      "id": 368,
+      "category": "snacks",
+      "name": "Semechka ermak 200gr",
+      "price": 28000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/vC947MSF/138.webp"
+    },
+    {
+      "id": 369,
+      "category": "snacks",
+      "name": "ermak Qurtob (4 xil)",
+      "price": 9000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/mr2pYJ4J/photo-70-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 370,
+      "category": "snacks",
+      "name": "900",
+      "price": 9000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/mr2pYJ4J/photo-70-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 371,
+      "category": "snacks",
+      "name": "Sheshe Qurtob (4 xil)",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/mr2pYJ4J/photo-70-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 372,
+      "category": "pasta_noodles",
+      "name": "Makaron (kg, 5 xil)",
+      "pricing_model": "by_amount",
+      "price_per_kg": 12000,
+      "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
+      "photo_url": "https://i.ibb.co/FbW9yqLM/photo-43-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 373,
+      "category": "pasta_noodles",
+      "name": "Makaron Makfa (pachka, 6 xil)",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/GQ5BdP3W/140.webp"
+    },
+    {
+      "id": 374,
+      "category": "pasta_noodles",
+      "name": "Makaron Rollton (pachka, 4 xil)",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/XZwpHCFB/141.jpg"
+    },
+    {
+      "id": 375,
+      "category": "pasta_noodles",
+      "name": "Ogra",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 376,
+      "category": "pasta_noodles",
+      "name": "Lag'mon xamir",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 377,
+      "category": "pasta_noodles",
+      "name": "Hot Lunch (kichik, shirin)",
+      "price": 3000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/G44zqz7N/143.png"
+    },
+    {
+      "id": 378,
+      "category": "pasta_noodles",
+      "name": "Hot Lunch (kichik, achchiq)",
+      "price": 3000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/gMBdtpvC/142.jpg"
+    },
+    {
+      "id": 379,
+      "category": "pasta_noodles",
+      "name": "Hot Lunch (katta, shirin)",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/TDtsgXJD/144.jpg"
+    },
+    {
+      "id": 380,
+      "category": "pasta_noodles",
+      "name": "Hot Lunch (katta, achchiq)",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 381,
+      "category": "pasta_noodles",
+      "name": "Hot Lunch (souslik, shirin)",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/ccPg0N22/147.jpg"
+    },
+    {
+      "id": 382,
+      "category": "pasta_noodles",
+      "name": "Hot Lunch (souslik, achchiq)",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/j9QMRf1y/146.jpg"
+    },
+    {
+      "id": 383,
+      "category": "pasta_noodles",
+      "name": "Shef Hot Lunch (shirin)",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 384,
+      "category": "pasta_noodles",
+      "name": "Shef Hot Lunch (achchiq)",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 385,
+      "category": "pasta_noodles",
+      "name": "Rollton (kichik, mol go'shti)",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/8LyH5H15/151.webp"
+    },
+    {
+      "id": 386,
+      "category": "pasta_noodles",
+      "name": "Rollton (kichik, tovuq go'shti)",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/hxW06Z6y/150.webp"
+    },
+    {
+      "id": 387,
+      "category": "pasta_noodles",
+      "name": "Rollton (katta, tovuq go'shti)",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Y4nf1L3D/152.webp"
+    },
+    {
+      "id": 388,
+      "category": "pasta_noodles",
+      "name": "Rollton (katta, mol go'shti)",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/RkxQFcH7/153.webp"
+    },
+    {
+      "id": 389,
+      "category": "pasta_noodles",
+      "name": "Rollton (katta, achchiq)",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/J1TtBpB/154.webp"
+    },
+    {
+      "id": 390,
+      "category": "pasta_noodles",
+      "name": "Big Bon (tovuq go'shti)",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/0yqc0cwD/155.png"
+    },
+    {
+      "id": 391,
+      "category": "pasta_noodles",
+      "name": "Big Bon (mol go'shti)",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 392,
+      "category": "pasta_noodles",
+      "name": "Big Bon (achchiq)",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/xt6DBJ9L/156.png"
+    },
+    {
+      "id": 393,
+      "category": "pasta_noodles",
+      "name": "Big Bon Meksika (achchiq)",
+      "price": 9000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 394,
+      "category": "pasta_noodles",
+      "name": "Hot Lunch (idishli, achchiq)",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/ch08LHbt/164.png"
+    },
+    {
+      "id": 395,
+      "category": "pasta_noodles",
+      "name": "Rollton (idishli, shirin)",
+      "price": 9000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/bMCYYB1K/163.webp"
+    },
+    {
+      "id": 396,
+      "category": "pasta_noodles",
+      "name": "Rollton (idishli, achchiq)",
+      "price": 9000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/bMCYYB1K/163.webp"
+    },
+    {
+      "id": 397,
+      "category": "pasta_noodles",
+      "name": "Rollton (katta idish, shirin)",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/s9r7szTP/161.png"
+    },
+    {
+      "id": 398,
+      "category": "pasta_noodles",
+      "name": "Rollton (katta idish, achchiq)",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/XZ71zHk6/162.png"
+    },
+    {
+      "id": 399,
+      "category": "pasta_noodles",
+      "name": "Big Bon (idishli, shirin)",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/ksv2JhFg/157.png"
+    },
+    {
+      "id": 400,
+      "category": "pasta_noodles",
+      "name": "Big Bon (idishli, achchiq)",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/mV3pRPzj/158.png"
+    },
+    {
+      "id": 401,
+      "category": "pasta_noodles",
+      "name": "Big Bon Maks (idishli, shirin)",
+      "price": 13000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/8nPVgtvt/159.png"
+    },
+    {
+      "id": 402,
+      "category": "pasta_noodles",
+      "name": "Big Bon Maks (idishli, achchiq)",
+      "price": 13000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/fdnqc9M1/160.png"
+    },
+    {
+      "id": 403,
+      "category": "pasta_noodles",
+      "name": "Doshirak (idishli, shirin)",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/tyQvKDq/165.webp"
+    },
+    {
+      "id": 404,
+      "category": "pasta_noodles",
+      "name": "Doshirak (idishli, achchiq)",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/TDZCVK53/166.webp"
+    },
+    {
+      "id": 405,
+      "category": "pasta_noodles",
+      "name": "Ramen (idishli)",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/1pyFRzn/photo-88-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 406,
+      "category": "pasta_noodles",
+      "name": "Big Bon Ramen",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 407,
+      "category": "household_hygiene",
+      "name": "Persil kukun 3 kg",
+      "price": 90000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/kgPr46fb/167.jpg"
+    },
+    {
+      "id": 408,
+      "category": "household_hygiene",
+      "name": "Persil kukun 1.5kg",
+      "price": 65000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/jkrMQvPD/168.webp"
+    },
+    {
+      "id": 409,
+      "category": "household_hygiene",
+      "name": "Persil kukun (karobka)",
+      "price": 28000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Cpk1Wx4z/169.webp"
+    },
+    {
+      "id": 410,
+      "category": "household_hygiene",
+      "name": "Ariel kukun 3kg",
+      "price": 90000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/svMN5wJG/172.webp"
+    },
+    {
+      "id": 411,
+      "category": "household_hygiene",
+      "name": "Ariel kukun 1.5kg",
+      "price": 65000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/N2n2CH8n/171.webp"
+    },
+    {
+      "id": 412,
+      "category": "household_hygiene",
+      "name": "Ariel kukun (karobka)",
+      "price": 27000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/ns1rz7LY/170.webp"
+    },
+    {
+      "id": 413,
+      "category": "household_hygiene",
+      "name": "Tide kukun 3kg",
+      "price": 90000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/9HtyV97D/173.webp"
+    },
+    {
+      "id": 414,
+      "category": "household_hygiene",
+      "name": "Tide kukun 1.5kg",
+      "price": 65000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/sd9sgfQ8/174.webp"
+    },
+    {
+      "id": 415,
+      "category": "household_hygiene",
+      "name": "Tide kukun (karobka)",
+      "price": 26000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/1YT2tQwb/175.jpg"
+    },
+    {
+      "id": 416,
+      "category": "household_hygiene",
+      "name": "Mif kukun 2 kg",
+      "price": 60000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/4RVkMctk/177.jpg"
+    },
+    {
+      "id": 417,
+      "category": "household_hygiene",
+      "name": "Mif kukun (karobka)",
+      "price": 20000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/6JnFp73N/176.webp"
+    },
+    {
+      "id": 418,
+      "category": "household_hygiene",
+      "name": "Mey Fu (eng katta)",
+      "price": 22000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Fk33XqMT/180.webp"
+    },
+    {
+      "id": 419,
+      "category": "household_hygiene",
+      "name": "Mey Fu 900gr",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/SwHWs7m7/179.webp"
+    },
+    {
+      "id": 420,
+      "category": "household_hygiene",
+      "name": "Mey Fu 250gr",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/ymq33Rqg/178.jpg"
+    },
+    {
+      "id": 421,
+      "category": "household_hygiene",
+      "name": "Berezovaya Rosha 250gr",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/TMGvkb8p/181.webp"
+    },
+    {
+      "id": 422,
+      "category": "household_hygiene",
+      "name": "Aprel kukun 900gr",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/RT077jqB/182.jpg"
+    },
+    {
+      "id": 423,
+      "category": "household_hygiene",
+      "name": "Delfin kukun 900gr",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/TMSj5zSB/photo-45-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 424,
+      "category": "household_hygiene",
+      "name": "Marta kukun 250gr",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 425,
+      "category": "household_hygiene",
+      "name": "Kir sovun",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 426,
+      "category": "household_hygiene",
+      "name": "Gel idishga 5L",
+      "price": 16000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 427,
+      "category": "household_hygiene",
+      "name": "Kir sovun (suyuq) 5L",
+      "price": 20000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 428,
+      "category": "household_hygiene",
+      "name": "Salfetka (rulon)",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 429,
+      "category": "household_hygiene",
+      "name": "Salfetka (kichik)",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 430,
+      "category": "household_hygiene",
+      "name": "Qog'oz Pok",
+      "price": 20000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/LX8VZnPX/photo-41-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 431,
+      "category": "household_hygiene",
+      "name": "Qog'oz Kristal",
+      "price": 20000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/4w07hBGj/photo-39-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 432,
+      "category": "household_hygiene",
+      "name": "Qog'oz Nu Pogodi",
+      "price": 2000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/67h5wShT/photo-34-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 433,
+      "category": "household_hygiene",
+      "name": "Sovun Daf (katta)",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/RGh26J5p/183.jpg"
+    },
+    {
+      "id": 434,
+      "category": "household_hygiene",
+      "name": "Sovun Daf (kichik)",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/gZf6jf0G/184.jpg"
+    },
+    {
+      "id": 435,
+      "category": "household_hygiene",
+      "name": "Sovun Palmolive (katta, 4 xil)",
+      "price": 16000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/4RCbXkgY/185.jpg"
+    },
+    {
+      "id": 436,
+      "category": "household_hygiene",
+      "name": "Sovun Palmolive (kichik, 4 xil)",
+      "price": 16000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/84mh37WC/186.jpg"
+    },
+    {
+      "id": 437,
+      "category": "household_hygiene",
+      "name": "Sovun Oliviya (3 xil)",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/fd4X383P/photo-46-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 438,
+      "category": "household_hygiene",
+      "name": "Sovun Margarita (2 xil)",
+      "price": 9000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/fd4X383P/photo-46-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 439,
+      "category": "household_hygiene",
+      "name": "Sovun Foks (5 talik)",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/G345DTsx/187.jpg"
+    },
+    {
+      "id": 440,
+      "category": "household_hygiene",
+      "name": "Sovun Duru dona (dumaloq, 3 xil)",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/hR3KSLZd/188.webp"
+    },
+    {
+      "id": 441,
+      "category": "household_hygiene",
+      "name": "Sovun Duru (kir)",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/fd4X383P/photo-46-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 442,
+      "category": "household_hygiene",
+      "name": "Nam salfetka (120)",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/HLhR95fj/photo-5-2025-09-25-19-18-02.jpg"
+    },
+    {
+      "id": 443,
+      "category": "household_hygiene",
+      "name": "Nam salfetka (72)",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/HLhR95fj/photo-5-2025-09-25-19-18-02.jpg"
+    },
+    {
+      "id": 444,
+      "category": "household_hygiene",
+      "name": "Nam salfetka (20)",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/HLhR95fj/photo-5-2025-09-25-19-18-02.jpg"
+    },
+    {
+      "id": 445,
+      "category": "household_hygiene",
+      "name": "Nam salfetka (15)",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/HLhR95fj/photo-5-2025-09-25-19-18-02.jpg"
+    },
+    {
+      "id": 446,
+      "category": "household_hygiene",
+      "name": "Maks Gel (kichik)",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/WpV2g4cC/189.webp"
+    },
+    {
+      "id": 447,
+      "category": "household_hygiene",
+      "name": "Maks Gel (katta)",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/WpV2g4cC/189.webp"
+    },
+    {
+      "id": 448,
+      "category": "household_hygiene",
+      "name": "Super Kley (kichik)",
+      "price": 3000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 449,
+      "category": "household_hygiene",
+      "name": "Iplar",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/PGwcWN55/photo-5-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 450,
+      "category": "household_hygiene",
+      "name": "Kraska Ekler (15 xil)",
+      "price": 20000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/XZpDb2vB/190.jpg"
+    },
+    {
+      "id": 451,
+      "category": "household_hygiene",
+      "name": "Kraska Pallet (8 xil)",
+      "price": 24000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/h1m1kXy7/191.webp"
+    },
+    {
+      "id": 452,
+      "category": "household_hygiene",
+      "name": "Kraska Blond",
+      "price": 18000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/mf6yh2q/192.webp"
+    },
+    {
+      "id": 453,
+      "category": "household_hygiene",
+      "name": "Kraska Xina",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 454,
+      "category": "household_hygiene",
+      "name": "Kaplya Gel",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/VYyVcvk4/photo-3-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 455,
+      "category": "household_hygiene",
+      "name": "Sev Gel",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 456,
+      "category": "household_hygiene",
+      "name": "Kristal Gel",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/gFTQ2LTQ/photo-51-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 457,
+      "category": "household_hygiene",
+      "name": "Fairy Gel",
+      "price": 22000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/mf6yh2q/192.webp"
+    },
+    {
+      "id": 458,
+      "category": "household_hygiene",
+      "name": "Fairy Gel (katta)",
+      "price": 30000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/dsyC4Gg0/194.jpg"
+    },
+    {
+      "id": 459,
+      "category": "household_hygiene",
+      "name": "Tala Uks Gel (pakircha, katta)",
+      "price": 20000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/F4g1vh6N/photo-50-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 460,
+      "category": "household_hygiene",
+      "name": "Chistolin",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/kstjwMqV/195.png"
+    },
+    {
+      "id": 461,
+      "category": "household_hygiene",
+      "name": "Pemolyuks",
+      "price": 16000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/93s63p6s/196.webp"
+    },
+    {
+      "id": 462,
+      "category": "household_hygiene",
+      "name": "Ochistitel okon",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/8DHxk5nt/photo-58-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 463,
+      "category": "household_hygiene",
+      "name": "Shampun Hayat (kichik)",
+      "price": 9000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/5XnwZcxv/197.jpg"
+    },
+    {
+      "id": 464,
+      "category": "household_hygiene",
+      "name": "Shampun BBS Chesnok",
+      "price": 9000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/B2RrZGL4/198.jpg"
+    },
+    {
+      "id": 465,
+      "category": "household_hygiene",
+      "name": "Shampun Hayat (katta)",
+      "price": 11000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/JRFpPrq3/199.webp"
+    },
+    {
+      "id": 466,
+      "category": "household_hygiene",
+      "name": "Shampun Ekler",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 467,
+      "category": "household_hygiene",
+      "name": "Shampun Oliviya",
+      "price": 24000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/C5k1gRGg/200.jpg"
+    },
+    {
+      "id": 468,
+      "category": "household_hygiene",
+      "name": "Shampun Clear Men (kichik)",
+      "price": 27000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 469,
+      "category": "household_hygiene",
+      "name": "Shampun Clear Men (katta)",
+      "price": 45000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 470,
+      "category": "household_hygiene",
+      "name": "Shampun Head & Shoulders (eng kichik)",
+      "price": 27000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/fdNM6D0k/201.webp"
+    },
+    {
+      "id": 471,
+      "category": "household_hygiene",
+      "name": "Shampun Head & Shoulders (kichik)",
+      "price": 35000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/yt9NcgJ/203.jpg"
+    },
+    {
+      "id": 472,
+      "category": "household_hygiene",
+      "name": "Shampun Head & Shoulders (katta)",
+      "price": 48000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/ymJ21ZhR/202.webp"
+    },
+    {
+      "id": 473,
+      "category": "household_hygiene",
+      "name": "Shampun Daf",
+      "price": 47000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Ndz2RS59/204.webp"
+    },
+    {
+      "id": 474,
+      "category": "household_hygiene",
+      "name": "Shampun Tashkent 2L (3 xil)",
+      "price": 38000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/1G8Tdj4t/photo-61-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 475,
+      "category": "household_hygiene",
+      "name": "Shampun Pantin",
+      "price": 48000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/qYwK0Ffd/205.jpg"
+    },
+    {
+      "id": 476,
+      "category": "household_hygiene",
+      "name": "Shampun Shauma",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 477,
+      "category": "household_hygiene",
+      "name": "Shampun Foks",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/BKPSqT3Q/206.webp"
+    },
+    {
+      "id": 478,
+      "category": "household_hygiene",
+      "name": "Shampun Duru",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/8gSmsKg5/207.jpg"
+    },
+    {
+      "id": 479,
+      "category": "household_hygiene",
+      "name": "Pampers Molfix 1",
+      "price": 1800,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/vCZBfHcs/208.webp"
+    },
+    {
+      "id": 480,
+      "category": "household_hygiene",
+      "name": "Pampers Molfix 2",
+      "price": 2000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/x8Xq2mCK/209.webp"
+    },
+    {
+      "id": 481,
+      "category": "household_hygiene",
+      "name": "Pampers Molfix 3",
+      "price": 2200,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/NgZfLNgs/210.jpg"
+    },
+    {
+      "id": 482,
+      "category": "household_hygiene",
+      "name": "Pampers Molfix 4",
+      "price": 2500,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/7xd5skdn/211.webp"
+    },
+    {
+      "id": 483,
+      "category": "household_hygiene",
+      "name": "Pampers Molfix 5",
+      "price": 3000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/R4G9kmh9/212.webp"
+    },
+    {
+      "id": 484,
+      "category": "household_hygiene",
+      "name": "Pampers Molfix 6",
+      "price": 3500,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/qLCmYjMz/213.webp"
+    },
+    {
+      "id": 485,
+      "category": "household_hygiene",
+      "name": "Pampers Gizmo 1",
+      "price": 1700,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/6JrZ07ht/214.webp"
+    },
+    {
+      "id": 486,
+      "category": "household_hygiene",
+      "name": "Pampers Gizmo 2",
+      "price": 1900,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/TMWwFDv5/215.webp"
+    },
+    {
+      "id": 487,
+      "category": "household_hygiene",
+      "name": "Pampers Gizmo 3",
+      "price": 2200,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/s985QwYC/216.jpg"
+    },
+    {
+      "id": 488,
+      "category": "household_hygiene",
+      "name": "Pampers Gizmo 4",
+      "price": 2500,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/pBk8TMW5/217.jpg"
+    },
+    {
+      "id": 489,
+      "category": "household_hygiene",
+      "name": "Pampers Gizmo 5",
+      "price": 28000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/NnnfGFS0/218.webp"
+    },
+    {
+      "id": 490,
+      "category": "household_hygiene",
+      "name": "Pampers Pikko 1",
+      "price": 1700,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/v4sNJcB2/photo-59-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 491,
+      "category": "household_hygiene",
+      "name": "Pampers Pikko 2",
+      "price": 1900,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/v4sNJcB2/photo-59-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 492,
+      "category": "household_hygiene",
+      "name": "Pampers Pikko 3",
+      "price": 2200,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/v4sNJcB2/photo-59-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 493,
+      "category": "household_hygiene",
+      "name": "Pampers Pikko 4",
+      "price": 2300,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/v4sNJcB2/photo-59-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 494,
+      "category": "household_hygiene",
+      "name": "Pampers Pikko 5",
+      "price": 2500,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/v4sNJcB2/photo-59-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 495,
+      "category": "household_hygiene",
+      "name": "Pampers Pikko 6",
+      "price": 2700,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/v4sNJcB2/photo-59-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 496,
+      "category": "stationery",
+      "name": "Daftar 12 (katta, yo'lli)",
+      "price": 2000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/1J7yT7dJ/219.webp"
+    },
+    {
+      "id": 497,
+      "category": "stationery",
+      "name": "Daftar 12 (kichik, yo'lli)",
+      "price": 2000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 498,
+      "category": "stationery",
+      "name": "Daftar 12 (katak)",
+      "price": 2000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/vCfd0g0S/220.webp"
+    },
+    {
+      "id": 499,
+      "category": "stationery",
+      "name": "Daftar 24 (yo'lli)",
+      "price": 3000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/DDWYgWYt/photo-100-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 500,
+      "category": "stationery",
+      "name": "Daftar 24 (katak)",
+      "price": 3000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/DDWYgWYt/photo-100-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 501,
+      "category": "stationery",
+      "name": "Daftar 36 (yo'lli)",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/DDWYgWYt/photo-100-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 502,
+      "category": "stationery",
+      "name": "Daftar 36 (katak)",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/DDWYgWYt/photo-100-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 503,
+      "category": "stationery",
+      "name": "Daftar 48 (yo'lli)",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/DDWYgWYt/photo-100-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 504,
+      "category": "stationery",
+      "name": "Daftar 48 (katak)",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/DDWYgWYt/photo-100-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 505,
+      "category": "stationery",
+      "name": "Ruchka (ko'k)",
+      "price": 2000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/0jSC0wd1/221.jpg"
+    },
+    {
+      "id": 506,
+      "category": "stationery",
+      "name": "Ruchka (qora)",
+      "price": 2000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 507,
+      "category": "stationery",
+      "name": "Ruchka (yashil)",
+      "price": 2000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/FL45yB8Q/222.webp"
+    },
+    {
+      "id": 508,
+      "category": "stationery",
+      "name": "Ruchka (qizil)",
+      "price": 2000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/MDTC1Fhf/223.webp"
+    },
+    {
+      "id": 509,
+      "category": "stationery",
+      "name": "Kley",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/ZR5c2ND5/photo-4-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 510,
+      "category": "stationery",
+      "name": "Tochilka",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 511,
+      "category": "stationery",
+      "name": "Rezinka",
+      "price": 2000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/j9WMGGnM/photo-1-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 512,
+      "category": "stationery",
+      "name": "Izolenta",
+      "price": 7000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/MxKrdy9j/photo-2-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 513,
+      "category": "stationery",
+      "name": "Albom",
+      "price": 6000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/3YfHGQZ5/photo-93-2025-09-25-19-17-53.jpg"
+    },
+    {
+      "id": 514,
+      "category": "stationery",
+      "name": "Raskraska",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    },
+    {
+      "id": 515,
+      "category": "stationery",
+      "name": "Alfavit",
+      "price": 0,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": ""
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "one-mart-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot for One Mart shop",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "engines": {
+    "node": "18.x" 
+  },
+  "dependencies": {
+    "fast-levenshtein": "^2.0.6",
+    "geolib": "^3.3.4",
+    "node-telegram-bot-api": "^0.63.0",
+    "express": "^4.19.2" 
+  }
+}
