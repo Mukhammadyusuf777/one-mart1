@@ -71,8 +71,9 @@ const userStates = {};
 
 console.log('"One Mart" boti ishga tushirildi...');
 
-// ... (Весь остальной код, который я предоставлял ранее, находится здесь без изменений)
-// ... (Я вставлю его полностью, чтобы у вас не было сомнений)
+// ================================================================= //
+// --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
+// ================================================================= //
 
 const readOrders = () => {
     if (!fs.existsSync(ORDERS_FILE_PATH)) return [];
@@ -86,7 +87,11 @@ const readOrders = () => {
 };
 
 const writeOrders = (orders) => {
-    fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), 'utf8');
+    try {
+        fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), 'utf8');
+    } catch (e) {
+        console.error('Ошибка записи в orders.json:', e);
+    }
 };
 
 const getStatusText = (status) => {
@@ -105,11 +110,13 @@ const findProductById = (productId) => db.products.find(p => p.id === productId)
 const findCategoryById = (categoryId) => db.categories.find(c => c.id === categoryId);
 
 function saveDb() {
-    fs.writeFileSync(PRODUCTS_FILE_PATH, JSON.stringify(db, null, 2), 'utf8');
     try {
-        db = JSON.parse(fs.readFileSync(PRODUCTS_FILE_PATH, 'utf8'));
-    } catch(e) {
-        console.error("DBni saqlagandan so'ng qayta o'qishda xatolik:", e);
+        fs.writeFileSync(PRODUCTS_FILE_PATH, JSON.stringify(db, null, 2), 'utf8');
+        // После сохранения файла на диск, перезагружаем его в память, чтобы db был актуальным
+        const newDbContent = fs.readFileSync(PRODUCTS_FILE_PATH, 'utf8');
+        db = JSON.parse(newDbContent);
+    } catch (e) {
+        console.error("CRITICAL ERROR: DBni saqlash yoki qayta o'qishda xatolik:", e);
     }
 }
 
@@ -139,6 +146,10 @@ function saveOrderToJson(chatId, cart, state) {
 }
 
 const formatPrice = (price) => `${price.toLocaleString('uz-UZ')} so'm`;
+
+// ================================================================= //
+// --- ФУНКЦИИ ОТОБРАЖЕНИЯ (КЛИЕНТ) ---
+// ================================================================= //
 
 function showCart(chatId, messageId = null) {
     const cart = userCarts[chatId];
@@ -296,8 +307,13 @@ function showQuantitySelector(chatId, product, quantity, messageId = null) {
         bot.deleteMessage(chatId, messageId).catch(()=>{});
     }
 
-    if (product.photo_url) {
+    if (product.photo_url && product.photo_url.startsWith('http')) {
         bot.sendPhoto(chatId, product.photo_url, { caption: caption, parse_mode: 'Markdown', reply_markup: replyMarkup }).catch(() => {
+            bot.sendMessage(chatId, caption, { parse_mode: 'Markdown', reply_markup: replyMarkup });
+        });
+    } else if (product.photo_url) { // Предполагаем, что это file_id
+        bot.sendPhoto(chatId, product.photo_url, { caption: caption, parse_mode: 'Markdown', reply_markup: replyMarkup }).catch(() => {
+            // Если file_id не сработал (например, бот был перезапущен с новым токеном), отправляем без фото
             bot.sendMessage(chatId, caption, { parse_mode: 'Markdown', reply_markup: replyMarkup });
         });
     } else {
@@ -842,12 +858,568 @@ bot.on('callback_query', async (query) => {
     const messageId = query.message.message_id;
     const data = query.data;
 
-    // ... (весь остальной код callback_query из предыдущего ответа без изменений) ...
+    if (data === 'ignore') return bot.answerCallbackQuery(query.id);
+    
+    if (data === 'cancel_action') {
+        if (userStates[chatId]) {
+            delete userStates[chatId];
+            bot.editMessageText('Amal bekor qilindi.', { chat_id: chatId, message_id: messageId }).catch(() => { });
+        }
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
 
+    if (data.startsWith('admin_view_order_')) {
+        if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
+        const orderId = parseInt(data.split('_').pop(), 10);
+        const order = readOrders().find(o => o.order_id === orderId);
+
+        if (!order) {
+            bot.answerCallbackQuery(query.id, { text: 'Buyurtma topilmadi!', show_alert: true });
+            return;
+        }
+
+        let details = `--- Buyurtma #${order.order_number} ---\n`;
+        details += `Sana: ${new Date(order.date).toLocaleString('ru-RU')}\n`;
+        details += `Mijoz raqami: ${order.customer_phone}\n`;
+        details += `Holat: **${getStatusText(order.status)}**\n\n`;
+
+        if (order.comment) {
+            details += `Izoh: _${order.comment}_\n\n`;
+        }
+
+        details += `Mahsulotlar:\n`;
+        order.cart.forEach(item => {
+            const product = findProductById(item.productId);
+            if (item.type === 'by_amount') {
+                details += `- ${item.name} = ${formatPrice(item.price)}\n`;
+            } else {
+                details += `- ${item.name} x ${item.quantity} dona = ${formatPrice((product ? product.price : 0) * item.quantity)}\n`;
+            }
+        });
+
+        const subtotal = order.total - (order.delivery_details.totalCost || 0);
+        details += `\nMahsulotlar jami: ${formatPrice(subtotal)}\n`;
+        if (order.delivery_details) {
+            details += `Yetkazib berish (asosiy): ${formatPrice(order.delivery_details.baseCost)}\n`;
+            if(order.delivery_details.distanceSurcharge > 0) {
+                details += `Masofa uchun qo'shimcha (${order.delivery_details.distanceKm} km): ${formatPrice(order.delivery_details.distanceSurcharge)}\n`;
+            }
+        }
+        details += `Jami: ${formatPrice(order.total)}\n`;
+
+        const { latitude, longitude } = order.location;
+        details += `\n📍 Manzil: [Google Maps](http://www.google.com/maps/place/${latitude},${longitude})\n`;
+
+        const statusButtons = [];
+        if (order.status === 'new') {
+            statusButtons.push({ text: '🛠 Yig\'ishni boshlash', callback_data: `admin_set_status_assembling_${order.order_id}` });
+            statusButtons.push({ text: '❌ Bekor qilish', callback_data: `admin_set_status_cancelled_${order.order_id}` });
+        }
+        if (order.status === 'assembling') {
+            statusButtons.push({ text: '✅ Tayyor', callback_data: `admin_set_status_ready_${order.order_id}` });
+        }
+        if (order.status === 'ready') {
+            statusButtons.push({ text: '🚚 Yetkazib berish', callback_data: `admin_set_status_delivering_${order.order_id}` });
+        }
+        if (order.status === 'delivering') {
+            statusButtons.push({ text: '🏁 Yetkazib berildi', callback_data: `admin_set_status_completed_${order.order_id}` });
+        }
+
+        bot.sendMessage(chatId, details, {
+            parse_mode: 'Markdown',
+            reply_markup: {
+                inline_keyboard: [statusButtons]
+            }
+        });
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data.startsWith('admin_set_status_')) {
+        if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
+        const parts = data.split('_');
+        const newStatus = parts[3];
+        const orderId = parseInt(parts.pop(), 10);
+        const allOrders = readOrders();
+        const orderIndex = allOrders.findIndex(o => o.order_id === orderId);
+        if (orderIndex === -1) {
+            bot.answerCallbackQuery(query.id, { text: 'Buyurtma topilmadi!', show_alert: true });
+            return;
+        }
+        allOrders[orderIndex].status = newStatus;
+        writeOrders(allOrders);
+        const updatedOrder = allOrders[orderIndex];
+        bot.answerCallbackQuery(query.id, { text: `Holat "${getStatusText(newStatus)}" ga o'zgartirildi.` });
+        bot.deleteMessage(chatId, messageId).catch(()=>{});
+        const customerMessage = `Hurmatli mijoz, sizning №${updatedOrder.order_number} raqamli buyurtmangiz holati o'zgardi.\n\nYangi holat: **${getStatusText(newStatus)}**`;
+        bot.sendMessage(updatedOrder.customer_chat_id, customerMessage, { parse_mode: 'Markdown' }).catch(err => {
+            console.error(`Could not send message to client ${updatedOrder.customer_chat_id}: ${err}`);
+        });
+        return;
+    }
+    
+    if (data === 'admin_back_to_main') {
+        if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
+        bot.deleteMessage(chatId, messageId).catch(()=>{});
+        bot.sendMessage(chatId, "Boshqaruv paneli qayta yuklandi.", {
+             reply_markup: {
+                keyboard: [
+                    [{ text: ADMIN_BTN_NEW }],
+                    [{ text: ADMIN_BTN_ASSEMBLING }, { text: ADMIN_BTN_COMPLETED }],
+                    [{ text: ADMIN_BTN_PRODUCTS }, { text: ADMIN_BTN_CATEGORIES }]
+                ],
+                resize_keyboard: true
+            }
+        });
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data === 'admin_products_menu' || data === ADMIN_BTN_BACK_TO_PRODUCTS_MENU) {
+        if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
+        showAdminProductsMenu(chatId, messageId);
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data === 'admin_add_product') {
+        if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
+        userStates[chatId] = { action: 'admin_add_product_name', data: {} };
+        bot.editMessageText('Mahsulot nomini kiriting:', { chat_id: chatId, message_id: messageId, reply_markup: {inline_keyboard: [[{text: "Bekor qilish", callback_data: "cancel_action"}]]} }).catch(() => { });
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data === 'admin_edit_product') {
+        if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
+        showProductSelectionForAdmin(chatId, 'admin_edit_product_select_', messageId);
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data.startsWith('admin_edit_product_select_')) {
+        if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
+        const productId = parseInt(data.split('_').pop());
+        const productToEdit = findProductById(productId);
+        if (productToEdit) {
+            userStates[chatId] = { action: 'admin_edit_product_name', data: { ...productToEdit } };
+            bot.editMessageText(`Yangi nom kiriting (joriy: "${productToEdit.name}"):`, { chat_id: chatId, message_id: messageId, reply_markup: {inline_keyboard: [[{text: "Bekor qilish", callback_data: "cancel_action"}]]} }).catch(() => { });
+        } else {
+             bot.answerCallbackQuery(query.id, { text: 'Mahsulot topilmadi!', show_alert: true });
+        }
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+    
+    if (data === 'admin_delete_product') {
+        if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
+        showProductSelectionForAdmin(chatId, 'admin_delete_product_select_', messageId);
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+    
+    if (data.startsWith('admin_delete_product_select_')) {
+        if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
+        const productId = parseInt(data.split('_').pop());
+        const productToDelete = findProductById(productId);
+        if (productToDelete) {
+             bot.editMessageText(`Haqiqatan ham "${productToDelete.name}" mahsulotini o'chirmoqchimisiz?`, {
+                chat_id: chatId,
+                message_id: messageId,
+                reply_markup: {
+                    inline_keyboard: [
+                        [{ text: "✅ Ha, o'chirish", callback_data: `admin_delete_product_confirm_${productId}` }],
+                        [{ text: "❌ Yo'q, bekor qilish", callback_data: 'admin_products_menu' }]
+                    ]
+                }
+            }).catch(() => {});
+        } else {
+            bot.answerCallbackQuery(query.id, { text: 'Mahsulot topilmadi!', show_alert: true });
+        }
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+    
+    if (data.startsWith('admin_delete_product_confirm_')) {
+        if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
+        const productId = parseInt(data.split('_').pop());
+        const productIndex = db.products.findIndex(p => p.id === productId);
+        if (productIndex !== -1) {
+            db.products.splice(productIndex, 1);
+            saveDb();
+            bot.answerCallbackQuery(query.id, { text: 'Mahsulot o\'chirildi!' });
+            showProductSelectionForAdmin(chatId, 'admin_delete_product_select_', messageId);
+        } else {
+            bot.answerCallbackQuery(query.id, { text: 'Mahsulot topilmadi!', show_alert: true });
+        }
+        return;
+    }
+    
+    if (data.startsWith('admin_select_category_for_product_')) {
+        if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
+        const state = userStates[chatId];
+        if (!state || !(state.action === 'admin_add_product_category' || state.action === 'admin_edit_product_category')) {
+             bot.answerCallbackQuery(query.id, { text: 'Xatolik: noto\'g\'ri holat! Qaytadan boshlang.', show_alert: true });
+             if (state) delete userStates[chatId];
+             return;
+        }
+        const categoryId = data.split('_').pop();
+        const productData = state.data;
+        productData.category = categoryId;
+        const isEditing = state.action.includes('edit');
+        if (isEditing) {
+            const productIndex = db.products.findIndex(p => p.id === productData.id);
+            if (productIndex !== -1) {
+                db.products[productIndex] = productData;
+                bot.editMessageText(`✅ Mahsulot "${productData.name}" muvaffaqiyatli tahrirlandi!`, {chat_id: chatId, message_id: messageId}).catch(()=>{});
+            } else {
+                 bot.editMessageText(`❌ Xatolik: Tahrirlash uchun mahsulot topilmadi.`, {chat_id: chatId, message_id: messageId}).catch(()=>{});
+            }
+        } else {
+            productData.id = Date.now();
+            db.products.push(productData);
+            bot.editMessageText(`✅ Yangi mahsulot "${productData.name}" muvaffaqiyatli qo'shildi!`, {chat_id: chatId, message_id: messageId}).catch(()=>{});
+        }
+        saveDb();
+        delete userStates[chatId];
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data === 'admin_categories_menu' || data === ADMIN_BTN_BACK_TO_CATEGORIES_MENU) {
+        if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
+        showAdminCategoriesMenu(chatId, messageId);
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+    
+    if (data === 'admin_add_category') {
+        if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
+        userStates[chatId] = { action: 'admin_add_category_name', data: {} };
+        bot.editMessageText('Yangi kategoriya nomini kiriting:', { chat_id: chatId, message_id: messageId, reply_markup: {inline_keyboard: [[{text: "Bekor qilish", callback_data: "cancel_action"}]]} }).catch(() => { });
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+    
+    if (data === 'admin_edit_category') {
+        if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
+        showCategorySelectionForAdmin(chatId, 'admin_edit_category_select_', messageId);
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data.startsWith('admin_edit_category_select_')) {
+        if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
+        const categoryId = data.split('_').pop();
+        const categoryToEdit = findCategoryById(categoryId);
+        if (categoryToEdit) {
+            userStates[chatId] = { action: 'admin_edit_category_name', data: { categoryId: categoryId } };
+            bot.editMessageText(`Yangi nom kiriting (joriy: "${categoryToEdit.name}"):`, { chat_id: chatId, message_id: messageId, reply_markup: {inline_keyboard: [[{text: "Bekor qilish", callback_data: "cancel_action"}]]} }).catch(() => {});
+        } else {
+            bot.answerCallbackQuery(query.id, { text: 'Kategoriya topilmadi!', show_alert: true });
+        }
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data === 'admin_delete_category') {
+        if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
+        showCategorySelectionForAdmin(chatId, 'admin_delete_category_select_', messageId);
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+    
+    if (data.startsWith('admin_delete_category_select_')) {
+        if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
+        const categoryId = data.split('_').pop();
+        const categoryToDelete = findCategoryById(categoryId);
+        const productsInCategory = db.products.filter(p => p.category === categoryId);
+        if (productsInCategory.length > 0) {
+            bot.answerCallbackQuery(query.id, { text: `Ushbu kategoriyani o'chirish mumkin emas, unda ${productsInCategory.length}ta mahsulot mavjud!`, show_alert: true });
+            return;
+        }
+        if (categoryToDelete) {
+             bot.editMessageText(`Haqiqatan ham "${categoryToDelete.name}" kategoriyasini o'chirmoqchimisiz?`, {
+                chat_id: chatId, message_id: messageId,
+                reply_markup: {
+                    inline_keyboard: [
+                        [{ text: "✅ Ha, o'chirish", callback_data: `admin_delete_category_confirm_${categoryId}` }],
+                        [{ text: "❌ Yo'q, bekor qilish", callback_data: 'admin_categories_menu' }]
+                    ]
+                }
+            }).catch(() => {});
+        } else {
+            bot.answerCallbackQuery(query.id, { text: 'Kategoriya topilmadi!', show_alert: true });
+        }
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+    
+    if (data.startsWith('admin_delete_category_confirm_')) {
+        if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
+        const categoryId = data.split('_').pop();
+        const categoryIndex = db.categories.findIndex(c => c.id === categoryId);
+        if (categoryIndex !== -1) {
+            db.categories.splice(categoryIndex, 1);
+            saveDb();
+            bot.answerCallbackQuery(query.id, { text: 'Kategoriya o\'chirildi!' });
+            showCategorySelectionForAdmin(chatId, 'admin_delete_category_select_', messageId);
+        } else {
+            bot.answerCallbackQuery(query.id, { text: 'Kategoriya topilmadi!', show_alert: true });
+        }
+        return;
+    }
+    
+    if (data.startsWith('category_')) {
+        const categoryId = data.substring(9);
+        showProductsByCategory(chatId, categoryId, messageId);
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data === 'back_to_categories') {
+        showCategories(chatId, messageId);
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data.startsWith('product_')) {
+        const productId = parseInt(data.substring(8), 10);
+        const product = findProductById(productId);
+        if (product) {
+            if (product.pricing_model === 'by_amount') {
+                userStates[chatId] = { action: 'awaiting_product_amount', productId: productId };
+                bot.deleteMessage(chatId, messageId).catch(() => {});
+                bot.sendMessage(chatId, `"${product.name}" uchun kerakli summani kiriting:`);
+            } else {
+                showQuantitySelector(chatId, product, 1, messageId);
+            }
+        }
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data.startsWith('increase_') || data.startsWith('decrease_')) {
+        const parts = data.split('_');
+        const productId = parseInt(parts[1], 10);
+        let quantity = parseInt(parts[2], 10);
+        const product = findProductById(productId);
+        if (product) {
+            if (parts[0] === 'increase') quantity++;
+            else if (quantity > 1) quantity--;
+            updateQuantitySelector(query, product, quantity);
+        }
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data.startsWith('addToCart_')) {
+        const parts = data.split('_');
+        const productId = parseInt(parts[1], 10);
+        const quantity = parseInt(parts[2], 10);
+        const product = findProductById(productId);
+        if (product) {
+            if (!userCarts[chatId]) userCarts[chatId] = [];
+            const existingItemIndex = userCarts[chatId].findIndex(item => item.productId === productId);
+            if (existingItemIndex > -1) {
+                userCarts[chatId][existingItemIndex].quantity += quantity;
+            } else {
+                userCarts[chatId].push({ id: `${productId}_${Date.now()}`, productId: productId, name: product.name, quantity: quantity, price: product.price, type: 'standard' });
+            }
+            bot.answerCallbackQuery(query.id, { text: `${product.name} savatga qo'shildi!` });
+            bot.deleteMessage(chatId, messageId).catch(()=>{});
+            showCategories(chatId);
+        } else {
+            bot.answerCallbackQuery(query.id, { text: 'Mahsulot topilmadi!', show_alert: true });
+        }
+        return;
+    }
+    
+    if (data.startsWith('cart_')) {
+        const parts = data.split('_');
+        const action = parts[1];
+        const itemId = data.substring(data.indexOf('_', 5) + 1);
+        const cart = userCarts[chatId] || [];
+        const itemIndex = cart.findIndex(item => item.id === itemId);
+        if (itemIndex > -1) {
+             if (action === 'incr') cart[itemIndex].quantity++;
+             else if (action === 'decr') {
+                 if (cart[itemIndex].quantity > 1) cart[itemIndex].quantity--;
+                 else cart.splice(itemIndex, 1);
+             } else if (action === 'del') cart.splice(itemIndex, 1);
+             showCart(chatId, messageId);
+        }
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data === 'clear_cart') {
+        userCarts[chatId] = [];
+        showCart(chatId, messageId);
+        bot.answerCallbackQuery(query.id, { text: 'Savat tozalandi!' });
+        return;
+    }
+    
+    if (data === 'leave_comment') {
+        userStates[chatId] = { ...userStates[chatId], action: 'awaiting_comment' };
+        bot.sendMessage(chatId, "Buyurtmangizga izoh yozing:");
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data === 'checkout') {
+        const cart = userCarts[chatId];
+        if (!cart || cart.length === 0) {
+            bot.answerCallbackQuery(query.id, { text: 'Sizning savatingiz bo\'sh!', show_alert: true });
+            return;
+        }
+        userStates[chatId] = { ...userStates[chatId], action: 'awaiting_phone_for_order' };
+        bot.editMessageText("Telefon raqamingizni yuborishingizni so'raymiz:", { chat_id: chatId, message_id: messageId }).catch(()=>{});
+        bot.sendMessage(chatId, "Buning uchun quyidagi tugmani bosing:", {
+            reply_markup: {
+                keyboard: [[{ text: '📞 Telefon raqamni yuborish', request_contact: true }]],
+                one_time_keyboard: true,
+                resize_keyboard: true
+            }
+        });
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+    
+    if (data === 'confirm_order') {
+        const state = userStates[chatId];
+        const cart = userCarts[chatId];
+        if (!state || state.action !== 'confirming_order' || !cart || cart.length === 0) {
+            bot.answerCallbackQuery(query.id, { text: 'Buyurtma berishda xatolik yuz berdi. Qaytadan urinib ko\'ring.', show_alert: true });
+            return;
+        }
+
+        const { newOrderId, newOrderNumber } = saveOrderToJson(chatId, cart, state);
+        
+        let adminNotification = `🆕 Yangi buyurtma! #${newOrderNumber}\n\n`;
+        cart.forEach(item => {
+             if (item.type === 'by_amount') adminNotification += `- ${item.name} = ${formatPrice(item.price)}\n`;
+             else adminNotification += `- ${item.name} x ${item.quantity} dona\n`;
+        });
+        if (state.comment) adminNotification += `\n*Izoh:* ${state.comment}\n`;
+        adminNotification += `\n*Jami:* ${formatPrice(state.total)}\n`;
+        adminNotification += `*Telefon:* ${state.phone}`;
+        
+        bot.sendMessage(ADMIN_CHAT_ID, adminNotification, {
+            parse_mode: 'Markdown',
+            reply_markup: {
+                inline_keyboard: [[{ text: 'Batafsil ko\'rish', callback_data: `admin_view_order_${newOrderId}` }]]
+            }
+        });
+
+        if (GROUP_CHAT_ID) {
+            const { latitude, longitude } = state.location;
+            const groupNotification = adminNotification + `\n📍 Manzil: [Google Maps](http://www.google.com/maps/place/${latitude},${longitude})`;
+            bot.sendMessage(GROUP_CHAT_ID, groupNotification, {
+                parse_mode: 'Markdown',
+            }).catch(err => console.error(`Guruhga (${GROUP_CHAT_ID}) xabar yuborib bo'lmadi: ${err}`));
+        }
+
+        delete userCarts[chatId];
+        delete userStates[chatId];
+
+        bot.editMessageText(`Rahmat! Sizning №${newOrderNumber} raqamli buyurtmangiz qabul qilindi. Tez orada operatorimiz siz bilan bog'lanadi.`, {
+            chat_id: chatId, message_id: messageId, reply_markup: null
+        }).catch(() => {});
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+    
+    if (data === 'cancel_order') {
+        delete userStates[chatId];
+        bot.editMessageText('Buyurtma bekor qilindi.', { chat_id: chatId, message_id: messageId }).catch(()=>{});
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+    
+    if (data === 'back_to_my_orders') {
+        showUserOrders(chatId, messageId);
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+    
+    if (data.startsWith('view_my_order_')) {
+        const orderId = parseInt(data.split('_').pop(), 10);
+        const order = readOrders().find(o => o.order_id === orderId);
+        if (!order || order.customer_chat_id !== chatId) {
+            bot.answerCallbackQuery(query.id, { text: 'Buyurtma topilmadi!', show_alert: true });
+            return;
+        }
+        let details = `*Buyurtma №${order.order_number}*\n\n`;
+        details += `*Sana:* ${new Date(order.date).toLocaleString('uz-UZ')}\n`;
+        details += `*Holat:* ${getStatusText(order.status)}\n\n`;
+        details += "*Mahsulotlar:*\n";
+        order.cart.forEach(item => {
+            if (item.type === 'by_amount') details += `▪️ ${item.name} - ${formatPrice(item.price)}\n`;
+            else details += `▪️ ${item.name} x ${item.quantity} dona\n`;
+        });
+        if (order.comment) details += `\n*Izoh:* _${order.comment}_\n`;
+        details += `\n*Jami:* ${formatPrice(order.total)}`;
+        const keyboard = [];
+        if (order.status === 'new') keyboard.push([{ text: "❌ Buyurtmani bekor qilish", callback_data: `cancel_my_order_${order.order_id}` }]);
+        keyboard.push([{ text: "⬅️ Orqaga", callback_data: 'back_to_my_orders' }]);
+        bot.editMessageText(details, { chat_id: chatId, message_id: messageId, parse_mode: 'Markdown', reply_markup: { inline_keyboard: keyboard } }).catch(() => {});
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data.startsWith('cancel_my_order_')) {
+        const orderId = parseInt(data.split('_').pop(), 10);
+        bot.editMessageText('Haqiqatan ham ushbu buyurtmani bekor qilmoqchimisiz?', {
+            chat_id: chatId, message_id: messageId,
+            reply_markup: {
+                inline_keyboard: [
+                    [{ text: "✅ Ha", callback_data: `confirm_cancel_my_order_${orderId}` }],
+                    [{ text: "❌ Yo'q", callback_data: `view_my_order_${orderId}` }]
+                ]
+            }
+        }).catch(() => {});
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data.startsWith('confirm_cancel_my_order_')) {
+        const orderId = parseInt(data.split('_').pop(), 10);
+        let allOrders = readOrders();
+        const orderIndex = allOrders.findIndex(o => o.order_id === orderId && o.customer_chat_id === chatId);
+        if (orderIndex === -1) {
+            bot.answerCallbackQuery(query.id, { text: 'Buyurtma topilmadi!', show_alert: true });
+            return;
+        }
+        if (allOrders[orderIndex].status !== 'new') {
+            bot.answerCallbackQuery(query.id, { text: "Kechirasiz, buyurtmani bekor qilishning imkoni yo'q, u allaqachon qayta ishlanmoqda.", show_alert: true });
+            query.data = `view_my_order_${allOrders[orderIndex].order_id}`;
+            bot.emit('callback_query', query);
+            return;
+        }
+        allOrders[orderIndex].status = 'cancelled';
+        writeOrders(allOrders);
+        const orderNumber = allOrders[orderIndex].order_number;
+        bot.editMessageText(`Sizning №${orderNumber} raqamli buyurtmangiz bekor qilindi.`, {
+            chat_id: chatId, message_id: messageId,
+            reply_markup: { inline_keyboard: [[{ text: "⬅️ Barcha buyurtmalarga qaytish", callback_data: 'back_to_my_orders' }]] }
+        }).catch(() => {});
+        bot.answerCallbackQuery(query.id);
+        bot.sendMessage(ADMIN_CHAT_ID, `❗️ Mijoz №${orderNumber} raqamli buyurtmani bekor qildi.`).catch(() => {});
+        return;
+    }
+    
+    bot.answerCallbackQuery(query.id);
 });
 
 bot.on('polling_error', (error) => {
-  console.log(`Polling error: ${error.code} - ${error.message}`);
+  // Игнорируем ошибку 409 Conflict, чтобы не засорять логи
+  if (error.code === 'ETELEGRAM' && error.message.includes('409 Conflict')) {
+    // Просто ничего не делаем
+  } else {
+    console.log(`Polling error: ${error.code} - ${error.message}`);
+  }
 });
 
 const PORT = process.env.PORT || 3000;
