@@ -1,6 +1,6 @@
 {
   "categories": [
-{
+    {
       "id": "mevalar_sabzavotlar",
       "name": "Mevalar va Sabzavotlar 🍎"
     },
@@ -4693,7 +4693,6 @@
       "description": null,
       "photo_url": ""
     },
-    ,
      {
       "id": 516,
       "category": "mevalar_sabzavotlar",
@@ -4826,7 +4825,7 @@
       "name": "Non",
       "price": 4000,
       "pricing_model": "standard",
-      "description": "Shapirmay ",
+      "description": "Shapirmay",
       "photo_url": "https://i.ibb.co/YBddFjWf/XXL-height.webp"
     },
     {
@@ -4836,7 +4835,7 @@
       "price": 5000,
       "pricing_model": "standard",
       "description": "Sutli",
-      "photo_url": "https://example.com/link_to_your_photo.jpg"
+      "photo_url": ""
     },
     {
       "id": 532,
@@ -4925,7 +4924,7 @@
       "name": "Non buxanka",
       "price": 4000,
       "pricing_model": "standard",
-      "description": "Shapirmay ",
+      "description": "Shapirmay",
       "photo_url": "https://i.ibb.co/sp9cnLTG/13491-66b51c1feccf4.webp"
     }
   ]
