@@ -43,6 +43,18 @@
     {
       "id": "stationery",
       "name": "Kanselyariya 📝"
+    },
+    {
+      "id": "non",
+      "name": "Non 🍞"
+    },
+    {
+      "id": "don",
+      "name": "don va don maxsulotlar"
+    },
+    {
+      "id": "tuxum",
+      "name": "Tuxum"
     }
   ],
   "products": [
@@ -4680,6 +4692,241 @@
       "pricing_model": "standard",
       "description": null,
       "photo_url": ""
+    },
+    ,
+    {
+      "id": 516,
+      "category": "mevalar_sabzavotlar",
+      "name": "Kartoshka",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Mmtdp9r/7618c953bbbb4fba.jpg"
+    },
+    {
+      "id": 517,
+      "category": "mevalar_sabzavotlar",
+      "name": "Sabzi",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": "Qizil va Sariq",
+      "photo_url": "https://i.ibb.co/GfGgCVj6/i-1.webp"
+    },
+    {
+      "id": 518,
+      "category": "mevalar_sabzavotlar",
+      "name": "Piyoz",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/5x8ZzMj4/d-Dh-Xf-Vknw6y7a-HKEIVm-QCURLZIUl-Hah-Hunf0-Yt-QW.jpg"
+    },
+    {
+      "id": 519,
+      "category": "mevalar_sabzavotlar",
+      "name": "Bodring",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/CsDKz67w/a23d7b55bd52967c1ea36bf10ebadaed.jpg"
+    },
+    {
+      "id": 520,
+      "category": "mevalar_sabzavotlar",
+      "name": "Pomidor",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/3mtgCPJG/49e91f874c123d75633f92a084deaf6e.jpg"
+    },
+    {
+      "id": 521,
+      "category": "mevalar_sabzavotlar",
+      "name": "Balgarskiy kok kg",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": "Yupka pochok",
+      "photo_url": "https://i.ibb.co/p6SGrsSh/i.webp"
+    },
+    {
+      "id": 522,
+      "category": "mevalar_sabzavotlar",
+      "name": "Balgarskiy Kok kg",
+      "price": 10000,
+      "pricing_model": "standard",
+      "description": "Qalin pochok",
+      "photo_url": "https://i.ibb.co/YFnk1rdS/2900726.jpg"
+    },
+    {
+      "id": 523,
+      "category": "mevalar_sabzavotlar",
+      "name": "Karam",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": "Dona",
+      "photo_url": "https://i.ibb.co/k6mHbx0T/maxresdefault-1.jpg"
+    },
+    {
+      "id": 524,
+      "category": "mevalar_sabzavotlar",
+      "name": "Makka Jo`xori",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": "Dona",
+      "photo_url": "https://i.ibb.co/wrKBXrLF/af4932452f71121ea4f47913be994583.jpg"
+    },
+    {
+      "id": 525,
+      "category": "mevalar_sabzavotlar",
+      "name": "Balgarskiy Qizil kg",
+      "price": 15000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/BVGLrKY7/il-1588x-N-1216031364-tt7x.webp"
+    },
+    {
+      "id": 526,
+      "category": "mevalar_sabzavotlar",
+      "name": "Bakalajon kg",
+      "price": 8000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/RpDVq0ZS/maxresdefault-2.jpg"
+    },
+    {
+      "id": 527,
+      "category": "mevalar_sabzavotlar",
+      "name": "Chesnok kg",
+      "price": 35000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/HfbqSzn2/scale-1200.png"
+    },
+    {
+      "id": 528,
+      "category": "mevalar_sabzavotlar",
+      "name": "Olma kg",
+      "price": 18000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/rK32tCC9/173ea082d280a0227ca431055dba2a63.jpg"
+    },
+    {
+      "id": 529,
+      "category": "mevalar_sabzavotlar",
+      "name": "Banan kg",
+      "price": 30000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/sv1qsQtC/d639f539aa2470a0c659c0f2a7251b5e.jpg"
+    },
+    {
+      "id": 530,
+      "category": "non",
+      "name": "Non",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": "Shapirmay ",
+      "photo_url": "https://i.ibb.co/YBddFjWf/XXL-height.webp"
+    },
+    {
+      "id": 531,
+      "category": "non",
+      "name": "Non",
+      "price": 5000,
+      "pricing_model": "standard",
+      "description": "Sutli",
+      "photo_url": "https://example.com/link_to_your_photo.jpg"
+    },
+    {
+      "id": 532,
+      "category": "don",
+      "name": "Guruch Alanga kg",
+      "price": 20000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/J012k7n/57e4d0a631ae0d065645824a9121a480.jpg"
+    },
+     {
+      "id": 533,
+      "category": "don",
+      "name": "Guruch Avangard kg",
+      "price": 16000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/6RzyM33z/i-webp.jpg"
+    },
+     {
+      "id": 534,
+      "category": "don",
+      "name": "Guruch Devzira kg",
+      "price": 75000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/p6mw3h6J/maxresdefault.jpg"
+    },
+     {
+      "id": 535,
+      "category": "don",
+      "name": "Grechka kg",
+      "price": 12000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Y4GLvG6n/lukasz-rawa-5dh-Jfu-TYI2g-unsplash-scaled.jpg"
+    },
+     {
+      "id": 536,
+      "category": "don",
+      "name": "Perlovka kg",
+      "price": 14000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/rK15FdWV/86.jpg"
+    },
+     {
+      "id": 537,
+      "category": "don",
+      "name": "Lovia kg",
+      "price": 25000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/7JMv1fJd/6275431142.jpg"
+    },
+     {
+      "id": 538,
+      "category": "don",
+      "name": "Mosh kg",
+      "price": 22000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/B9fRZp5/4589595-0-160-3076-1890-2072x0-60-0-0-c3b9337e89b6d736a9e90cddd785af56.jpg"
+    },
+    {
+      "id": 539,
+      "category": "tuxum",
+      "name": "Tuxum 1 dona",
+      "price": 1500,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/Nd5bkGgH/Brown-Egg-Transparent-Image.png"
+    },
+    {
+      "id": 540,
+      "category": "tuxum",
+      "name": "Tuxum 1 kletka",
+      "price": 45000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/m5qPx2kt/4rkojesmtwtv4susbf63bu538x3l3ghf.jpg"
+    },
+    {
+      "id": 541,
+      "category": "non",
+      "name": "Non buxanka",
+      "price": 4000,
+      "pricing_model": "standard",
+      "description": "Shapirmay ",
+      "photo_url": "https://i.ibb.co/sp9cnLTG/13491-66b51c1feccf4.webp"
     }
   ]
 }
