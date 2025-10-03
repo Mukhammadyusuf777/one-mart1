@@ -43,26 +43,27 @@
     {
       "id": "stationery",
       "name": "Kanselyariya 📝"
+    },
+    {
+      "id": "non",
+      "name": "Non 🍞"
+    },
+    {
+      "id": "don",
+      "name": "Don va don maxsulotlari"
+    },
+    {
+      "id": "tuxum",
+      "name": "Tuxum 🥚"
     }
-    { "id": "mevalar_sabzavotlar", "name": "Mevalar va Sabzavotlar 🍎" },
-    { "id": "drinks", "name": "Ichimliklar 🥤" },
-    { "id": "dairy_cheese", "name": "Sut mahsulotlari va Pishloqlar 🧀" },
-    { "id": "oils_fats", "name": "Yog'lar 🧈" },
-    { "id": "meat_sausage", "name": "Go'sht va kolbasa mahsulotlari 🍖" },
-    { "id": "sweets_bakery", "name": "Shirinliklar, Pechenye va Pishiriqlar 🍪" },
-    { "id": "candies_gum", "name": "Konfetlar va Saqichlar 🍬" },
-    { "id": "snacks", "name": "Sneklar va Gazaklar 🥨" },
-    { "id": "pasta_noodles", "name": "Makaron mahsulotlari 🍝" },
-    { "id": "household_hygiene", "name": "Maishiy kimyo va Gigiyena 🧼" },
-    { "id": "stationery", "name": "Kanselyariya 📝" }
   ],
   "products": [
     {
       "id": 1,
       "category": "sweets_bakery",
       "name": "Pechenye 'Kunjutlik Konti Klas' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 32000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/hxgrc8K6/1.png"
     },
@@ -70,8 +71,8 @@
       "id": 2,
       "category": "sweets_bakery",
       "name": "Pechenye 'Arabika' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 30000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/FkTPnwmf/photo-30-2025-09-25-19-17-23.jpg"
     },
@@ -79,8 +80,8 @@
       "id": 3,
       "category": "sweets_bakery",
       "name": "Pechenye 'Sladko' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 32000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/zW0yxzXm/photo-28-2025-09-25-19-17-23.jpg"
     },
@@ -88,8 +89,8 @@
       "id": 4,
       "category": "sweets_bakery",
       "name": "Kreker 'Krember' tuzli (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 35000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/8L94RFfN/2.webp"
     },
@@ -97,8 +98,8 @@
       "id": 5,
       "category": "sweets_bakery",
       "name": "Pechenye 'Pochemuchka' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 33000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/ymh7LPvq/3.png"
     },
@@ -106,8 +107,8 @@
       "id": 6,
       "category": "sweets_bakery",
       "name": "Pechenye 'Toplenniy' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 32000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/jks1TrB3/photo-25-2025-09-25-19-17-23.jpg"
     },
@@ -115,8 +116,8 @@
       "id": 7,
       "category": "sweets_bakery",
       "name": "Pechenye 'Tvorojniy' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 0,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": ""
     },
@@ -124,8 +125,8 @@
       "id": 8,
       "category": "sweets_bakery",
       "name": "Pechenye 'Ovsyanoye' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 40000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/2YkWcZpZ/4.png"
     },
@@ -133,8 +134,8 @@
       "id": 9,
       "category": "sweets_bakery",
       "name": "Pechenye 'Harflik' (alfavit) (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 28000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/1tc7nfqJ/5.png"
     },
@@ -142,8 +143,8 @@
       "id": 10,
       "category": "sweets_bakery",
       "name": "Pechenye 'Bugdoylik' (pshenichnoye) (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 28000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/LzytYhcC/photo-29-2025-09-25-19-17-23.jpg"
     },
@@ -151,8 +152,8 @@
       "id": 11,
       "category": "sweets_bakery",
       "name": "Pechenye 'Palochka' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 28000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": ""
     },
@@ -160,8 +161,8 @@
       "id": 12,
       "category": "sweets_bakery",
       "name": "Pechenye 'Sutli' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 28000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/YFbkxGpC/photo-24-2025-09-25-19-17-23.jpg"
     },
@@ -169,8 +170,8 @@
       "id": 13,
       "category": "sweets_bakery",
       "name": "Pechenye 'LG' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 28000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/Xrn03BMJ/photo-23-2025-09-25-19-17-23.jpg"
     },
@@ -178,8 +179,8 @@
       "id": 14,
       "category": "sweets_bakery",
       "name": "Pechenye 'Tuya' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 28000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": ""
     },
@@ -187,8 +188,8 @@
       "id": 15,
       "category": "sweets_bakery",
       "name": "Suxari (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 38000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/HTPbMPys/6.jpg"
     },
@@ -200,6 +201,15 @@
       "pricing_model": "standard",
       "description": null,
       "photo_url": "https://i.ibb.co/wfCHHz6/photo-31-2025-09-25-19-17-23.jpg"
+    },
+    {
+      "id": 17,
+      "category": "sweets_bakery",
+      "name": "Pechenye 'Isko Oreo'",
+      "price": 40000,
+      "pricing_model": "standard",
+      "description": null,
+      "photo_url": "https://i.ibb.co/HfM8GkHB/7.webp"
     },
     {
       "id": 17,
