@@ -1,6 +1,6 @@
 {
   "categories": [
-    {
+{
       "id": "mevalar_sabzavotlar",
       "name": "Mevalar va Sabzavotlar 🍎"
     },
@@ -50,11 +50,11 @@
     },
     {
       "id": "don",
-      "name": "don va don maxsulotlar"
+      "name": "Don va don maxsulotlari"
     },
     {
       "id": "tuxum",
-      "name": "Tuxum"
+      "name": "Tuxum 🥚"
     }
   ],
   "products": [
@@ -62,8 +62,8 @@
       "id": 1,
       "category": "sweets_bakery",
       "name": "Pechenye 'Kunjutlik Konti Klas' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 32000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/hxgrc8K6/1.png"
     },
@@ -71,8 +71,8 @@
       "id": 2,
       "category": "sweets_bakery",
       "name": "Pechenye 'Arabika' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 30000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/FkTPnwmf/photo-30-2025-09-25-19-17-23.jpg"
     },
@@ -80,8 +80,8 @@
       "id": 3,
       "category": "sweets_bakery",
       "name": "Pechenye 'Sladko' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 32000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/zW0yxzXm/photo-28-2025-09-25-19-17-23.jpg"
     },
@@ -89,8 +89,8 @@
       "id": 4,
       "category": "sweets_bakery",
       "name": "Kreker 'Krember' tuzli (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 35000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/8L94RFfN/2.webp"
     },
@@ -98,8 +98,8 @@
       "id": 5,
       "category": "sweets_bakery",
       "name": "Pechenye 'Pochemuchka' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 33000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/ymh7LPvq/3.png"
     },
@@ -107,8 +107,8 @@
       "id": 6,
       "category": "sweets_bakery",
       "name": "Pechenye 'Toplenniy' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 32000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/jks1TrB3/photo-25-2025-09-25-19-17-23.jpg"
     },
@@ -116,8 +116,8 @@
       "id": 7,
       "category": "sweets_bakery",
       "name": "Pechenye 'Tvorojniy' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 0,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": ""
     },
@@ -125,8 +125,8 @@
       "id": 8,
       "category": "sweets_bakery",
       "name": "Pechenye 'Ovsyanoye' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 40000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/2YkWcZpZ/4.png"
     },
@@ -134,8 +134,8 @@
       "id": 9,
       "category": "sweets_bakery",
       "name": "Pechenye 'Harflik' (alfavit) (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 28000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/1tc7nfqJ/5.png"
     },
@@ -143,8 +143,8 @@
       "id": 10,
       "category": "sweets_bakery",
       "name": "Pechenye 'Bugdoylik' (pshenichnoye) (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 28000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/LzytYhcC/photo-29-2025-09-25-19-17-23.jpg"
     },
@@ -152,8 +152,8 @@
       "id": 11,
       "category": "sweets_bakery",
       "name": "Pechenye 'Palochka' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 28000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": ""
     },
@@ -161,8 +161,8 @@
       "id": 12,
       "category": "sweets_bakery",
       "name": "Pechenye 'Sutli' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 28000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/YFbkxGpC/photo-24-2025-09-25-19-17-23.jpg"
     },
@@ -170,8 +170,8 @@
       "id": 13,
       "category": "sweets_bakery",
       "name": "Pechenye 'LG' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 28000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/Xrn03BMJ/photo-23-2025-09-25-19-17-23.jpg"
     },
@@ -179,8 +179,8 @@
       "id": 14,
       "category": "sweets_bakery",
       "name": "Pechenye 'Tuya' (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 28000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": ""
     },
@@ -188,8 +188,8 @@
       "id": 15,
       "category": "sweets_bakery",
       "name": "Suxari (kg)",
+      "price": 0,
       "pricing_model": "by_amount",
-      "price_per_kg": 38000,
       "description": "Bu mahsulot narx bo'yicha sotiladi. Kerakli summani keyingi qadamda kiritasiz.",
       "photo_url": "https://i.ibb.co/HTPbMPys/6.jpg"
     },
@@ -4694,10 +4694,10 @@
       "photo_url": ""
     },
     ,
-    {
+     {
       "id": 516,
       "category": "mevalar_sabzavotlar",
-      "name": "Kartoshka",
+      "name": "Kartoshka kg",
       "price": 8000,
       "pricing_model": "standard",
       "description": null,
@@ -4706,7 +4706,7 @@
     {
       "id": 517,
       "category": "mevalar_sabzavotlar",
-      "name": "Sabzi",
+      "name": "Sabzi kg",
       "price": 10000,
       "pricing_model": "standard",
       "description": "Qizil va Sariq",
@@ -4715,7 +4715,7 @@
     {
       "id": 518,
       "category": "mevalar_sabzavotlar",
-      "name": "Piyoz",
+      "name": "Piyoz kg",
       "price": 4000,
       "pricing_model": "standard",
       "description": null,
@@ -4724,7 +4724,7 @@
     {
       "id": 519,
       "category": "mevalar_sabzavotlar",
-      "name": "Bodring",
+      "name": "Bodring kg",
       "price": 10000,
       "pricing_model": "standard",
       "description": null,
@@ -4733,7 +4733,7 @@
     {
       "id": 520,
       "category": "mevalar_sabzavotlar",
-      "name": "Pomidor",
+      "name": "Pomidor kg",
       "price": 8000,
       "pricing_model": "standard",
       "description": null,
@@ -4742,19 +4742,19 @@
     {
       "id": 521,
       "category": "mevalar_sabzavotlar",
-      "name": "Balgarskiy kok kg",
+      "name": "Balgarskiy yashil kg",
       "price": 15000,
       "pricing_model": "standard",
-      "description": "Yupka pochok",
+      "description": "Yupqa po'choq",
       "photo_url": "https://i.ibb.co/p6SGrsSh/i.webp"
     },
     {
       "id": 522,
       "category": "mevalar_sabzavotlar",
-      "name": "Balgarskiy Kok kg",
+      "name": "Balgarskiy Yashil kg",
       "price": 10000,
       "pricing_model": "standard",
-      "description": "Qalin pochok",
+      "description": "Qalin po'choq",
       "photo_url": "https://i.ibb.co/YFnk1rdS/2900726.jpg"
     },
     {
@@ -4769,7 +4769,7 @@
     {
       "id": 524,
       "category": "mevalar_sabzavotlar",
-      "name": "Makka Jo`xori",
+      "name": "Makka Jo'xori",
       "price": 4000,
       "pricing_model": "standard",
       "description": "Dona",
@@ -4787,7 +4787,7 @@
     {
       "id": 526,
       "category": "mevalar_sabzavotlar",
-      "name": "Bakalajon kg",
+      "name": "Baqalajon kg",
       "price": 8000,
       "pricing_model": "standard",
       "description": null,
@@ -4796,7 +4796,7 @@
     {
       "id": 527,
       "category": "mevalar_sabzavotlar",
-      "name": "Chesnok kg",
+      "name": "Sarimsoq (Chesnok) kg",
       "price": 35000,
       "pricing_model": "standard",
       "description": null,
@@ -4847,7 +4847,7 @@
       "description": null,
       "photo_url": "https://i.ibb.co/J012k7n/57e4d0a631ae0d065645824a9121a480.jpg"
     },
-     {
+    {
       "id": 533,
       "category": "don",
       "name": "Guruch Avangard kg",
@@ -4856,7 +4856,7 @@
       "description": null,
       "photo_url": "https://i.ibb.co/6RzyM33z/i-webp.jpg"
     },
-     {
+    {
       "id": 534,
       "category": "don",
       "name": "Guruch Devzira kg",
@@ -4865,7 +4865,7 @@
       "description": null,
       "photo_url": "https://i.ibb.co/p6mw3h6J/maxresdefault.jpg"
     },
-     {
+    {
       "id": 535,
       "category": "don",
       "name": "Grechka kg",
@@ -4874,7 +4874,7 @@
       "description": null,
       "photo_url": "https://i.ibb.co/Y4GLvG6n/lukasz-rawa-5dh-Jfu-TYI2g-unsplash-scaled.jpg"
     },
-     {
+    {
       "id": 536,
       "category": "don",
       "name": "Perlovka kg",
@@ -4883,16 +4883,16 @@
       "description": null,
       "photo_url": "https://i.ibb.co/rK15FdWV/86.jpg"
     },
-     {
+    {
       "id": 537,
       "category": "don",
-      "name": "Lovia kg",
+      "name": "Loviya kg",
       "price": 25000,
       "pricing_model": "standard",
       "description": null,
       "photo_url": "https://i.ibb.co/7JMv1fJd/6275431142.jpg"
     },
-     {
+    {
       "id": 538,
       "category": "don",
       "name": "Mosh kg",
