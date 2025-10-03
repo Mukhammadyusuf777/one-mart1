@@ -1,6 +1,5 @@
 {
   "categories": [
-<<<<<<< HEAD
     {
       "id": "mevalar_sabzavotlar",
       "name": "Mevalar va Sabzavotlar 🍎"
@@ -45,7 +44,6 @@
       "id": "stationery",
       "name": "Kanselyariya 📝"
     }
-=======
     { "id": "mevalar_sabzavotlar", "name": "Mevalar va Sabzavotlar 🍎" },
     { "id": "drinks", "name": "Ichimliklar 🥤" },
     { "id": "dairy_cheese", "name": "Sut mahsulotlari va Pishloqlar 🧀" },
@@ -57,7 +55,6 @@
     { "id": "pasta_noodles", "name": "Makaron mahsulotlari 🍝" },
     { "id": "household_hygiene", "name": "Maishiy kimyo va Gigiyena 🧼" },
     { "id": "stationery", "name": "Kanselyariya 📝" }
->>>>>>> fce0dc2b4e9ea8449f3b290eda41695eaeb36839
   ],
   "products": [
     {
