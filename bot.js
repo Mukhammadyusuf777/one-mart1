@@ -1493,3 +1493,20 @@ bot.on('callback_query', async (query) => {
 bot.on('polling_error', (error) => {
   console.log(`Polling error: ${error.code} - ${error.message}`);
 });
+// --- ДОБАВЬТЕ ЭТОТ КОД В КОНЕЦ ФАЙЛА ---
+
+// Это нужно, чтобы бот не "засыпал" на бесплатном хостинге
+const http = require("http");
+const PORT = process.env.PORT || 3000;
+
+// Создаем простой HTTP-сервер
+const server = http.createServer((req, res) => {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("Bot is alive!");
+});
+
+// Запускаем сервер, чтобы он слушал порт
+server.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+
