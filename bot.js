@@ -482,7 +482,18 @@ function handleStartCommand(msg) {
             }
         });
     } else {
-        const welcomeText = `Assalomu alaykum, *"One Mart"* do'koniga xush kelibsiz!`;
+        const welcomeText = `Assalomu alaykum, *"One Mart"* do'koniga xush kelibsiz!\n\n` +
+            `*ℹ️ Botdan foydalanish bo'yicha qo'llanma:*\n\n` +
+            `1. *Katalog:* "🛍️ Mahsulotlar" tugmasi orqali mahsulotlarni ko'rib chiqing.\n` +
+            `2. *Savat:* Mahsulotlarni savatga qo'shing va "🛒 Savat" tugmasi orqali tekshiring.\n` +
+            `3. *Buyurtmalarim:* "📋 Mening buyurtmalarim" bo'limida barcha buyurtmalaringizni ko'rishingiz va yangi buyurtmani bekor qilishingiz mumkin.\n` +
+            `4. *Status:* Buyurtma holatini /status buyrug'i orqali tekshirishingiz mumkin.\n\n` +
+            `*🚚 Yetkazib berish shartlari:*\n` +
+            `- *50 000 so'mgacha* bo'lgan buyurtmalar uchun: *${formatPrice(DELIVERY_PRICE_TIER_1)}*\n` +
+            `- *50 000* dan *100 000 so'mgacha* bo'lgan buyurtmalar uchun: *${formatPrice(DELIVERY_PRICE_TIER_2)}*\n` +
+            `- *100 000 so'mdan* yuqori buyurtmalar uchun: *Bepul!*\n` +
+            `- Agar masofa *${BASE_DELIVERY_RADIUS_KM} km* dan oshsa, har bir keyingi km uchun *${formatPrice(PRICE_PER_EXTRA_KM)}* qo'shiladi.\n\n` +
+            `Buyurtmalar har kuni soat 19:00 gacha qabul qilinadi va 19:30 dan keyin yetkazib beriladi. 19:00 dan keyingi buyurtmalar ertasi kuni yetkaziladi.`;
 
         bot.sendMessage(chatId, welcomeText, {
             parse_mode: 'Markdown',
@@ -497,7 +508,6 @@ function handleStartCommand(msg) {
         });
     }
 }
-
 bot.onText(/\/start/, (msg) => {
     userCarts[msg.chat.id] = [];
     handleStartCommand(msg);
