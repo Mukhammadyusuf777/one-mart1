@@ -8,7 +8,7 @@ const http = require("http");
 // ================================================================= //
 const TOKEN = process.env.TOKEN || '7976277994:AAFOmpAk4pdD85U9kvhmI-lLhtziCyfGTUY';
 const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID || '5309814540';
-const GROUP_CHAT_ID = process.env.GROUP_CHAT_ID || '-1002943886944'; // ID ГРУППЫ для уведомлений
+const GROUP_CHAT_ID = process.env.GROUP_CHAT_ID || '-1002943886944';
 const SUPPORT_PHONE = process.env.SUPPORT_PHONE || '+998914906787';
 const SUPPORT_USERNAME = process.env.SUPPORT_USERNAME || 'Mukhammadyusuf6787';
 
@@ -112,7 +112,6 @@ const findCategoryById = (categoryId) => db.categories.find(c => c.id === catego
 function saveDb() {
     try {
         fs.writeFileSync(PRODUCTS_FILE_PATH, JSON.stringify(db, null, 2), 'utf8');
-        // После сохранения файла на диск, перезагружаем его в память, чтобы db был актуальным
         const newDbContent = fs.readFileSync(PRODUCTS_FILE_PATH, 'utf8');
         db = JSON.parse(newDbContent);
     } catch (e) {
@@ -311,9 +310,8 @@ function showQuantitySelector(chatId, product, quantity, messageId = null) {
         bot.sendPhoto(chatId, product.photo_url, { caption: caption, parse_mode: 'Markdown', reply_markup: replyMarkup }).catch(() => {
             bot.sendMessage(chatId, caption, { parse_mode: 'Markdown', reply_markup: replyMarkup });
         });
-    } else if (product.photo_url) { // Предполагаем, что это file_id
+    } else if (product.photo_url) { 
         bot.sendPhoto(chatId, product.photo_url, { caption: caption, parse_mode: 'Markdown', reply_markup: replyMarkup }).catch(() => {
-            // Если file_id не сработал (например, бот был перезапущен с новым токеном), отправляем без фото
             bot.sendMessage(chatId, caption, { parse_mode: 'Markdown', reply_markup: replyMarkup });
         });
     } else {
@@ -470,7 +468,6 @@ function showCategorySelectionForAdmin(chatId, actionPrefix, messageId = null) {
 
 function handleStartCommand(msg) {
     const chatId = msg.chat.id;
-    userCarts[chatId] = [];
     userStates[chatId] = {};
 
     if (chatId.toString() === ADMIN_CHAT_ID) {
@@ -485,18 +482,7 @@ function handleStartCommand(msg) {
             }
         });
     } else {
-        const welcomeText = `Assalomu alaykum, *"One Mart"* do'koniga xush kelibsiz!\n\n` +
-            `*ℹ️ Botdan foydalanish bo'yicha qo'llanma:*\n\n` +
-            `1. *Katalog:* "🛍️ Mahsulotlar" tugmasi orqali mahsulotlarni ko'rib chiqing.\n` +
-            `2. *Savat:* Mahsulotlarni savatga qo'shing va "🛒 Savat" tugmasi orqali tekshiring.\n` +
-            `3. *Buyurtmalarim:* "📋 Mening buyurtmalarim" bo'limida barcha buyurtmalaringizni ko'rishingiz va yangi buyurtmani bekor qilishingiz mumkin.\n` +
-            `4. *Status:* Buyurtma holatini /status buyrug'i orqali tekshirishingiz mumkin.\n\n` +
-            `*🚚 Yetkazib berish shartlari:*\n` +
-            `- *50 000 so'mgacha* bo'lgan buyurtmalar uchun: *${formatPrice(DELIVERY_PRICE_TIER_1)}*\n` +
-            `- *50 000* dan *100 000 so'mgacha* bo'lgan buyurtmalar uchun: *${formatPrice(DELIVERY_PRICE_TIER_2)}*\n` +
-            `- *100 000 so'mdan* yuqori buyurtmalar uchun: *Bepul!*\n` +
-            `- Agar masofa *${BASE_DELIVERY_RADIUS_KM} km* dan oshsa, har bir keyingi km uchun *${formatPrice(PRICE_PER_EXTRA_KM)}* qo'shiladi.\n\n` +
-            `Buyurtmalar har kuni soat 19:00 gacha qabul qilinadi va 19:30 dan keyin yetkazib beriladi. 19:00 dan keyingi buyurtmalar ertasi kuni yetkaziladi.`;
+        const welcomeText = `Assalomu alaykum, *"One Mart"* do'koniga xush kelibsiz!`;
 
         bot.sendMessage(chatId, welcomeText, {
             parse_mode: 'Markdown',
@@ -512,7 +498,11 @@ function handleStartCommand(msg) {
     }
 }
 
-bot.onText(/\/start/, handleStartCommand);
+bot.onText(/\/start/, (msg) => {
+    userCarts[msg.chat.id] = [];
+    handleStartCommand(msg);
+});
+
 bot.onText(/🔄 Yangilash/, handleStartCommand);
 
 bot.onText(/📞 Yordam/, (msg) => {
@@ -620,6 +610,7 @@ bot.on('location', (msg) => {
                 reply_markup: { remove_keyboard: true }
             });
             delete userStates[chatId];
+            handleStartCommand(msg);
             return;
         }
 
@@ -909,7 +900,7 @@ bot.on('callback_query', async (query) => {
         details += `Jami: ${formatPrice(order.total)}\n`;
 
         const { latitude, longitude } = order.location;
-        details += `\n📍 Manzil: [Google Maps](http://www.google.com/maps/place/${latitude},${longitude})\n`;
+        details += `\n📍 Manzil: [Google Maps](http://maps.google.com/maps?q=${latitude},${longitude})\n`;
 
         const statusButtons = [];
         if (order.status === 'new') {
@@ -1000,7 +991,7 @@ bot.on('callback_query', async (query) => {
 
     if (data.startsWith('admin_edit_product_select_')) {
         if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
-        const productId = parseInt(data.split('_').pop());
+        const productId = parseInt(data.split('_').pop(), 10);
         const productToEdit = findProductById(productId);
         if (productToEdit) {
             userStates[chatId] = { action: 'admin_edit_product_name', data: { ...productToEdit } };
@@ -1021,7 +1012,7 @@ bot.on('callback_query', async (query) => {
     
     if (data.startsWith('admin_delete_product_select_')) {
         if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
-        const productId = parseInt(data.split('_').pop());
+        const productId = parseInt(data.split('_').pop(), 10);
         const productToDelete = findProductById(productId);
         if (productToDelete) {
              bot.editMessageText(`Haqiqatan ham "${productToDelete.name}" mahsulotini o'chirmoqchimisiz?`, {
@@ -1043,7 +1034,7 @@ bot.on('callback_query', async (query) => {
     
     if (data.startsWith('admin_delete_product_confirm_')) {
         if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
-        const productId = parseInt(data.split('_').pop());
+        const productId = parseInt(data.split('_').pop(), 10);
         const productIndex = db.products.findIndex(p => p.id === productId);
         if (productIndex !== -1) {
             db.products.splice(productIndex, 1);
@@ -1315,7 +1306,7 @@ bot.on('callback_query', async (query) => {
 
         if (GROUP_CHAT_ID) {
             const { latitude, longitude } = state.location;
-            const groupNotification = adminNotification + `\n📍 Manzil: [Google Maps](http://www.google.com/maps/place/${latitude},${longitude})`;
+            const groupNotification = adminNotification + `\n📍 Manzil: [Google Maps](http://maps.google.com/maps?q=${latitude},${longitude})`;
             bot.sendMessage(GROUP_CHAT_ID, groupNotification, {
                 parse_mode: 'Markdown',
             }).catch(err => console.error(`Guruhga (${GROUP_CHAT_ID}) xabar yuborib bo'lmadi: ${err}`));
@@ -1327,13 +1318,19 @@ bot.on('callback_query', async (query) => {
         bot.editMessageText(`Rahmat! Sizning №${newOrderNumber} raqamli buyurtmangiz qabul qilindi. Tez orada operatorimiz siz bilan bog'lanadi.`, {
             chat_id: chatId, message_id: messageId, reply_markup: null
         }).catch(() => {});
+        
+        handleStartCommand(query.message);
+
         bot.answerCallbackQuery(query.id);
         return;
     }
     
     if (data === 'cancel_order') {
         delete userStates[chatId];
-        bot.editMessageText('Buyurtma bekor qilindi.', { chat_id: chatId, message_id: messageId }).catch(()=>{});
+        bot.editMessageText('Buyurtma bekor qilindi.', { chat_id: chatId, message_id: messageId, reply_markup: null }).catch(()=>{});
+        
+        handleStartCommand(query.message);
+        
         bot.answerCallbackQuery(query.id);
         return;
     }
@@ -1414,9 +1411,8 @@ bot.on('callback_query', async (query) => {
 });
 
 bot.on('polling_error', (error) => {
-  // Игнорируем ошибку 409 Conflict, чтобы не засорять логи
   if (error.code === 'ETELEGRAM' && error.message.includes('409 Conflict')) {
-    // Просто ничего не делаем
+    // Игнорируем ошибку, чтобы не засорять логи
   } else {
     console.log(`Polling error: ${error.code} - ${error.message}`);
   }
