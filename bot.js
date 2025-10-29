@@ -2,6 +2,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const fs = require('fs');
 const geolib = require('geolib');
 const http = require("http");
+const levenshtein = require('fast-levenshtein'); // Убедитесь, что эта библиотека установлена (она у вас была)
 
 // ================================================================= //
 // --- НАСТРОЙКИ ---
@@ -169,20 +170,21 @@ function showCart(chatId, messageId = null) {
     cart.forEach(item => {
         const product = findProductById(item.productId);
         const itemPrice = product ? product.price : 0;
+        const displayName = item.name; 
 
         let itemTotal;
         if (item.type === 'by_amount') {
             itemTotal = item.price;
-            messageText += `▪️ ${item.name} = ${formatPrice(itemTotal)}\n`;
+            messageText += `▪️ ${displayName} = ${formatPrice(itemTotal)}\n`;
             cartKeyboard.push([
-                { text: `▪️ ${item.name}`, callback_data: 'ignore' },
+                { text: `▪️ ${displayName}`, callback_data: 'ignore' },
                 { text: '❌', callback_data: `cart_del_${item.id}` }
             ]);
         } else {
             itemTotal = itemPrice * item.quantity;
-            messageText += `▪️ ${item.name} x ${item.quantity} dona = ${formatPrice(itemTotal)}\n`;
+            messageText += `▪️ ${displayName} x ${item.quantity} dona = ${formatPrice(itemTotal)}\n`;
             cartKeyboard.push([
-                { text: `▪️ ${item.name}`, callback_data: `ignore_${item.id}` },
+                { text: `▪️ ${displayName}`, callback_data: `ignore_${item.id}` },
                 { text: '➖', callback_data: `cart_decr_${item.id}` },
                 { text: `${item.quantity} dona`, callback_data: `ignore_${item.id}` },
                 { text: '➕', callback_data: `cart_incr_${item.id}` },
@@ -239,19 +241,11 @@ function showCategories(chatId, messageId = null) {
     }
 }
 
-/**
- * [YANGI YORDAMCHI FUNKSIYA] Mahsulotlar ro'yxatini inline tugmalar bilan yuboradi.
- * @param {number} chatId - Foydalanuvchi IDsi
- * @param {number|null} messageId - Tahrirlash uchun xabar IDsi
- * @param {Array} productList - Ko'rsatiladigan mahsulotlar ro'yxati
- * @param {string} title - Xabar sarlavhasi
- * @param {string} backCallback - Orqaga tugmasi uchun callback_data
- */
 function sendProductList(chatId, messageId, productList, title, backCallback) {
     const backButton = [[{ text: '⬅️ Orqaga', callback_data: backCallback }]];
 
     if (productList.length === 0) {
-        const text = 'Afsuski, bu ro\'yxatda hech narsa topilmadi.';
+        const text = 'Afsuski, hech narsa topilmadi.';
         const options = { chat_id: chatId, reply_markup: { inline_keyboard: backButton } };
         if (messageId) {
             options.message_id = messageId;
@@ -263,13 +257,14 @@ function sendProductList(chatId, messageId, productList, title, backCallback) {
     }
 
     const productButtons = productList.map(product => {
+        const displayName = product.name_uz || product.name; 
         let priceText = '';
         if (product.pricing_model === 'by_amount') {
             priceText = ' - istalgan summaga';
         } else if (product.price > 0) {
             priceText = ` - ${formatPrice(product.price)}`;
         }
-        return [{ text: `${product.name}${priceText}`, callback_data: `product_${product.id}` }];
+        return [{ text: `${displayName}${priceText}`, callback_data: `product_${product.id}` }];
     });
 
     productButtons.push(backButton[0]);
@@ -292,11 +287,11 @@ function showProductsByCategory(chatId, categoryId, messageId = null) {
     const category = findCategoryById(categoryId);
     const title = category ? `Kategoriya: ${category.name}` : 'Mahsulotlar:';
     
-    // O'zgartirilgan: endi yangi yordamchi funksiyani chaqiradi
     sendProductList(chatId, messageId, productsInCategory, title, 'back_to_categories');
 }
 
 function getQuantityKeyboard(product, quantity) {
+    const displayName = product.name_uz || product.name;
     return {
         inline_keyboard: [
             [{ text: '➖', callback_data: `decrease_${product.id}_${quantity}` },
@@ -309,7 +304,8 @@ function getQuantityKeyboard(product, quantity) {
 }
 
 function showQuantitySelector(chatId, product, quantity, messageId = null) {
-    let caption = `*${product.name}*\nNarxi: ${formatPrice(product.price)}`;
+    const displayName = product.name_uz || product.name;
+    let caption = `*${displayName}*\nNarxi: ${formatPrice(product.price)}`;
     if (product.description) {
         caption += `\n\n_${product.description}_`;
     }
@@ -336,8 +332,9 @@ function showQuantitySelector(chatId, product, quantity, messageId = null) {
 function updateQuantitySelector(query, product, quantity) {
     const chatId = query.message.chat.id;
     const messageId = query.message.message_id;
+    const displayName = product.name_uz || product.name;
 
-    let caption = `*${product.name}*\nNarxi: ${formatPrice(product.price)}`;
+    let caption = `*${displayName}*\nNarxi: ${formatPrice(product.price)}`;
     if (product.description) {
         caption += `\n\n_${product.description}_`;
     }
@@ -443,8 +440,9 @@ function showProductSelectionForAdmin(chatId, actionPrefix, messageId = null) {
     }
 
     const productButtons = db.products.map(p => {
+       const displayName = p.name_uz || p.name;
        const priceText = p.pricing_model === 'by_amount' ? 'summa' : formatPrice(p.price);
-       return [{ text: `${p.name} (${priceText})`, callback_data: `${actionPrefix}${p.id}` }];
+       return [{ text: `${displayName} (${priceText})`, callback_data: `${actionPrefix}${p.id}` }];
     });
     productButtons.push([{ text: ADMIN_BTN_BACK_TO_PRODUCTS_MENU, callback_data: 'admin_products_menu' }]);
 
@@ -500,7 +498,8 @@ function handleStartCommand(msg) {
             `1. *Katalog:* "🛍️ Mahsulotlar" tugmasi orqali mahsulotlarni ko'rib chiqing.\n` +
             `2. *Savat:* Mahsulotlarni savatga qo'shing va "🛒 Savat" tugmasi orqali tekshiring.\n` +
             `3. *Buyurtmalarim:* "📋 Mening buyurtmalarim" bo'limida barcha buyurtmalaringizni ko'rishingiz va yangi buyurtmani bekor qilishingiz mumkin.\n` +
-            `4. *Qidirish:* "🔍 Qidirish" tugmasi orqali mahsulotlarni nomi bo'yicha tez toping.\n\n` + // Qo'shimcha ma'lumot
+            `4. *Qidirish:* "🔍 Qidirish" tugmasi orqali mahsulotlarni nomi bo'yicha tez toping.\n` +
+            `5. *Status:* Buyurtma holatini /status buyrug'i orqali tekshirishingiz mumkin.\n\n` +
             `*🚚 Yetkazib berish shartlari:*\n` +
             `- *50 000 so'mgacha* bo'lgan buyurtmalar uchun: *${formatPrice(DELIVERY_PRICE_TIER_1)}*\n` +
             `- *50 000* dan *100 000 so'mgacha* bo'lgan buyurtmalar uchun: *${formatPrice(DELIVERY_PRICE_TIER_2)}*\n` +
@@ -513,7 +512,7 @@ function handleStartCommand(msg) {
             reply_markup: {
                 keyboard: [
                     [{ text: "🛍️ Mahsulotlar" }, { text: "🛒 Savat" }],
-                    [{ text: "📋 Mening buyurtmalarim" }, { text: "🔍 Qidirish" }], // Yangi tugma
+                    [{ text: "📋 Mening buyurtmalarim" }, { text: "🔍 Qidirish" }],
                     [{ text: "📞 Yordam" }, { text: "🔄 Yangilash" }]
                 ],
                 resize_keyboard: true
@@ -571,13 +570,11 @@ bot.onText(/📋 Mening buyurtmalarim|\/buyurtmalarim/, (msg) => {
     showUserOrders(msg.chat.id);
 });
 
-// --- YANGI BLOK: Qidiruv tugmasini bosish ---
 bot.onText(/🔍 Qidirish/, (msg) => {
     if (msg.chat.id.toString() === ADMIN_CHAT_ID) return;
     userStates[msg.chat.id] = { action: 'awaiting_search_query' };
-    bot.sendMessage(msg.chat.id, "Qidirmoqchi bo'lgan mahsulot nomini kiriting:");
+    bot.sendMessage(msg.chat.id, "Qidirmoqchi bo'lgan mahsulot nomini kiriting (kamida 2 ta harf):");
 });
-// ------------------------------------------
 
 bot.onText(new RegExp(ADMIN_BTN_NEW), (msg) => {
     if (msg.chat.id.toString() !== ADMIN_CHAT_ID) return;
@@ -690,46 +687,54 @@ bot.on('location', (msg) => {
             action: 'confirming_order'
         };
 
-        let confirmationMessage = "Iltimos, buyurtmangizni tasdiqlang:\n\n";
-        cart.forEach(item => {
-            const product = findProductById(item.productId);
-            if (product) {
-                if (item.type === 'by_amount') {
-                    confirmationMessage += `▪️ ${product.name} = ${formatPrice(item.price)}\n`;
-                } else {
-                    confirmationMessage += `▪️ ${product.name} x ${item.quantity} dona = ${formatPrice(product.price * item.quantity)}\n`;
-                }
-            }
-        });
-        
-        const state = userStates[chatId];
-        if (state && state.comment) {
-            confirmationMessage += `\n*Izoh:* ${state.comment}\n`;
-        }
-
-        confirmationMessage += `\n*Mahsulotlar:* ${formatPrice(subtotal)}\n`;
-        
-        if (baseDeliveryCost > 0) {
-            confirmationMessage += `*Yetkazib berish (asosiy):* ${formatPrice(baseDeliveryCost)}\n`;
-        } else {
-             confirmationMessage += `*Yetkazib berish (asosiy):* Bepul\n`;
-        }
-        
-        if (distanceSurcharge > 0) {
-            confirmationMessage += `*Masofa uchun qo'shimcha (${deliveryDetails.distanceKm} km):* ${formatPrice(distanceSurcharge)}\n`;
-        }
-        
-        confirmationMessage += `\n*Jami:* *${formatPrice(total)}*`;
-
-        bot.sendMessage(chatId, confirmationMessage, {
-            parse_mode: 'Markdown',
+        // --- ИСПРАВЛЕНИЕ: Убираем клавиатуру "Manzilni yuborish" ---
+        bot.sendMessage(chatId, 'Manzil qabul qilindi. Buyurtma tekshirilmoqda...', {
             reply_markup: {
-                inline_keyboard: [
-                    [{ text: "✅ Tasdiqlash", callback_data: 'confirm_order' }],
-                    [{ text: "❌ Bekor qilish", callback_data: 'cancel_order' }]
-                ]
+                remove_keyboard: true
             }
+        }).then(sentMsg => {
+            bot.deleteMessage(chatId, sentMsg.message_id);
+
+            let confirmationMessage = "Iltimos, buyurtmangizni tasdiqlang:\n\n";
+            cart.forEach(item => {
+                const product = findProductById(item.productId);
+                if (product) {
+                    const displayName = product.name_uz || product.name;
+                    if (item.type === 'by_amount') {
+                        confirmationMessage += `▪️ ${displayName} = ${formatPrice(item.price)}\n`;
+                    } else {
+                        confirmationMessage += `▪️ ${displayName} x ${item.quantity} dona = ${formatPrice(product.price * item.quantity)}\n`;
+                    }
+                }
+            });
+            
+            const state = userStates[chatId];
+            if (state && state.comment) {
+                confirmationMessage += `\n*Izoh:* ${state.comment}\n`;
+            }
+            confirmationMessage += `\n*Mahsulotlar:* ${formatPrice(subtotal)}\n`;
+            if (baseDeliveryCost > 0) {
+                confirmationMessage += `*Yetkazib berish (asosiy):* ${formatPrice(baseDeliveryCost)}\n`;
+            } else {
+                confirmationMessage += `*Yetkazib berish (asosiy):* Bepul\n`;
+            }
+            if (distanceSurcharge > 0) {
+                confirmationMessage += `*Masofa uchun qo'shimcha (${deliveryDetails.distanceKm} km):* ${formatPrice(distanceSurcharge)}\n`;
+            }
+            confirmationMessage += `\n*Jami:* *${formatPrice(total)}*`;
+
+            bot.sendMessage(chatId, confirmationMessage, {
+                parse_mode: 'Markdown',
+                reply_markup: {
+                    inline_keyboard: [
+                        [{ text: "✅ Tasdiqlash", callback_data: 'confirm_order' }],
+                        [{ text: "❌ Bekor qilish", callback_data: 'cancel_order' }]
+                    ]
+                }
+            });
         });
+        // --- КОНЕЦ ИСПРАВЛЕНИЯ ---
+
     } else {
         bot.sendMessage(chatId, "Manzilingiz qabul qilindi.");
     }
@@ -768,9 +773,10 @@ bot.on('message', async (msg) => {
             return;
         }
         if (!userCarts[chatId]) userCarts[chatId] = [];
+        const displayName = product.name_uz || product.name;
         const cartItemId = `${product.id}_${Date.now()}`;
-        userCarts[chatId].push({ id: cartItemId, productId: product.id, name: product.name, price: amount, type: 'by_amount' });
-        bot.sendMessage(chatId, `✅ ${product.name} (${formatPrice(amount)}) savatga qo'shildi!`);
+        userCarts[chatId].push({ id: cartItemId, productId: product.id, name: displayName, price: amount, type: 'by_amount' });
+        bot.sendMessage(chatId, `✅ ${displayName} (${formatPrice(amount)}) savatga qo'shildi!`);
         delete userStates[chatId];
         showCategories(chatId);
         return;
@@ -783,7 +789,6 @@ bot.on('message', async (msg) => {
         return;
     }
 
-    // --- YANGI BLOK: Qidiruv so'rovini qayta ishlash ---
     if (state.action === 'awaiting_search_query') {
         const query = msg.text.toLowerCase().trim();
         delete userStates[chatId];
@@ -792,14 +797,29 @@ bot.on('message', async (msg) => {
             bot.sendMessage(chatId, "Qidiruv so'zi kamida 2 ta harfdan iborat bo'lishi kerak.");
             return;
         }
-
-        const results = db.products.filter(p => p.name.toLowerCase().includes(query));
-        const title = `Qidiruv natijalari: "${msg.text}"`;
         
-        sendProductList(chatId, null, results, title, 'back_to_categories');
+        const threshold = 2; // Максимум 2 ошибки в слове
+        const results = db.products.filter(p => {
+            const nameUz = (p.name_uz || "").toLowerCase();
+            const nameRu = (p.name_ru || "").toLowerCase();
+            const oldName = (p.name || "").toLowerCase();
+
+            if (nameUz.includes(query) || nameRu.includes(query) || oldName.includes(query)) {
+                return true;
+            }
+
+            if (levenshtein.get(nameUz, query) <= threshold || 
+                levenshtein.get(nameRu, query) <= threshold || 
+                levenshtein.get(oldName, query) <= threshold) {
+                return true;
+            }
+            
+            return false;
+        });
+        
+        sendProductList(chatId, null, results, `Qidiruv natijalari: "${msg.text}"`, 'back_to_categories');
         return;
     }
-    // --------------------------------------------------
 
     if (state.action && (state.action.startsWith('admin_add_product_') || state.action.startsWith('admin_edit_product_'))) {
         const step = state.action.split('_').pop();
@@ -807,14 +827,19 @@ bot.on('message', async (msg) => {
 
         switch (step) {
             case 'name':
-                product.name = msg.text;
-                userStates[chatId].action = state.action.replace('name', 'description');
+                product.name_uz = msg.text;
+                userStates[chatId].action = state.action.replace('name', 'name_ru');
+                bot.sendMessage(chatId, 'Endi mahsulotning ruscha nomini kiriting (kirillitsada):');
+                break;
+            case 'name_ru':
+                product.name_ru = msg.text;
+                userStates[chatId].action = state.action.replace('name_ru', 'description');
                 bot.sendMessage(chatId, 'Mahsulot tavsifini kiriting (ixtiyoriy, o\'tkazib yuborish uchun "-" kiriting):');
                 break;
             case 'description':
                 product.description = msg.text === '-' ? null : msg.text;
                 userStates[chatId].action = state.action.replace('description', 'price');
-                bot.sendMessage(chatId, 'Mahsulot narxini kiriting (faqat raqam, masalan, 15000).\nAgar mahsulot narxi foydalanuvchi tomonidan kiritiladigan bo\'lsa (masalan, "har qanday summadagi mahsulot"), "0" raqamini kiriting:');
+                bot.sendMessage(chatId, 'Mahsulot narxini kiriting (faqat raqam, masalan, 15000).\nAgar mahsulot narxi foydalanuvchi tomonidan kiritiladigan bo\'lsa, "0" raqamini kiriting:');
                 break;
             case 'price':
                 const price = parseInt(msg.text, 10);
@@ -931,11 +956,10 @@ bot.on('callback_query', async (query) => {
 
         details += `Mahsulotlar:\n`;
         order.cart.forEach(item => {
-            const product = findProductById(item.productId);
             if (item.type === 'by_amount') {
                 details += `- ${item.name} = ${formatPrice(item.price)}\n`;
             } else {
-                details += `- ${item.name} x ${item.quantity} dona = ${formatPrice((product ? product.price : 0) * item.quantity)}\n`;
+                details += `- ${item.name} x ${item.quantity} dona\n`;
             }
         });
 
@@ -1027,7 +1051,7 @@ bot.on('callback_query', async (query) => {
     if (data === 'admin_add_product') {
         if (chatId.toString() !== ADMIN_CHAT_ID) return bot.answerCallbackQuery(query.id);
         userStates[chatId] = { action: 'admin_add_product_name', data: {} };
-        bot.editMessageText('Mahsulot nomini kiriting:', { chat_id: chatId, message_id: messageId, reply_markup: {inline_keyboard: [[{text: "Bekor qilish", callback_data: "cancel_action"}]]} }).catch(() => { });
+        bot.editMessageText('Mahsulotning o\'zbekcha nomini kiriting:', { chat_id: chatId, message_id: messageId, reply_markup: {inline_keyboard: [[{text: "Bekor qilish", callback_data: "cancel_action"}]]} }).catch(() => { });
         bot.answerCallbackQuery(query.id);
         return;
     }
@@ -1045,7 +1069,8 @@ bot.on('callback_query', async (query) => {
         const productToEdit = findProductById(productId);
         if (productToEdit) {
             userStates[chatId] = { action: 'admin_edit_product_name', data: { ...productToEdit } };
-            bot.editMessageText(`Yangi nom kiriting (joriy: "${productToEdit.name}"):`, { chat_id: chatId, message_id: messageId, reply_markup: {inline_keyboard: [[{text: "Bekor qilish", callback_data: "cancel_action"}]]} }).catch(() => { });
+            const displayName = productToEdit.name_uz || productToEdit.name;
+            bot.editMessageText(`Yangi o'zbekcha nom kiriting (joriy: "${displayName}"):`, { chat_id: chatId, message_id: messageId, reply_markup: {inline_keyboard: [[{text: "Bekor qilish", callback_data: "cancel_action"}]]} }).catch(() => { });
         } else {
              bot.answerCallbackQuery(query.id, { text: 'Mahsulot topilmadi!', show_alert: true });
         }
@@ -1065,7 +1090,8 @@ bot.on('callback_query', async (query) => {
         const productId = parseInt(data.split('_').pop(), 10);
         const productToDelete = findProductById(productId);
         if (productToDelete) {
-             bot.editMessageText(`Haqiqatan ham "${productToDelete.name}" mahsulotini o'chirmoqchimisiz?`, {
+             const displayName = productToDelete.name_uz || productToDelete.name;
+             bot.editMessageText(`Haqiqatan ham "${displayName}" mahsulotini o'chirmoqchimisiz?`, {
                 chat_id: chatId,
                 message_id: messageId,
                 reply_markup: {
@@ -1109,18 +1135,23 @@ bot.on('callback_query', async (query) => {
         const productData = state.data;
         productData.category = categoryId;
         const isEditing = state.action.includes('edit');
+
+        if (productData.name) {
+            delete productData.name;
+        }
+
         if (isEditing) {
             const productIndex = db.products.findIndex(p => p.id === productData.id);
             if (productIndex !== -1) {
                 db.products[productIndex] = productData;
-                bot.editMessageText(`✅ Mahsulot "${productData.name}" muvaffaqiyatli tahrirlandi!`, {chat_id: chatId, message_id: messageId}).catch(()=>{});
+                bot.editMessageText(`✅ Mahsulot "${productData.name_uz}" muvaffaqiyatli tahrirlandi!`, {chat_id: chatId, message_id: messageId}).catch(()=>{});
             } else {
                  bot.editMessageText(`❌ Xatolik: Tahrirlash uchun mahsulot topilmadi.`, {chat_id: chatId, message_id: messageId}).catch(()=>{});
             }
         } else {
             productData.id = Date.now();
             db.products.push(productData);
-            bot.editMessageText(`✅ Yangi mahsulot "${productData.name}" muvaffaqiyatli qo'shildi!`, {chat_id: chatId, message_id: messageId}).catch(()=>{});
+            bot.editMessageText(`✅ Yangi mahsulot "${productData.name_uz}" muvaffaqiyatli qo'shildi!`, {chat_id: chatId, message_id: messageId}).catch(()=>{});
         }
         saveDb();
         delete userStates[chatId];
@@ -1232,7 +1263,8 @@ bot.on('callback_query', async (query) => {
             if (product.pricing_model === 'by_amount') {
                 userStates[chatId] = { action: 'awaiting_product_amount', productId: productId };
                 bot.deleteMessage(chatId, messageId).catch(() => {});
-                bot.sendMessage(chatId, `"${product.name}" uchun kerakli summani kiriting:`);
+                const displayName = product.name_uz || product.name;
+                bot.sendMessage(chatId, `"${displayName}" uchun kerakli summani kiriting:`);
             } else {
                 showQuantitySelector(chatId, product, 1, messageId);
             }
@@ -1262,13 +1294,14 @@ bot.on('callback_query', async (query) => {
         const product = findProductById(productId);
         if (product) {
             if (!userCarts[chatId]) userCarts[chatId] = [];
+            const displayName = product.name_uz || product.name;
             const existingItemIndex = userCarts[chatId].findIndex(item => item.productId === productId);
             if (existingItemIndex > -1) {
                 userCarts[chatId][existingItemIndex].quantity += quantity;
             } else {
-                userCarts[chatId].push({ id: `${productId}_${Date.now()}`, productId: productId, name: product.name, quantity: quantity, price: product.price, type: 'standard' });
+                userCarts[chatId].push({ id: `${productId}_${Date.now()}`, productId: productId, name: displayName, quantity: quantity, price: product.price, type: 'standard' });
             }
-            bot.answerCallbackQuery(query.id, { text: `${product.name} savatga qo'shildi!` });
+            bot.answerCallbackQuery(query.id, { text: `${displayName} savatga qo'shildi!` });
             bot.deleteMessage(chatId, messageId).catch(()=>{});
             showCategories(chatId);
         } else {
