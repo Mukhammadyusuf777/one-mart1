@@ -239,26 +239,30 @@ function showCategories(chatId, messageId = null) {
     }
 }
 
-function showProductsByCategory(chatId, categoryId, messageId = null) {
-    const productsInCategory = db.products.filter(p => p.category === categoryId);
-    const backButton = [[{ text: '⬅️ Kategoriyalarga qaytish', callback_data: 'back_to_categories' }]];
+/**
+ * [YANGI YORDAMCHI FUNKSIYA] Mahsulotlar ro'yxatini inline tugmalar bilan yuboradi.
+ * @param {number} chatId - Foydalanuvchi IDsi
+ * @param {number|null} messageId - Tahrirlash uchun xabar IDsi
+ * @param {Array} productList - Ko'rsatiladigan mahsulotlar ro'yxati
+ * @param {string} title - Xabar sarlavhasi
+ * @param {string} backCallback - Orqaga tugmasi uchun callback_data
+ */
+function sendProductList(chatId, messageId, productList, title, backCallback) {
+    const backButton = [[{ text: '⬅️ Orqaga', callback_data: backCallback }]];
 
-    if (productsInCategory.length === 0) {
-        const text = 'Bu kategoriyada hozircha mahsulotlar yo\'q.';
-        const options = {
-            chat_id: chatId,
-            reply_markup: { inline_keyboard: backButton }
-        };
+    if (productList.length === 0) {
+        const text = 'Afsuski, bu ro\'yxatda hech narsa topilmadi.';
+        const options = { chat_id: chatId, reply_markup: { inline_keyboard: backButton } };
         if (messageId) {
             options.message_id = messageId;
-            bot.editMessageText(text, options).catch(() => { });
+            bot.editMessageText(text, options).catch(() => {});
         } else {
             bot.sendMessage(chatId, text, options);
         }
         return;
     }
 
-    const productButtons = productsInCategory.map(product => {
+    const productButtons = productList.map(product => {
         let priceText = '';
         if (product.pricing_model === 'by_amount') {
             priceText = ' - istalgan summaga';
@@ -269,7 +273,6 @@ function showProductsByCategory(chatId, categoryId, messageId = null) {
     });
 
     productButtons.push(backButton[0]);
-    const text = 'Mahsulotni tanlang:';
     const options = {
         chat_id: chatId,
         reply_markup: { inline_keyboard: productButtons }
@@ -277,10 +280,20 @@ function showProductsByCategory(chatId, categoryId, messageId = null) {
 
     if (messageId) {
         options.message_id = messageId;
-        bot.editMessageText(text, options).catch(() => { });
+        bot.editMessageText(title, options).catch(() => {});
     } else {
-        bot.sendMessage(chatId, text, options);
+        bot.sendMessage(chatId, title, options);
     }
+}
+
+
+function showProductsByCategory(chatId, categoryId, messageId = null) {
+    const productsInCategory = db.products.filter(p => p.category === categoryId);
+    const category = findCategoryById(categoryId);
+    const title = category ? `Kategoriya: ${category.name}` : 'Mahsulotlar:';
+    
+    // O'zgartirilgan: endi yangi yordamchi funksiyani chaqiradi
+    sendProductList(chatId, messageId, productsInCategory, title, 'back_to_categories');
 }
 
 function getQuantityKeyboard(product, quantity) {
@@ -487,7 +500,7 @@ function handleStartCommand(msg) {
             `1. *Katalog:* "🛍️ Mahsulotlar" tugmasi orqali mahsulotlarni ko'rib chiqing.\n` +
             `2. *Savat:* Mahsulotlarni savatga qo'shing va "🛒 Savat" tugmasi orqali tekshiring.\n` +
             `3. *Buyurtmalarim:* "📋 Mening buyurtmalarim" bo'limida barcha buyurtmalaringizni ko'rishingiz va yangi buyurtmani bekor qilishingiz mumkin.\n` +
-            `4. *Status:* Buyurtma holatini /status buyrug'i orqali tekshirishingiz mumkin.\n\n` +
+            `4. *Qidirish:* "🔍 Qidirish" tugmasi orqali mahsulotlarni nomi bo'yicha tez toping.\n\n` + // Qo'shimcha ma'lumot
             `*🚚 Yetkazib berish shartlari:*\n` +
             `- *50 000 so'mgacha* bo'lgan buyurtmalar uchun: *${formatPrice(DELIVERY_PRICE_TIER_1)}*\n` +
             `- *50 000* dan *100 000 so'mgacha* bo'lgan buyurtmalar uchun: *${formatPrice(DELIVERY_PRICE_TIER_2)}*\n` +
@@ -500,14 +513,15 @@ function handleStartCommand(msg) {
             reply_markup: {
                 keyboard: [
                     [{ text: "🛍️ Mahsulotlar" }, { text: "🛒 Savat" }],
-                    [{ text: "📋 Mening buyurtmalarim" }, { text: "📞 Yordam" }],
-                    [{ text: "🔄 Yangilash" }]
+                    [{ text: "📋 Mening buyurtmalarim" }, { text: "🔍 Qidirish" }], // Yangi tugma
+                    [{ text: "📞 Yordam" }, { text: "🔄 Yangilash" }]
                 ],
                 resize_keyboard: true
             }
         });
     }
 }
+
 bot.onText(/\/start/, (msg) => {
     userCarts[msg.chat.id] = [];
     handleStartCommand(msg);
@@ -556,6 +570,14 @@ bot.onText(/📋 Mening buyurtmalarim|\/buyurtmalarim/, (msg) => {
     if (msg.chat.id.toString() === ADMIN_CHAT_ID) return;
     showUserOrders(msg.chat.id);
 });
+
+// --- YANGI BLOK: Qidiruv tugmasini bosish ---
+bot.onText(/🔍 Qidirish/, (msg) => {
+    if (msg.chat.id.toString() === ADMIN_CHAT_ID) return;
+    userStates[msg.chat.id] = { action: 'awaiting_search_query' };
+    bot.sendMessage(msg.chat.id, "Qidirmoqchi bo'lgan mahsulot nomini kiriting:");
+});
+// ------------------------------------------
 
 bot.onText(new RegExp(ADMIN_BTN_NEW), (msg) => {
     if (msg.chat.id.toString() !== ADMIN_CHAT_ID) return;
@@ -717,7 +739,7 @@ bot.on('message', async (msg) => {
     if (!msg.text || msg.text.startsWith('/')) { return; }
     
     const standardReplies = [
-        "🛍️ Mahsulotlar", "🛒 Savat", "📞 Yordam", "🔄 Yangilash", "📋 Mening buyurtmalarim",
+        "🛍️ Mahsulotlar", "🛒 Savat", "📞 Yordam", "🔄 Yangilash", "📋 Mening buyurtmalarim", "🔍 Qidirish",
         ADMIN_BTN_NEW, ADMIN_BTN_ASSEMBLING, ADMIN_BTN_COMPLETED, ADMIN_BTN_PRODUCTS, ADMIN_BTN_CATEGORIES
     ];
 
@@ -760,6 +782,24 @@ bot.on('message', async (msg) => {
         showCart(chatId);
         return;
     }
+
+    // --- YANGI BLOK: Qidiruv so'rovini qayta ishlash ---
+    if (state.action === 'awaiting_search_query') {
+        const query = msg.text.toLowerCase().trim();
+        delete userStates[chatId];
+
+        if (query.length < 2) {
+            bot.sendMessage(chatId, "Qidiruv so'zi kamida 2 ta harfdan iborat bo'lishi kerak.");
+            return;
+        }
+
+        const results = db.products.filter(p => p.name.toLowerCase().includes(query));
+        const title = `Qidiruv natijalari: "${msg.text}"`;
+        
+        sendProductList(chatId, null, results, title, 'back_to_categories');
+        return;
+    }
+    // --------------------------------------------------
 
     if (state.action && (state.action.startsWith('admin_add_product_') || state.action.startsWith('admin_edit_product_'))) {
         const step = state.action.split('_').pop();
