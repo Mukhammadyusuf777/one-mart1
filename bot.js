@@ -12,7 +12,7 @@ const TOKEN = process.env.TOKEN || '7976277994:AAFOmpAk4pdD85U9kvhmI-lLhtziCyfGT
 
 // --- ИЗМЕНЕНИЕ: Список Админов ---
 // Замените 'ID_ВТОРОГО_АДМИНА' на реальный ID вашего второго админа
-const ADMIN_CHAT_IDS = ['5309814540', 'ID_ВТОРОГО_АДМИНА']; 
+const ADMIN_CHAT_IDS = ['5309814540', '7790411205']; 
 
 const GROUP_CHAT_ID = process.env.GROUP_CHAT_ID || '-1002943886944';
 const SUPPORT_PHONE = process.env.SUPPORT_PHONE || '+998914906787';
