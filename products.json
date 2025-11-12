@@ -2057,9 +2057,7 @@
       "pricing_model": "standard",
       "description": null,
       "photo_url": ""
-    }
-  ]
-},
+    },
     {
       "id": 201,
       "category": "dairy_cheese",
@@ -5169,8 +5167,7 @@
       "pricing_model": "standard",
       "description": null,
       "photo_url": "https://i.ibb.co/j9WMGGnM/photo-1-2025-09-25-19-17-23.jpg"
-    },
-    {
+    },{
       "id": 512,
       "category": "stationery",
       "name_uz": "Izolenta",
