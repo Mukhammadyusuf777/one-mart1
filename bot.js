@@ -10,7 +10,7 @@ const { Pool } = require('pg');
 // ================================================================= //
 const TOKEN = process.env.TOKEN || '7976277994:AAFOmpAk4pdD85U9kvhmI-lLhtziCyfGTUY';
 
-// --- ИЗМЕНЕНИЕ: Список Админов ---
+// --- Список Админов ---
 // Замените 'ID_ВТОРОГО_АДМИНА' на реальный ID вашего второго админа
 const ADMIN_CHAT_IDS = ['5309814540', '7790411205']; 
 
@@ -33,10 +33,6 @@ const ADMIN_BTN_DELETE_CATEGORY = '❌ Kategoriyani o\'chirish';
 const ADMIN_BTN_BACK_TO_ADMIN_MENU = '⬅️ Admin panelga qaytish';
 const ADMIN_BTN_BACK_TO_PRODUCTS_MENU = '⬅️ Mahsulotlar menyusiga qaytish';
 const ADMIN_BTN_BACK_TO_CATEGORIES_MENU = '⬅️ Kategoriyalar menyusiga qaytish';
-
-// --- Пути к файлам (Больше не используются, но оставим для справки) ---
-// const ORDERS_FILE_PATH = 'orders.json';
-// const PRODUCTS_FILE_PATH = 'products.json';
 
 // --- Правила доставки ---
 const DELIVERY_PRICE_TIER_1 = 8000;
@@ -119,7 +115,6 @@ console.log('"One Mart" boti ishga tushirildi...');
 // --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
 // ================================================================= //
 
-// --- НОВАЯ ФУНКЦИЯ: Проверка на Админа ---
 function isAdmin(chatId) {
     return ADMIN_CHAT_IDS.includes(chatId.toString());
 }
@@ -847,7 +842,7 @@ bot.on('message', async (msg) => {
         return;
     }
 
-    if (state.action && (state.action.startsWith('admin_add_product_') || state.action.startsWith('admin_edit_product_'))) {
+    if (isAdmin(chatId) && state.action && (state.action.startsWith('admin_add_product_') || state.action.startsWith('admin_edit_product_'))) {
         const step = state.action.split('_').pop();
         const product = state.data;
 
@@ -909,7 +904,7 @@ bot.on('message', async (msg) => {
         return;
     }
 
-    if (state.action && (state.action === 'admin_add_category_name' || state.action === 'admin_edit_category_name')) {
+    if (isAdmin(chatId) && state.action && (state.action === 'admin_add_category_name' || state.action === 'admin_edit_category_name')) {
         const categoryName = msg.text.trim();
         if (categoryName.length < 2) {
             bot.sendMessage(chatId, 'Kategoriya nomi kamida 2ta belgidan iborat bo\'lishi kerak. Qaytadan kiriting:');
@@ -999,7 +994,7 @@ bot.on('callback_query', async (query) => {
         }
         details += `Jami: ${formatPrice(order.total)}\n`;
 
-        details += `\n📍 Manzil: [Google Maps](http://googleusercontent.com/maps/google.com/0{order.latitude},${order.longitude})\n`;
+        details += `\n📍 Manzil: [Google Maps](http://maps.google.com/maps?q=${order.latitude},${order.longitude})\n`;
 
         const statusButtons = [];
         if (order.status === 'new') {
@@ -1411,7 +1406,6 @@ bot.on('callback_query', async (query) => {
         adminNotification += `\n*Jami:* ${formatPrice(state.total)}\n`;
         adminNotification += `*Telefon:* ${state.phone}`;
         
-        // Отправляем уведомления всем админам из списка
         ADMIN_CHAT_IDS.forEach(adminId => {
             bot.sendMessage(adminId, adminNotification, {
                 parse_mode: 'Markdown',
@@ -1423,7 +1417,7 @@ bot.on('callback_query', async (query) => {
 
         if (GROUP_CHAT_ID) {
             const { latitude, longitude } = state.location;
-            const groupNotification = adminNotification + `\n📍 Manzil: [Google Maps](http://googleusercontent.com/maps/google.com/0{latitude},${longitude})`;
+            const groupNotification = adminNotification + `\n📍 Manzil: [Google Maps](http://maps.google.com/maps?q=${latitude},${longitude})`;
             bot.sendMessage(GROUP_CHAT_ID, groupNotification, {
                 parse_mode: 'Markdown',
             }).catch(err => console.error(`Guruhga (${GROUP_CHAT_ID}) xabar yuborib bo'lmadi: ${err}`));
@@ -1522,8 +1516,7 @@ bot.on('callback_query', async (query) => {
             reply_markup: { inline_keyboard: [[{ text: "⬅️ Barcha buyurtmalarga qaytish", callback_data: 'back_to_my_orders' }]] }
         }).catch(() => {});
         bot.answerCallbackQuery(query.id);
-
-        // Отправляем уведомление всем админам
+        
         ADMIN_CHAT_IDS.forEach(adminId => {
             bot.sendMessage(adminId, `❗️ Mijoz №${order.order_number} raqamli buyurtmani bekor qildi.`).catch(() => {});
         });
@@ -1535,7 +1528,6 @@ bot.on('callback_query', async (query) => {
 
 bot.on('polling_error', (error) => {
   if (error.code === 'ETELEGRAM' && error.message.includes('409 Conflict')) {
-    // Игнорируем ошибку, чтобы не засорять логи
   } else {
     console.log(`Polling error: ${error.code} - ${error.message}`);
   }
@@ -1547,7 +1539,6 @@ const server = http.createServer((req, res) => {
     res.end("Bot is alive!");
 });
 
-// Запускаем бота только после инициализации БД
 initializeDatabase().then(() => {
     server.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
