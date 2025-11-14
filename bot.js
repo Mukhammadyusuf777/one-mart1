@@ -444,15 +444,24 @@ function showAdminCategoriesMenu(chatId, messageId = null) {
 }
 
 // =========================================================
-// --- ИСПРАВЛЕНИЕ ЗДЕСЬ ---
+// --- ИСПРАВЛЕНИЕ ЗДЕСЬ: Новая функция с Пагинацией ---
 // =========================================================
-async function showProductSelectionForAdmin(chatId, actionPrefix, messageId = null) {
-    // Эта функция была полностью неверной. Она читала из `db.products` (массив)
-    // Теперь она читает из `db.query` (база данных)
-    
-    const { rows: products } = await db.query('SELECT * FROM products ORDER BY name_uz ASC');
+async function showProductSelectionForAdmin(chatId, actionPrefix, page = 1, messageId = null) {
+    const limit = 10; // 10 товаров на одной странице
+    const offset = (page - 1) * limit;
 
-    if (products.length === 0) {
+    // 1. Получаем общее количество товаров
+    const { rows: [countResult] } = await db.query('SELECT COUNT(*) FROM products');
+    const totalProducts = parseInt(countResult.count, 10);
+    const totalPages = Math.ceil(totalProducts / limit);
+
+    // 2. Получаем товары для текущей страницы
+    const { rows: products } = await db.query(
+        'SELECT * FROM products ORDER BY name_uz ASC LIMIT $1 OFFSET $2',
+        [limit, offset]
+    );
+
+    if (products.length === 0 && page === 1) {
         const text = 'Hozircha mahsulotlar yo\'q.';
         const keyboard = { inline_keyboard: [[{ text: ADMIN_BTN_BACK_TO_PRODUCTS_MENU, callback_data: 'admin_products_menu' }]] };
         if (messageId) {
@@ -463,18 +472,39 @@ async function showProductSelectionForAdmin(chatId, actionPrefix, messageId = nu
         return;
     }
 
+    // 3. Создаем кнопки товаров
     const productButtons = products.map(p => {
        const displayName = p.name_uz || p.name;
        const priceText = p.pricing_model === 'by_amount' ? 'summa' : formatPrice(p.price);
        return [{ text: `${displayName} (${priceText})`, callback_data: `${actionPrefix}${p.id}` }];
     });
+
+    // 4. Создаем кнопки пагинации
+    const paginationRow = [];
+    if (page > 1) {
+        paginationRow.push({ text: '⬅️ Oldingi', callback_data: `admin_products_page_${actionPrefix}_${page - 1}` });
+    }
+    if (page < totalPages) {
+        paginationRow.push({ text: 'Keyingi ➡️', callback_data: `admin_products_page_${actionPrefix}_${page + 1}` });
+    }
+
+    if (paginationRow.length > 0) {
+        productButtons.push(paginationRow);
+    }
     productButtons.push([{ text: ADMIN_BTN_BACK_TO_PRODUCTS_MENU, callback_data: 'admin_products_menu' }]);
 
-    const text = 'Mahsulotni tanlang:';
+    // 5. Отправляем сообщение
+    const text = `Mahsulotni tanlang (Sahifa ${page}/${totalPages}):`;
+    const options = {
+        chat_id: chatId,
+        reply_markup: { inline_keyboard: productButtons }
+    };
+    
     if (messageId) {
-        bot.editMessageText(text, { chat_id: chatId, message_id: messageId, reply_markup: { inline_keyboard: productButtons } }).catch(() => { });
+        options.message_id = messageId;
+        bot.editMessageText(text, options).catch(err => console.error("Edit message error (pagination):", err));
     } else {
-        bot.sendMessage(chatId, text, { reply_markup: { inline_keyboard: productButtons } });
+        bot.sendMessage(chatId, text, options).catch(err => console.error("Send message error (pagination):", err));
     }
 }
 // =========================================================
@@ -1125,7 +1155,19 @@ bot.on('callback_query', async (query) => {
 
     if (data === 'admin_edit_product') {
         if (!isAdmin(chatId)) return bot.answerCallbackQuery(query.id);
-        showProductSelectionForAdmin(chatId, 'admin_edit_product_select_', messageId);
+        showProductSelectionForAdmin(chatId, 'admin_edit_product_select_', 1, messageId);
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+    
+    if (data.startsWith('admin_products_page_')) {
+        if (!isAdmin(chatId)) return bot.answerCallbackQuery(query.id);
+        
+        const parts = data.split('_');
+        const page = parseInt(parts.pop(), 10);
+        const actionPrefix = data.replace(`admin_products_page_`, '').replace(`_${page}`, '');
+
+        showProductSelectionForAdmin(chatId, actionPrefix, page, messageId);
         bot.answerCallbackQuery(query.id);
         return;
     }
@@ -1148,7 +1190,7 @@ bot.on('callback_query', async (query) => {
     
     if (data === 'admin_delete_product') {
         if (!isAdmin(chatId)) return bot.answerCallbackQuery(query.id);
-        showProductSelectionForAdmin(chatId, 'admin_delete_product_select_', messageId);
+        showProductSelectionForAdmin(chatId, 'admin_delete_product_select_', 1, messageId);
         bot.answerCallbackQuery(query.id);
         return;
     }
@@ -1182,7 +1224,7 @@ bot.on('callback_query', async (query) => {
         const productId = parseInt(data.split('_').pop(), 10);
         await db.query('DELETE FROM products WHERE id = $1', [productId]);
         bot.answerCallbackQuery(query.id, { text: 'Mahsulot o\'chirildi!' });
-        showProductSelectionForAdmin(chatId, 'admin_delete_product_select_', messageId);
+        showProductSelectionForAdmin(chatId, 'admin_delete_product_select_', 1, messageId);
         return;
     }
     
@@ -1462,7 +1504,7 @@ bot.on('callback_query', async (query) => {
 
         if (GROUP_CHAT_ID) {
             const { latitude, longitude } = state.location;
-            const groupNotification = adminNotification + `\n📍 Manzil: [Google Maps](http://maps.google.com/maps?q=${latitude},${longitude})`;
+            const groupNotification = adminNotification + `\n📍 Manzil: [Google Maps](http://googleusercontent.com/maps/google.com/0{latitude},${longitude})`;
             bot.sendMessage(GROUP_CHAT_ID, groupNotification, {
                 parse_mode: 'Markdown',
             }).catch(err => console.error(`Guruhga (${GROUP_CHAT_ID}) xabar yuborib bo'lmadi: ${err}`));
