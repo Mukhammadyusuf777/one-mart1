@@ -11,8 +11,7 @@ const { Pool } = require('pg');
 const TOKEN = process.env.TOKEN || '7976277994:AAFOmpAk4pdD85U9kvhmI-lLhtziCyfGTUY';
 
 // --- Список Админов ---
-// Замените 'ID_ВТОРОГО_АДМИНА' на реальный ID вашего второго админа
-const ADMIN_CHAT_IDS = ['5309814540', 'ID_ВТОРОГО_АДМИНА']; 
+const ADMIN_CHAT_IDS = ['5309814540', '7790411205']; // <-- Не забудьте вставить ID второго админа
 
 const GROUP_CHAT_ID = process.env.GROUP_CHAT_ID || '-1002943886944';
 const SUPPORT_PHONE = process.env.SUPPORT_PHONE || '+998914906787';
@@ -390,6 +389,10 @@ async function showUserOrders(chatId, messageId = null) {
     }
 }
 
+// ================================================================= //
+// --- ФУНКЦИИ ОТОБРАЖЕНИЯ (АДМИН) ---
+// ================================================================= //
+
 async function showOrdersByStatus(chatId, status, emptyMessage) {
     const { rows: orders } = await db.query('SELECT * FROM orders WHERE status = $1 ORDER BY date DESC', [status]);
     
@@ -440,7 +443,13 @@ function showAdminCategoriesMenu(chatId, messageId = null) {
     }
 }
 
+// =========================================================
+// --- ИСПРАВЛЕНИЕ ЗДЕСЬ ---
+// =========================================================
 async function showProductSelectionForAdmin(chatId, actionPrefix, messageId = null) {
+    // Эта функция была полностью неверной. Она читала из `db.products` (массив)
+    // Теперь она читает из `db.query` (база данных)
+    
     const { rows: products } = await db.query('SELECT * FROM products ORDER BY name_uz ASC');
 
     if (products.length === 0) {
@@ -468,6 +477,9 @@ async function showProductSelectionForAdmin(chatId, actionPrefix, messageId = nu
         bot.sendMessage(chatId, text, { reply_markup: { inline_keyboard: productButtons } });
     }
 }
+// =========================================================
+// --- КОНЕЦ ИСПРАВЛЕНИЯ ---
+// =========================================================
 
 async function showCategorySelectionForAdmin(chatId, actionPrefix, messageId = null) {
     const { rows: categories } = await db.query('SELECT * FROM categories ORDER BY name ASC');
@@ -493,6 +505,10 @@ async function showCategorySelectionForAdmin(chatId, actionPrefix, messageId = n
         bot.sendMessage(chatId, text, { reply_markup: { inline_keyboard: categoryButtons } });
     }
 }
+
+// ================================================================= //
+// --- ОБРАБОТЧИКИ КОМАНД И КНОПОК ---
+// ================================================================= //
 
 function handleStartCommand(msg) {
     const chatId = msg.chat.id;
@@ -557,7 +573,6 @@ bot.onText(/\/admin/, (msg) => {
     handleStartCommand(msg);
 });
 
-// --- НОВАЯ КОМАНДА ДЛЯ ДИАГНОСТИКИ ---
 bot.onText(/\/db_check/, async (msg) => {
     const chatId = msg.chat.id;
     if (!isAdmin(chatId)) return;
@@ -586,7 +601,6 @@ bot.onText(/\/db_check/, async (msg) => {
         bot.sendMessage(chatId, `❌ Ошибка подключения к БД: ${e.message}`);
     }
 });
-// --- КОНЕЦ НОВОГО БЛОКА ---
 
 bot.onText(/\/status/, async (msg) => {
     const chatId = msg.chat.id;
@@ -1185,6 +1199,10 @@ bot.on('callback_query', async (query) => {
         productData.category_id = categoryId;
         
         const isEditing = state.action.includes('edit');
+
+        if (productData.name) { // Удаляем старое поле 'name' для совместимости
+            delete productData.name;
+        }
 
         if (isEditing) {
             await db.query(
