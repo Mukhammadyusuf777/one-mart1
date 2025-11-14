@@ -12,7 +12,7 @@ const TOKEN = process.env.TOKEN || '7976277994:AAFOmpAk4pdD85U9kvhmI-lLhtziCyfGT
 
 // --- Список Админов ---
 // Замените 'ID_ВТОРОГО_АДМИНА' на реальный ID вашего второго админа
-const ADMIN_CHAT_IDS = ['5309814540', '7790411205']; 
+const ADMIN_CHAT_IDS = ['5309814540', 'ID_ВТОРОГО_АДМИНА']; 
 
 const GROUP_CHAT_ID = process.env.GROUP_CHAT_ID || '-1002943886944';
 const SUPPORT_PHONE = process.env.SUPPORT_PHONE || '+998914906787';
@@ -556,6 +556,37 @@ bot.onText(/\/admin/, (msg) => {
     if (!isAdmin(msg.chat.id)) return;
     handleStartCommand(msg);
 });
+
+// --- НОВАЯ КОМАНДА ДЛЯ ДИАГНОСТИКИ ---
+bot.onText(/\/db_check/, async (msg) => {
+    const chatId = msg.chat.id;
+    if (!isAdmin(chatId)) return;
+
+    bot.sendMessage(chatId, '🔬 Проверяю базу данных...');
+
+    try {
+        const { rows: [categoryCount] } = await db.query('SELECT COUNT(*) FROM categories');
+        const { rows: [productCount] } = await db.query('SELECT COUNT(*) FROM products');
+
+        let report = `--- 📈 Отчет по Базе Данных ---\n\n`;
+        report += `Категорий в таблице \`categories\`: ${categoryCount.count}\n`;
+        report += `Товаров в таблице \`products\`: ${productCount.count}\n\n`;
+
+        if (categoryCount.count > 0 && productCount.count > 0) {
+            report += `✅ Похоже, что миграция прошла успешно!`;
+        } else if (categoryCount.count > 0 && productCount.count == 0) {
+            report += `⚠️ ВНИМАНИЕ: Категории есть, но товаров 0. Похоже, миграция продуктов не удалась.`;
+        } else {
+            report += `❌ ОШИБКА: База данных пуста! Скрипт migrate.js не отработал.`;
+        }
+
+        bot.sendMessage(chatId, report);
+
+    } catch (e) {
+        bot.sendMessage(chatId, `❌ Ошибка подключения к БД: ${e.message}`);
+    }
+});
+// --- КОНЕЦ НОВОГО БЛОКА ---
 
 bot.onText(/\/status/, async (msg) => {
     const chatId = msg.chat.id;
@@ -1111,10 +1142,10 @@ bot.on('callback_query', async (query) => {
     if (data.startsWith('admin_delete_product_select_')) {
         if (!isAdmin(chatId)) return bot.answerCallbackQuery(query.id);
         const productId = parseInt(data.split('_').pop(), 10);
-        const { rows: [productToDelete] } = await db.query('SELECT name_uz, name FROM products WHERE id = $1', [productId]);
+        const { rows: [productToDelete] } = await db.query('SELECT name_uz FROM products WHERE id = $1', [productId]);
 
         if (productToDelete) {
-             const displayName = productToDelete.name_uz || productToDelete.name;
+             const displayName = productToDelete.name_uz;
              bot.editMessageText(`Haqiqatan ham "${displayName}" mahsulotini o'chirmoqchimisiz?`, {
                 chat_id: chatId,
                 message_id: messageId,
@@ -1154,10 +1185,6 @@ bot.on('callback_query', async (query) => {
         productData.category_id = categoryId;
         
         const isEditing = state.action.includes('edit');
-
-        if (productData.name) {
-            delete productData.name;
-        }
 
         if (isEditing) {
             await db.query(
