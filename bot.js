@@ -10,8 +10,8 @@ const { Pool } = require('pg');
 // ================================================================= //
 const TOKEN = process.env.TOKEN || '7976277994:AAFOmpAk4pdD85U9kvhmI-lLhtziCyfGTUY';
 
-// --- Список Админов ---
-const ADMIN_CHAT_IDS = ['5309814540', '7790411205']; // <-- Не забудьте вставить ID второго админа
+// --- Список Супер-Админов (которые могут управлять магазинами) ---
+const SUPER_ADMIN_IDS = ['5309814540', '7790411205']; // <-- Вставьте ID второго админа
 
 const GROUP_CHAT_ID = process.env.GROUP_CHAT_ID || '-1002943886944';
 const SUPPORT_PHONE = process.env.SUPPORT_PHONE || '+998914906787';
@@ -23,12 +23,18 @@ const ADMIN_BTN_ASSEMBLING = '🛠 Yig\'ilayotganlar';
 const ADMIN_BTN_COMPLETED = '✅ Bajarilganlar';
 const ADMIN_BTN_PRODUCTS = '📦 Mahsulotlar';
 const ADMIN_BTN_CATEGORIES = '🗂 Kategoriyalar';
+const ADMIN_BTN_STORES = '🏪 Do\'konlar'; // <-- НОВАЯ КНОПКА
+
+// --- Константы кнопок Магазинов ---
+const ADMIN_BTN_ADD_STORE = '➕ Yangi do\'kon qo\'shish';
+const ADMIN_BTN_EDIT_STORE = '✏️ Do\'konni tahrirlash';
+const ADMIN_BTN_DELETE_STORE = '❌ Do\'konni o\'chirish';
+const ADMIN_BTN_BACK_TO_STORES_MENU = '⬅️ Do\'konlar menyusiga qaytish';
+
+// --- Константы кнопок Продуктов ---
 const ADMIN_BTN_ADD_PRODUCT = '➕ Yangi mahsulot qo\'shish';
 const ADMIN_BTN_EDIT_PRODUCT = '✏️ Mahsulotni tahrirlash';
 const ADMIN_BTN_DELETE_PRODUCT = '❌ Mahsulotni o\'chirish';
-const ADMIN_BTN_ADD_CATEGORY = '➕ Yangi kategoriya qo\'shish';
-const ADMIN_BTN_EDIT_CATEGORY = '✏️ Kategoriyani tahrirlash';
-const ADMIN_BTN_DELETE_CATEGORY = '❌ Kategoriyani o\'chirish';
 const ADMIN_BTN_BACK_TO_ADMIN_MENU = '⬅️ Admin panelga qaytish';
 const ADMIN_BTN_BACK_TO_PRODUCTS_MENU = '⬅️ Mahsulotlar menyusiga qaytish';
 const ADMIN_BTN_BACK_TO_CATEGORIES_MENU = '⬅️ Kategoriyalar menyusiga qaytish';
@@ -42,8 +48,8 @@ const BASE_DELIVERY_RADIUS_KM = 2.5;
 const PRICE_PER_EXTRA_KM = 4000;
 const MAX_DELIVERY_RADIUS_KM = 10;
 
-// --- Координаты магазина ---
-const SHOP_COORDINATES = { latitude: 40.764535, longitude: 72.282204 };
+// --- Координаты магазина (Больше не используются, но оставим для обратной совместимости) ---
+// const SHOP_COORDINATES = { latitude: 40.764535, longitude: 72.282204 };
 
 // ================================================================= //
 // --- ИНИЦИАЛИЗАЦИЯ БОТА И БАЗЫ ДАННЫХ ---
@@ -60,19 +66,44 @@ const db = new Pool({
 const userCarts = {};
 const userStates = {};
 
+// Глобальное хранилище для кэширования владельцев
+let adminCache = {
+    superAdmins: SUPER_ADMIN_IDS,
+    storeOwners: {} // { 'chat_id': 1 (store_id) }
+};
+
 async function initializeDatabase() {
     const client = await db.connect();
     try {
+        // --- Создание таблиц (если еще не существуют) ---
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS owners (
+                id SERIAL PRIMARY KEY,
+                chat_id BIGINT NOT NULL UNIQUE,
+                name VARCHAR(255),
+                phone VARCHAR(20)
+            );
+        `);
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS stores (
+                id SERIAL PRIMARY KEY,
+                owner_id INTEGER REFERENCES owners(id),
+                name VARCHAR(255) NOT NULL,
+                address TEXT,
+                latitude FLOAT NOT NULL,
+                longitude FLOAT NOT NULL
+            );
+        `);
         await client.query(`
             CREATE TABLE IF NOT EXISTS categories (
                 id SERIAL PRIMARY KEY,
                 name VARCHAR(100) NOT NULL UNIQUE
             );
         `);
-
         await client.query(`
             CREATE TABLE IF NOT EXISTS products (
                 id SERIAL PRIMARY KEY,
+                store_id INTEGER REFERENCES stores(id) ON DELETE SET NULL,
                 category_id INTEGER REFERENCES categories(id) ON DELETE SET NULL,
                 name_uz VARCHAR(255) NOT NULL,
                 name_ru VARCHAR(255),
@@ -82,10 +113,10 @@ async function initializeDatabase() {
                 photo_url VARCHAR(512)
             );
         `);
-        
         await client.query(`
             CREATE TABLE IF NOT EXISTS orders (
                 order_id SERIAL PRIMARY KEY,
+                store_id INTEGER REFERENCES stores(id) ON DELETE SET NULL,
                 order_number INTEGER NOT NULL,
                 date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 customer_chat_id BIGINT NOT NULL,
@@ -101,6 +132,10 @@ async function initializeDatabase() {
         `);
         
         console.log('Database tables checked/created successfully.');
+
+        // --- Кэширование владельцев магазинов ---
+        await refreshAdminCache();
+        
     } catch (e) {
         console.error('ERROR initializing database tables:', e);
     } finally {
@@ -114,8 +149,31 @@ console.log('"One Mart" boti ishga tushirildi...');
 // --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
 // ================================================================= //
 
+async function refreshAdminCache() {
+    console.log('Refreshing admin cache...');
+    const { rows: owners } = await db.query('SELECT o.chat_id, s.id AS store_id FROM owners o JOIN stores s ON s.owner_id = o.id');
+    const newOwnerCache = {};
+    owners.forEach(owner => {
+        newOwnerCache[owner.chat_id.toString()] = owner.store_id;
+    });
+    adminCache.storeOwners = newOwnerCache;
+    console.log('Admin cache refreshed:', adminCache.storeOwners);
+}
+
+function isSuperAdmin(chatId) {
+    return adminCache.superAdmins.includes(chatId.toString());
+}
+
+function isStoreOwner(chatId) {
+    return adminCache.storeOwners[chatId.toString()] !== undefined;
+}
+
 function isAdmin(chatId) {
-    return ADMIN_CHAT_IDS.includes(chatId.toString());
+    return isSuperAdmin(chatId) || isStoreOwner(chatId);
+}
+
+function getStoreIdForAdmin(chatId) {
+    return adminCache.storeOwners[chatId.toString()];
 }
 
 const getStatusText = (status) => {
@@ -225,6 +283,7 @@ async function showCart(chatId, messageId = null) {
 }
 
 async function showCategories(chatId, messageId = null) {
+    // TODO: В будущем - фильтровать категории, у которых есть товары в выбранном магазине
     const { rows: categories } = await db.query('SELECT * FROM categories ORDER BY name ASC');
 
     if (!categories || categories.length === 0) {
@@ -294,7 +353,13 @@ async function sendProductList(chatId, messageId, productList, title, backCallba
 
 
 async function showProductsByCategory(chatId, categoryId, messageId = null) {
-    const { rows: productsInCategory } = await db.query('SELECT * FROM products WHERE category_id = $1 ORDER BY name_uz ASC', [categoryId]);
+    // TODO: Здесь нужно будет добавить фильтр по store_id из userStates[chatId].store_id
+    const storeId = 1; // ВРЕМЕННО: используем магазин по умолчанию
+
+    const { rows: productsInCategory } = await db.query(
+        'SELECT * FROM products WHERE category_id = $1 AND store_id = $2 ORDER BY name_uz ASC', 
+        [categoryId, storeId]
+    );
     const { rows: [category] } = await db.query('SELECT name FROM categories WHERE id = $1', [categoryId]);
     
     const title = category ? `Kategoriya: ${category.name}` : 'Mahsulotlar:';
@@ -394,7 +459,21 @@ async function showUserOrders(chatId, messageId = null) {
 // ================================================================= //
 
 async function showOrdersByStatus(chatId, status, emptyMessage) {
-    const { rows: orders } = await db.query('SELECT * FROM orders WHERE status = $1 ORDER BY date DESC', [status]);
+    // TODO: В будущем фильтровать по store_id для Владельцев
+    const storeId = getStoreIdForAdmin(chatId);
+    let orders;
+    
+    if (isSuperAdmin(chatId)) {
+        // Супер-админ видит все заказы
+        const { rows } = await db.query('SELECT * FROM orders WHERE status = $1 ORDER BY date DESC', [status]);
+        orders = rows;
+    } else if (storeId) {
+        // Владелец видит только заказы своего магазина
+        const { rows } = await db.query('SELECT * FROM orders WHERE status = $1 AND store_id = $2 ORDER BY date DESC', [status, storeId]);
+        orders = rows;
+    } else {
+        orders = []; // На всякий случай
+    }
     
     if (orders.length === 0) {
         bot.sendMessage(chatId, emptyMessage);
@@ -443,23 +522,95 @@ function showAdminCategoriesMenu(chatId, messageId = null) {
     }
 }
 
-// =========================================================
-// --- ИСПРАВЛЕНИЕ ЗДЕСЬ: Новая функция с Пагинацией ---
-// =========================================================
+// --- НОВЫЕ ФУНКЦИИ АДМИН-ПАНЕЛИ (МАГАЗИНЫ) ---
+
+function showAdminStoresMenu(chatId, messageId = null) {
+    const text = 'Do\'konlarni boshqarish:';
+    const keyboard = {
+        inline_keyboard: [
+            [{ text: ADMIN_BTN_ADD_STORE, callback_data: 'admin_add_store' }],
+            [{ text: ADMIN_BTN_EDIT_STORE, callback_data: 'admin_edit_store' }],
+            [{ text: ADMIN_BTN_DELETE_STORE, callback_data: 'admin_delete_store' }],
+            [{ text: ADMIN_BTN_BACK_TO_ADMIN_MENU, callback_data: 'admin_back_to_main' }]
+        ]
+    };
+
+    if (messageId) {
+        bot.editMessageText(text, { chat_id: chatId, message_id: messageId, reply_markup: keyboard }).catch(() => { });
+    } else {
+        bot.sendMessage(chatId, text, { reply_markup: keyboard });
+    }
+}
+
+async function showStoreSelectionForAdmin(chatId, actionPrefix, messageId = null) {
+    const { rows: stores } = await db.query('SELECT * FROM stores ORDER BY name ASC');
+
+    if (stores.length === 0) {
+        const text = 'Hozircha do\'konlar yo\'q.';
+        const keyboard = { inline_keyboard: [[{ text: ADMIN_BTN_BACK_TO_STORES_MENU, callback_data: 'admin_stores_menu' }]] };
+        if (messageId) {
+            bot.editMessageText(text, { chat_id: chatId, message_id: messageId, reply_markup: keyboard }).catch(() => { });
+        } else {
+            bot.sendMessage(chatId, text, { reply_markup: keyboard });
+        }
+        return;
+    }
+
+    const storeButtons = stores.map(s => ([{ text: s.name, callback_data: `${actionPrefix}${s.id}` }]));
+    storeButtons.push([{ text: ADMIN_BTN_BACK_TO_STORES_MENU, callback_data: 'admin_stores_menu' }]);
+
+    const text = 'Do\'konni tanlang:';
+    if (messageId) {
+        bot.editMessageText(text, { chat_id: chatId, message_id: messageId, reply_markup: { inline_keyboard: storeButtons } }).catch(() => { });
+    } else {
+        bot.sendMessage(chatId, text, { reply_markup: { inline_keyboard: storeButtons } });
+    }
+}
+
+async function showOwnerSelectionForAdmin(chatId, messageId) {
+    const { rows: owners } = await db.query('SELECT * FROM owners ORDER BY name ASC');
+    let text = 'Do\'kon egasini tanlang:\n\n';
+    
+    if (owners.length === 0) {
+        text += 'Hozircha egalar yo\'q. Avval egani qo\'shing.';
+        // TODO: Добавить кнопку "Добавить владельца"
+        bot.editMessageText(text, { chat_id: chatId, message_id: messageId }).catch(() => {});
+        return;
+    }
+
+    const ownerButtons = owners.map(o => ([{ text: `${o.name} (${o.chat_id})`, callback_data: `admin_select_owner_${o.id}` }]));
+    ownerButtons.push([{ text: '⬅️ Orqaga', callback_data: 'admin_stores_menu' }]);
+    
+    bot.editMessageText(text, { chat_id: chatId, message_id: messageId, reply_markup: { inline_keyboard: ownerButtons } }).catch(() => {});
+}
+
+// --- КОНЕЦ НОВЫХ ФУНКЦИЙ ---
+
 async function showProductSelectionForAdmin(chatId, actionPrefix, page = 1, messageId = null) {
-    const limit = 10; // 10 товаров на одной странице
+    const limit = 10;
     const offset = (page - 1) * limit;
 
-    // 1. Получаем общее количество товаров
-    const { rows: [countResult] } = await db.query('SELECT COUNT(*) FROM products');
-    const totalProducts = parseInt(countResult.count, 10);
-    const totalPages = Math.ceil(totalProducts / limit);
+    const storeId = getStoreIdForAdmin(chatId);
+    let totalProducts, products;
 
-    // 2. Получаем товары для текущей страницы
-    const { rows: products } = await db.query(
-        'SELECT * FROM products ORDER BY name_uz ASC LIMIT $1 OFFSET $2',
-        [limit, offset]
-    );
+    if (isSuperAdmin(chatId)) {
+        // Супер-админ видит ВСЕ товары
+        const { rows: [countResult] } = await db.query('SELECT COUNT(*) FROM products');
+        totalProducts = parseInt(countResult.count, 10);
+        const { rows } = await db.query('SELECT * FROM products ORDER BY name_uz ASC LIMIT $1 OFFSET $2', [limit, offset]);
+        products = rows;
+    } else if (storeId) {
+        // Владелец видит только товары своего магазина
+        const { rows: [countResult] } = await db.query('SELECT COUNT(*) FROM products WHERE store_id = $1', [storeId]);
+        totalProducts = parseInt(countResult.count, 10);
+        const { rows } = await db.query('SELECT * FROM products WHERE store_id = $1 ORDER BY name_uz ASC LIMIT $2 OFFSET $3', [storeId, limit, offset]);
+        products = rows;
+    } else {
+        products = [];
+        totalProducts = 0;
+    }
+    
+    const totalPages = Math.ceil(totalProducts / limit);
 
     if (products.length === 0 && page === 1) {
         const text = 'Hozircha mahsulotlar yo\'q.';
@@ -472,14 +623,12 @@ async function showProductSelectionForAdmin(chatId, actionPrefix, page = 1, mess
         return;
     }
 
-    // 3. Создаем кнопки товаров
     const productButtons = products.map(p => {
        const displayName = p.name_uz || p.name;
        const priceText = p.pricing_model === 'by_amount' ? 'summa' : formatPrice(p.price);
        return [{ text: `${displayName} (${priceText})`, callback_data: `${actionPrefix}${p.id}` }];
     });
 
-    // 4. Создаем кнопки пагинации
     const paginationRow = [];
     if (page > 1) {
         paginationRow.push({ text: '⬅️ Oldingi', callback_data: `admin_products_page_${actionPrefix}_${page - 1}` });
@@ -493,7 +642,6 @@ async function showProductSelectionForAdmin(chatId, actionPrefix, page = 1, mess
     }
     productButtons.push([{ text: ADMIN_BTN_BACK_TO_PRODUCTS_MENU, callback_data: 'admin_products_menu' }]);
 
-    // 5. Отправляем сообщение
     const text = `Mahsulotni tanlang (Sahifa ${page}/${totalPages}):`;
     const options = {
         chat_id: chatId,
@@ -507,9 +655,6 @@ async function showProductSelectionForAdmin(chatId, actionPrefix, page = 1, mess
         bot.sendMessage(chatId, text, options).catch(err => console.error("Send message error (pagination):", err));
     }
 }
-// =========================================================
-// --- КОНЕЦ ИСПРАВЛЕНИЯ ---
-// =========================================================
 
 async function showCategorySelectionForAdmin(chatId, actionPrefix, messageId = null) {
     const { rows: categories } = await db.query('SELECT * FROM categories ORDER BY name ASC');
@@ -540,12 +685,26 @@ async function showCategorySelectionForAdmin(chatId, actionPrefix, messageId = n
 // --- ОБРАБОТЧИКИ КОМАНД И КНОПОК ---
 // ================================================================= //
 
-function handleStartCommand(msg) {
+async function handleStartCommand(msg) {
     const chatId = msg.chat.id;
     userStates[chatId] = {};
 
-    if (isAdmin(chatId)) {
-        bot.sendMessage(chatId, 'Salom, Admin! Boshqaruv paneli:', {
+    if (isSuperAdmin(chatId)) {
+        bot.sendMessage(chatId, 'Salom, Super Admin! Boshqaruv paneli:', {
+            reply_markup: {
+                keyboard: [
+                    [{ text: ADMIN_BTN_NEW }],
+                    [{ text: ADMIN_BTN_ASSEMBLING }, { text: ADMIN_BTN_COMPLETED }],
+                    [{ text: ADMIN_BTN_PRODUCTS }, { text: ADMIN_BTN_CATEGORIES }],
+                    [{ text: ADMIN_BTN_STORES }] // <-- НОВАЯ КНОПКА ДЛЯ СУПЕР АДМИНА
+                ],
+                resize_keyboard: true
+            }
+        });
+    } else if (isStoreOwner(chatId)) {
+        const storeId = getStoreIdForAdmin(chatId);
+        const { rows: [store] } = await db.query('SELECT name FROM stores WHERE id = $1', [storeId]);
+        bot.sendMessage(chatId, `Salom, "${store.name}" do'koni egasi! Boshqaruv paneli:`, {
             reply_markup: {
                 keyboard: [
                     [{ text: ADMIN_BTN_NEW }],
@@ -612,17 +771,19 @@ bot.onText(/\/db_check/, async (msg) => {
     try {
         const { rows: [categoryCount] } = await db.query('SELECT COUNT(*) FROM categories');
         const { rows: [productCount] } = await db.query('SELECT COUNT(*) FROM products');
+        const { rows: [storeCount] } = await db.query('SELECT COUNT(*) FROM stores');
+        const { rows: [ownerCount] } = await db.query('SELECT COUNT(*) FROM owners');
 
         let report = `--- 📈 Отчет по Базе Данных ---\n\n`;
-        report += `Категорий в таблице \`categories\`: ${categoryCount.count}\n`;
-        report += `Товаров в таблице \`products\`: ${productCount.count}\n\n`;
+        report += `Категорий в \`categories\`: ${categoryCount.count}\n`;
+        report += `Товаров в \`products\`: ${productCount.count}\n`;
+        report += `Магазинов в \`stores\`: ${storeCount.count}\n`;
+        report += `Владельцев в \`owners\`: ${ownerCount.count}\n\n`;
 
-        if (categoryCount.count > 0 && productCount.count > 0) {
-            report += `✅ Похоже, что миграция прошла успешно!`;
-        } else if (categoryCount.count > 0 && productCount.count == 0) {
-            report += `⚠️ ВНИМАНИЕ: Категории есть, но товаров 0. Похоже, миграция продуктов не удалась.`;
+        if (categoryCount.count > 0 && productCount.count > 0 && storeCount.count > 0) {
+            report += `✅ База данных выглядит корректно.`;
         } else {
-            report += `❌ ОШИБКА: База данных пуста! Скрипт migrate.js не отработал.`;
+            report += `❌ ВНИМАНИЕ: Одна из таблиц пуста! Возможно, миграция не удалась.`;
         }
 
         bot.sendMessage(chatId, report);
@@ -678,9 +839,18 @@ bot.onText(new RegExp(ADMIN_BTN_NEW), (msg) => {
 bot.onText(new RegExp(ADMIN_BTN_ASSEMBLING), async (msg) => {
     if (!isAdmin(msg.chat.id)) return;
     
-    const { rows: orders } = await db.query(
-        "SELECT * FROM orders WHERE status IN ('assembling', 'ready', 'delivering') ORDER BY date DESC"
-    );
+    const storeId = getStoreIdForAdmin(msg.chat.id);
+    let orders;
+
+    if(isSuperAdmin(msg.chat.id)) {
+        const { rows } = await db.query("SELECT * FROM orders WHERE status IN ('assembling', 'ready', 'delivering') ORDER BY date DESC");
+        orders = rows;
+    } else if (storeId) {
+        const { rows } = await db.query("SELECT * FROM orders WHERE status IN ('assembling', 'ready', 'delivering') AND store_id = $1 ORDER BY date DESC", [storeId]);
+        orders = rows;
+    } else {
+        orders = [];
+    }
 
     if (orders.length === 0) {
         bot.sendMessage(msg.chat.id, 'Yig\'ilayotgan buyurtmalar yo\'q.');
@@ -708,8 +878,24 @@ bot.onText(new RegExp(ADMIN_BTN_CATEGORIES), (msg) => {
     showAdminCategoriesMenu(msg.chat.id);
 });
 
+// --- НОВЫЙ ОБРАБОТЧИК ---
+bot.onText(new RegExp(ADMIN_BTN_STORES), (msg) => {
+    if (!isSuperAdmin(msg.chat.id)) return; // Только Супер Админ
+    showAdminStoresMenu(msg.chat.id);
+});
+
 bot.on('contact', (msg) => {
     const chatId = msg.chat.id;
+
+    // Сценарий для админа: добавление владельца магазина
+    if (isAdmin(chatId) && userStates[chatId] && userStates[chatId].action === 'admin_add_store_owner_phone') {
+        userStates[chatId].data.phone = msg.contact.phone_number;
+        userStates[chatId].action = 'admin_add_store_owner_chatid';
+        bot.sendMessage(chatId, 'Telefon raqam qabul qilindi. Endi shu egasining (owner) Telegram CHAT ID raqamini kiriting (masalan, 5309814540).');
+        return;
+    }
+    
+    // Сценарий для клиента: оформление заказа
     if (userStates[chatId] && userStates[chatId].action === 'awaiting_phone_for_order') {
         userStates[chatId] = { ...userStates[chatId], phone: msg.contact.phone_number, action: 'awaiting_location' };
         bot.sendMessage(chatId, 'Rahmat! Endi, iltimos, buyurtmani yetkazib berish manzilini yuboring.', {
@@ -728,8 +914,24 @@ bot.on('location', async (msg) => {
     const chatId = msg.chat.id;
     const userLocation = msg.location;
 
+    // Сценарий для админа: добавление магазина
+    if (isAdmin(chatId) && userStates[chatId] && userStates[chatId].action === 'admin_add_store_location') {
+        userStates[chatId].data.latitude = userLocation.latitude;
+        userStates[chatId].data.longitude = userLocation.longitude;
+        userStates[chatId].action = 'admin_add_store_owner';
+        
+        bot.sendMessage(chatId, 'Manzil qabul qilindi.', { reply_markup: { remove_keyboard: true } });
+        await showOwnerSelectionForAdmin(chatId, null);
+        return;
+    }
+
+    // Сценарий для клиента: оформление заказа
     if (userStates[chatId] && userStates[chatId].action === 'awaiting_location') {
-        const distanceMeters = geolib.getDistance(SHOP_COORDINATES, userLocation);
+        // TODO: В будущем - брать координаты из userStates[chatId].store_id
+        const { rows: [store] } = await db.query('SELECT * FROM stores WHERE id = 1'); // ВРЕМЕННО: используем магазин #1
+        const storeCoordinates = { latitude: store.latitude, longitude: store.longitude };
+
+        const distanceMeters = geolib.getDistance(storeCoordinates, userLocation);
         const distanceKm = distanceMeters / 1000;
 
         if (distanceKm > MAX_DELIVERY_RADIUS_KM) {
@@ -786,6 +988,7 @@ bot.on('location', async (msg) => {
             location: userLocation,
             deliveryDetails: deliveryDetails,
             total: total,
+            store_id: store.id, // <-- Сохраняем ID магазина для заказа
             action: 'confirming_order'
         };
 
@@ -812,7 +1015,8 @@ bot.on('location', async (msg) => {
             if (state && state.comment) {
                 confirmationMessage += `\n*Izoh:* ${state.comment}\n`;
             }
-            confirmationMessage += `\n*Mahsulotlar:* ${formatPrice(subtotal)}\n`;
+            confirmationMessage += `\n*Do'kon:* ${store.name}\n`;
+            confirmationMessage += `*Mahsulotlar:* ${formatPrice(subtotal)}\n`;
             if (baseDeliveryCost > 0) {
                 confirmationMessage += `*Yetkazib berish (asosiy):* ${formatPrice(baseDeliveryCost)}\n`;
             } else {
@@ -844,7 +1048,7 @@ bot.on('message', async (msg) => {
     
     const standardReplies = [
         "🛍️ Mahsulotlar", "🛒 Savat", "📞 Yordam", "🔄 Yangilash", "📋 Mening buyurtmalarim", "🔍 Qidirish",
-        ADMIN_BTN_NEW, ADMIN_BTN_ASSEMBLING, ADMIN_BTN_COMPLETED, ADMIN_BTN_PRODUCTS, ADMIN_BTN_CATEGORIES
+        ADMIN_BTN_NEW, ADMIN_BTN_ASSEMBLING, ADMIN_BTN_COMPLETED, ADMIN_BTN_PRODUCTS, ADMIN_BTN_CATEGORIES, ADMIN_BTN_STORES
     ];
 
     if (standardReplies.includes(msg.text)) { return; }
@@ -898,7 +1102,9 @@ bot.on('message', async (msg) => {
         }
         
         const threshold = 2;
-        const { rows: allProducts } = await db.query('SELECT * FROM products');
+        // TODO: В будущем - фильтровать по store_id
+        const storeId = 1; // ВРЕМЕННО
+        const { rows: allProducts } = await db.query('SELECT * FROM products WHERE store_id = $1', [storeId]);
 
         const results = allProducts.filter(p => {
             const nameUz = (p.name_uz || "").toLowerCase();
@@ -917,99 +1123,185 @@ bot.on('message', async (msg) => {
         return;
     }
 
-    if (isAdmin(chatId) && state.action && (state.action.startsWith('admin_add_product_') || state.action.startsWith('admin_edit_product_'))) {
-        const step = state.action.split('_').pop();
-        const product = state.data;
+    // --- ОБРАБОТЧИКИ ДЛЯ АДМИНА ---
+    if (isAdmin(chatId)) {
+        
+        // --- Админ: Добавление/Редактирование Продукта ---
+        if (state.action && (state.action.startsWith('admin_add_product_') || state.action.startsWith('admin_edit_product_'))) {
+            const step = state.action.split('_').pop();
+            const product = state.data;
 
-        switch (step) {
-            case 'name':
-                product.name_uz = msg.text;
-                userStates[chatId].action = state.action.replace('name', 'name_ru');
-                bot.sendMessage(chatId, 'Endi mahsulotning ruscha nomini kiriting (kirillitsada):');
-                break;
-            case 'name_ru':
-                product.name_ru = msg.text;
-                userStates[chatId].action = state.action.replace('name_ru', 'description');
-                bot.sendMessage(chatId, 'Mahsulot tavsifini kiriting (ixtiyoriy, o\'tkazib yuborish uchun "-" kiriting):');
-                break;
-            case 'description':
-                product.description = msg.text === '-' ? null : msg.text;
-                userStates[chatId].action = state.action.replace('description', 'price');
-                bot.sendMessage(chatId, 'Mahsulot narxini kiriting (faqat raqam, masalan, 15000).\nAgar mahsulot narxi foydalanuvchi tomonidan kiritiladigan bo\'lsa, "0" raqamini kiriting:');
-                break;
-            case 'price':
-                const price = parseInt(msg.text, 10);
-                if (isNaN(price) || price < 0) {
-                    bot.sendMessage(chatId, 'Noto\'g\'ri narx kiritildi. Iltimos, faqat musbat raqam kiriting (yoki 0):');
-                    return;
-                }
-                product.price = price;
-                product.pricing_model = (price === 0) ? 'by_amount' : 'standard';
-                userStates[chatId].action = state.action.replace('price', 'photo');
-                bot.sendMessage(chatId, 'Mahsulot rasmini yuboring (ixtiyoriy, o\'tkazib yuborish uchun "-" kiriting yoki mavjud rasmni o\'zgartirmaslik uchun "/skip" yozing):');
-                break;
-            case 'photo':
-                if (msg.photo && msg.photo.length > 0) {
-                    product.photo_url = msg.photo[msg.photo.length - 1].file_id;
-                } else if (msg.text === '-') {
-                    product.photo_url = "";
-                } else if (msg.text === '/skip' && product.photo_url) {
-                    // Skip
-                } else {
-                    bot.sendMessage(chatId, 'Noto\'g\'ri format. Iltimos, rasm yuboring, "-" yoki "/skip" kiriting:');
-                    return;
-                }
+            switch (step) {
+                case 'name':
+                    product.name_uz = msg.text;
+                    userStates[chatId].action = state.action.replace('name', 'name_ru');
+                    bot.sendMessage(chatId, 'Endi mahsulotning ruscha nomini kiriting (kirillitsada):');
+                    break;
+                case 'name_ru':
+                    product.name_ru = msg.text;
+                    userStates[chatId].action = state.action.replace('name_ru', 'description');
+                    bot.sendMessage(chatId, 'Mahsulot tavsifini kiriting (ixtiyoriy, o\'tkazib yuborish uchun "-" kiriting):');
+                    break;
+                case 'description':
+                    product.description = msg.text === '-' ? null : msg.text;
+                    userStates[chatId].action = state.action.replace('description', 'price');
+                    bot.sendMessage(chatId, 'Mahsulot narxini kiriting (faqat raqam, masalan, 15000).\nAgar mahsulot narxi foydalanuvchi tomonidan kiritiladigan bo\'lsa, "0" raqamini kiriting:');
+                    break;
+                case 'price':
+                    const price = parseInt(msg.text, 10);
+                    if (isNaN(price) || price < 0) {
+                        bot.sendMessage(chatId, 'Noto\'g\'ri narx kiritildi. Iltimos, faqat musbat raqam kiriting (yoki 0):');
+                        return;
+                    }
+                    product.price = price;
+                    product.pricing_model = (price === 0) ? 'by_amount' : 'standard';
+                    userStates[chatId].action = state.action.replace('price', 'photo');
+                    bot.sendMessage(chatId, 'Mahsulot rasmini yuboring (ixtiyoriy, o\'tkazib yuborish uchun "-" kiriting yoki mavjud rasmni o\'zgartirmaslik uchun "/skip" yozing):');
+                    break;
+                case 'photo':
+                    if (msg.photo && msg.photo.length > 0) {
+                        product.photo_url = msg.photo[msg.photo.length - 1].file_id;
+                    } else if (msg.text === '-') {
+                        product.photo_url = "";
+                    } else if (msg.text === '/skip' && product.photo_url) {
+                        // Skip
+                    } else {
+                        bot.sendMessage(chatId, 'Noto\'g\'ri format. Iltimos, rasm yuboring, "-" yoki "/skip" kiriting:');
+                        return;
+                    }
 
-                const isEditing = state.action.includes('edit');
-                userStates[chatId].action = isEditing ? 'admin_edit_product_category' : 'admin_add_product_category';
-                
-                const { rows: categories } = await db.query('SELECT * FROM categories ORDER BY name ASC');
-                if (categories.length === 0) {
-                    bot.sendMessage(chatId, 'Avval kategoriya qo\'shishingiz kerak! Amal bekor qilindi.', {
-                        reply_markup: { inline_keyboard: [[{ text: ADMIN_BTN_BACK_TO_ADMIN_MENU, callback_data: 'admin_back_to_main' }]] }
-                    });
-                    delete userStates[chatId];
-                    return;
-                }
-                const categoryButtons = categories.map(cat => ([{ text: cat.name, callback_data: `admin_select_category_for_product_${cat.id}` }]));
-                bot.sendMessage(chatId, 'Mahsulot uchun kategoriyani tanlang:', { reply_markup: { inline_keyboard: categoryButtons } });
-                break;
-        }
-        userStates[chatId].data = product;
-        return;
-    }
-
-    if (isAdmin(chatId) && state.action && (state.action === 'admin_add_category_name' || state.action === 'admin_edit_category_name')) {
-        const categoryName = msg.text.trim();
-        if (categoryName.length < 2) {
-            bot.sendMessage(chatId, 'Kategoriya nomi kamida 2ta belgidan iborat bo\'lishi kerak. Qaytadan kiriting:');
+                    const isEditing = state.action.includes('edit');
+                    userStates[chatId].action = isEditing ? 'admin_edit_product_category' : 'admin_add_product_category';
+                    
+                    const { rows: categories } = await db.query('SELECT * FROM categories ORDER BY name ASC');
+                    if (categories.length === 0) {
+                        bot.sendMessage(chatId, 'Avval kategoriya qo\'shishingiz kerak! Amal bekor qilindi.', {
+                            reply_markup: { inline_keyboard: [[{ text: ADMIN_BTN_BACK_TO_ADMIN_MENU, callback_data: 'admin_back_to_main' }]] }
+                        });
+                        delete userStates[chatId];
+                        return;
+                    }
+                    const categoryButtons = categories.map(cat => ([{ text: cat.name, callback_data: `admin_select_category_for_product_${cat.id}` }]));
+                    bot.sendMessage(chatId, 'Mahsulot uchun kategoriyani tanlang:', { reply_markup: { inline_keyboard: categoryButtons } });
+                    break;
+            }
+            userStates[chatId].data = product;
             return;
         }
 
-        const { rows: [existingCategory] } = await db.query('SELECT * FROM categories WHERE lower(name) = lower($1)', [categoryName]);
-        
-        const isAdding = state.action === 'admin_add_category_name';
-        
-        if (isAdding) {
-            if (existingCategory) {
-                bot.sendMessage(chatId, `"${categoryName}" nomli kategoriya allaqachon mavjud. Boshqa nom tanlang:`);
+        // --- Админ: Добавление/Редактирование Категории ---
+        if (state.action && (state.action === 'admin_add_category_name' || state.action === 'admin_edit_category_name')) {
+            const categoryName = msg.text.trim();
+            if (categoryName.length < 2) {
+                bot.sendMessage(chatId, 'Kategoriya nomi kamida 2ta belgidan iborat bo\'lishi kerak. Qaytadan kiriting:');
                 return;
             }
-            await db.query('INSERT INTO categories (name) VALUES ($1)', [categoryName]);
-            bot.sendMessage(chatId, `Kategoriya "${categoryName}" muvaffaqiyatli qo'shildi.`);
-        } else {
-            const categoryIdToEdit = state.data.categoryId;
-            if (existingCategory && existingCategory.id !== categoryIdToEdit) {
-                bot.sendMessage(chatId, `"${categoryName}" nomli kategoriya allaqachon mavjud. Boshqa nom tanlang:`);
-                return;
+
+            const { rows: [existingCategory] } = await db.query('SELECT * FROM categories WHERE lower(name) = lower($1)', [categoryName]);
+            
+            const isAdding = state.action === 'admin_add_category_name';
+            
+            if (isAdding) {
+                if (existingCategory) {
+                    bot.sendMessage(chatId, `"${categoryName}" nomli kategoriya allaqachon mavjud. Boshqa nom tanlang:`);
+                    return;
+                }
+                await db.query('INSERT INTO categories (name) VALUES ($1)', [categoryName]);
+                bot.sendMessage(chatId, `Kategoriya "${categoryName}" muvaffaqiyatli qo'shildi.`);
+            } else {
+                const categoryIdToEdit = state.data.categoryId;
+                if (existingCategory && existingCategory.id !== categoryIdToEdit) {
+                    bot.sendMessage(chatId, `"${categoryName}" nomli kategoriya allaqachon mavjud. Boshqa nom tanlang:`);
+                    return;
+                }
+                await db.query('UPDATE categories SET name = $1 WHERE id = $2', [categoryName, categoryIdToEdit]);
+                bot.sendMessage(chatId, `Kategoriya "${categoryName}" muvaffaqiyatli tahrirlandi.`);
             }
-            await db.query('UPDATE categories SET name = $1 WHERE id = $2', [categoryName, categoryIdToEdit]);
-            bot.sendMessage(chatId, `Kategoriya "${categoryName}" muvaffaqiyatli tahrirlandi.`);
+            
+            delete userStates[chatId];
+            showAdminCategoriesMenu(chatId);
+            return;
         }
         
-        delete userStates[chatId];
-        showAdminCategoriesMenu(chatId);
-        return;
+        // --- Супер-Админ: Добавление/Редактирование Магазина ---
+        if (isSuperAdmin(chatId) && state.action && state.action.startsWith('admin_add_store_')) {
+            const step = state.action.split('_').pop();
+            const storeData = state.data;
+            
+            switch (step) {
+                case 'name':
+                    storeData.name = msg.text;
+                    userStates[chatId].action = 'admin_add_store_address';
+                    bot.sendMessage(chatId, 'Do\'kon manzilini kiriting (masalan, "Yunusobod t-ni, 14-kvartal"):');
+                    break;
+                case 'address':
+                    storeData.address = msg.text;
+                    userStates[chatId].action = 'admin_add_store_location';
+                    bot.sendMessage(chatId, 'Endi do\'kon geolokatsiyasini yuboring (📍 Manzilni yuborish tugmasi orqali).', {
+                        reply_markup: {
+                            keyboard: [[{ text: "📍 Manzilni yuborish", request_location: true }]],
+                            one_time_keyboard: true,
+                            resize_keyboard: true
+                        }
+                    });
+                    break;
+                case 'owner':
+                    // Этот шаг обрабатывается в on('location') и callback_query
+                    break;
+            }
+            userStates[chatId].data = storeData;
+            return;
+        }
+        
+        // --- Супер-Админ: Добавление Владельца ---
+        if (isSuperAdmin(chatId) && state.action && state.action.startsWith('admin_add_store_owner_')) {
+            const step = state.action.split('_').pop();
+            const ownerData = state.data;
+            
+            switch(step) {
+                case 'name':
+                    ownerData.name = msg.text;
+                    userStates[chatId].action = 'admin_add_store_owner_phone';
+                    bot.sendMessage(chatId, `Egasining telefon raqamini yuboring (tugma orqali).`, {
+                        reply_markup: {
+                            keyboard: [[{ text: '📞 Telefon raqamni yuborish', request_contact: true }]],
+                            one_time_keyboard: true,
+                            resize_keyboard: true
+                        }
+                    });
+                    break;
+                case 'chatid':
+                    const ownerChatId = msg.text.trim();
+                    if (!/^\d+$/.test(ownerChatId)) {
+                        bot.sendMessage(chatId, "Xato: CHAT ID faqat raqamlardan iborat bo'lishi kerak. Qaytadan kiriting:");
+                        return;
+                    }
+                    ownerData.chat_id = ownerChatId;
+                    
+                    try {
+                        await db.query(
+                            'INSERT INTO owners (chat_id, name, phone) VALUES ($1, $2, $3)',
+                            [ownerData.chat_id, ownerData.name, ownerData.phone]
+                        );
+                        bot.sendMessage(chatId, `✅ Yangi ega "${ownerData.name}" muvaffaqiyatli qo'shildi.`);
+                        await refreshAdminCache(); // Обновляем кэш админов
+                        delete userStates[chatId];
+                        showAdminStoresMenu(chatId);
+                    } catch (e) {
+                        if (e.code === '23505') { // Ошибка unique_violation
+                            bot.sendMessage(chatId, `Xatolik: Bu CHAT ID (${ownerData.chat_id}) allaqachon ro'yxatdan o'tgan.`);
+                        } else {
+                            console.error('Ошибка добавления владельца:', e);
+                            bot.sendMessage(chatId, 'Xatolik yuz berdi.');
+                        }
+                        delete userStates[chatId];
+                        showAdminStoresMenu(chatId);
+                    }
+                    break;
+            }
+            userStates[chatId].data = ownerData;
+            return;
+        }
     }
 });
 
@@ -1041,6 +1333,13 @@ bot.on('callback_query', async (query) => {
             return;
         }
 
+        // Проверка, может ли админ видеть этот заказ
+        const storeId = getStoreIdForAdmin(chatId);
+        if (!isSuperAdmin(chatId) && order.store_id !== storeId) {
+            bot.answerCallbackQuery(query.id, { text: 'Siz faqat o\'z do\'koningiz buyurtmalarini ko\'ra olasiz.', show_alert: true });
+            return;
+        }
+
         let details = `--- Buyurtma #${order.order_number} ---\n`;
         details += `Sana: ${new Date(order.date).toLocaleString('ru-RU')}\n`;
         details += `Mijoz raqami: ${order.customer_phone}\n`;
@@ -1069,7 +1368,7 @@ bot.on('callback_query', async (query) => {
         }
         details += `Jami: ${formatPrice(order.total)}\n`;
 
-        details += `\n📍 Manzil: [Google Maps](http://maps.google.com/maps?q=${order.latitude},${order.longitude})\n`;
+        details += `\n📍 Manzil: [Google Maps](http://googleusercontent.com/maps/google.com/0{order.latitude},${order.longitude})\n`;
 
         const statusButtons = [];
         if (order.status === 'new') {
@@ -1124,16 +1423,7 @@ bot.on('callback_query', async (query) => {
     if (data === 'admin_back_to_main') {
         if (!isAdmin(chatId)) return bot.answerCallbackQuery(query.id);
         bot.deleteMessage(chatId, messageId).catch(()=>{});
-        bot.sendMessage(chatId, "Boshqaruv paneli qayta yuklandi.", {
-             reply_markup: {
-                keyboard: [
-                    [{ text: ADMIN_BTN_NEW }],
-                    [{ text: ADMIN_BTN_ASSEMBLING }, { text: ADMIN_BTN_COMPLETED }],
-                    [{ text: ADMIN_BTN_PRODUCTS }, { text: ADMIN_BTN_CATEGORIES }]
-                ],
-                resize_keyboard: true
-            }
-        });
+        handleStartCommand(query.message); // Показываем правильное админ-меню
         bot.answerCallbackQuery(query.id);
         return;
     }
@@ -1242,10 +1532,6 @@ bot.on('callback_query', async (query) => {
         
         const isEditing = state.action.includes('edit');
 
-        if (productData.name) { // Удаляем старое поле 'name' для совместимости
-            delete productData.name;
-        }
-
         if (isEditing) {
             await db.query(
                 'UPDATE products SET name_uz = $1, name_ru = $2, description = $3, price = $4, pricing_model = $5, photo_url = $6, category_id = $7 WHERE id = $8',
@@ -1253,9 +1539,14 @@ bot.on('callback_query', async (query) => {
             );
             bot.editMessageText(`✅ Mahsulot "${productData.name_uz}" muvaffaqiyatli tahrirlandi!`, {chat_id: chatId, message_id: messageId}).catch(()=>{});
         } else {
+            // При добавлении нового товара, привязываем его к магазину админа
+            const storeId = getStoreIdForAdmin(chatId);
+            // Если это Супер-Админ, ему нужно будет выбрать магазин (пока не реализовано, ставим 1)
+            const finalStoreId = isSuperAdmin(chatId) ? 1 : storeId; 
+
             await db.query(
-                'INSERT INTO products (name_uz, name_ru, description, price, pricing_model, photo_url, category_id) VALUES ($1, $2, $3, $4, $5, $6, $7)',
-                [productData.name_uz, productData.name_ru, productData.description, productData.price, productData.pricing_model, productData.photo_url, productData.category_id]
+                'INSERT INTO products (name_uz, name_ru, description, price, pricing_model, photo_url, category_id, store_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+                [productData.name_uz, productData.name_ru, productData.description, productData.price, productData.pricing_model, productData.photo_url, productData.category_id, finalStoreId]
             );
             bot.editMessageText(`✅ Yangi mahsulot "${productData.name_uz}" muvaffaqiyatli qo'shildi!`, {chat_id: chatId, message_id: messageId}).catch(()=>{});
         }
@@ -1346,7 +1637,69 @@ bot.on('callback_query', async (query) => {
         showCategorySelectionForAdmin(chatId, 'admin_delete_category_select_', messageId);
         return;
     }
-    
+
+    // --- НОВЫЕ ОБРАБОТЧИКИ ДЛЯ "МАГАЗИНОВ" (только Супер-Админ) ---
+    if (isSuperAdmin(chatId)) {
+        if (data === 'admin_stores_menu' || data === ADMIN_BTN_BACK_TO_STORES_MENU) {
+            showAdminStoresMenu(chatId, messageId);
+            bot.answerCallbackQuery(query.id);
+            return;
+        }
+
+        if (data === 'admin_add_store') {
+            userStates[chatId] = { action: 'admin_add_store_name', data: {} };
+            bot.editMessageText('Yangi do\'kon nomini kiriting (masalan, "One Mart - Chilonzor"):', { chat_id: chatId, message_id: messageId }).catch(() => {});
+            bot.answerCallbackQuery(query.id);
+            return;
+        }
+        
+        if (data === 'admin_add_store_owner') {
+            userStates[chatId] = { action: 'admin_add_store_owner_name', data: {} };
+            bot.editMessageText('Yangi do\'kon egasining ismini kiriting (masalan, "Ali Valiyev"):', { chat_id: chatId, message_id: messageId }).catch(() => {});
+            bot.answerCallbackQuery(query.id);
+            return;
+        }
+        
+        if (data.startsWith('admin_select_owner_')) {
+            const ownerId = parseInt(data.split('_').pop(), 10);
+            const state = userStates[chatId];
+            if (!state || state.action !== 'admin_add_store_owner') {
+                 bot.answerCallbackQuery(query.id, { text: 'Xatolik!', show_alert: true });
+                 return;
+            }
+            const storeData = state.data;
+            try {
+                await db.query(
+                    'INSERT INTO stores (name, address, latitude, longitude, owner_id) VALUES ($1, $2, $3, $4, $5)',
+                    [storeData.name, storeData.address, storeData.latitude, storeData.longitude, ownerId]
+                );
+                await refreshAdminCache(); // Обновляем кэш
+                bot.editMessageText(`✅ Yangi do'kon "${storeData.name}" muvaffaqiyatli qo'shildi!`, {chat_id: chatId, message_id: messageId}).catch(()=>{});
+            } catch (e) {
+                console.error("Do'kon qo'shishda xatolik:", e);
+                bot.editMessageText(`❌ Xatolik yuz berdi.`, {chat_id: chatId, message_id: messageId}).catch(()=>{});
+            }
+            delete userStates[chatId];
+            bot.answerCallbackQuery(query.id);
+            return;
+        }
+        
+        if (data === 'admin_edit_store') {
+            showStoreSelectionForAdmin(chatId, 'admin_edit_store_select_', messageId);
+            bot.answerCallbackQuery(query.id);
+            return;
+        }
+        // TODO: Добавить логику редактирования магазина
+        
+        if (data === 'admin_delete_store') {
+            showStoreSelectionForAdmin(chatId, 'admin_delete_store_select_', messageId);
+            bot.answerCallbackQuery(query.id);
+            return;
+        }
+        // TODO: Добавить логику удаления магазина
+    }
+    // --- КОНЕЦ ОБРАБОТЧИКОВ "МАГАЗИНОВ" ---
+
     if (data.startsWith('category_')) {
         const categoryId = parseInt(data.substring(9), 10);
         showProductsByCategory(chatId, categoryId, messageId);
@@ -1478,10 +1831,10 @@ bot.on('callback_query', async (query) => {
         const newOrderNumber = lastOrder && lastOrder.order_number ? lastOrder.order_number + 1 : 1001;
 
         const { rows: [newOrder] } = await db.query(
-            `INSERT INTO orders (order_number, customer_chat_id, customer_phone, cart, delivery_details, total, latitude, longitude, status, comment)
-             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'new', $9)
+            `INSERT INTO orders (order_number, customer_chat_id, customer_phone, cart, delivery_details, total, latitude, longitude, status, comment, store_id)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'new', $9, $10)
              RETURNING order_id, order_number`,
-            [newOrderNumber, chatId, state.phone, JSON.stringify(cart), JSON.stringify(state.deliveryDetails), state.total, state.location.latitude, state.location.longitude, state.comment || null]
+            [newOrderNumber, chatId, state.phone, JSON.stringify(cart), JSON.stringify(state.deliveryDetails), state.total, state.location.latitude, state.location.longitude, state.comment || null, state.store_id]
         );
         
         let adminNotification = `🆕 Yangi buyurtma! #${newOrder.order_number}\n\n`;
@@ -1493,7 +1846,8 @@ bot.on('callback_query', async (query) => {
         adminNotification += `\n*Jami:* ${formatPrice(state.total)}\n`;
         adminNotification += `*Telefon:* ${state.phone}`;
         
-        ADMIN_CHAT_IDS.forEach(adminId => {
+        // TODO: Отправлять админу нужного магазина, а не всем
+        SUPER_ADMIN_IDS.forEach(adminId => {
             bot.sendMessage(adminId, adminNotification, {
                 parse_mode: 'Markdown',
                 reply_markup: {
@@ -1604,7 +1958,7 @@ bot.on('callback_query', async (query) => {
         }).catch(() => {});
         bot.answerCallbackQuery(query.id);
         
-        ADMIN_CHAT_IDS.forEach(adminId => {
+        SUPER_ADMIN_IDS.forEach(adminId => {
             bot.sendMessage(adminId, `❗️ Mijoz №${order.order_number} raqamli buyurtmani bekor qildi.`).catch(() => {});
         });
         return;
