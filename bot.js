@@ -11,7 +11,7 @@ const { Pool } = require('pg');
 const TOKEN = process.env.TOKEN || '7976277994:AAFOmpAk4pdD85U9kvhmI-lLhtziCyfGTUY';
 
 // --- Список Супер-Админов ---
-// Вставьте сюда свои ID. Первый ID - ваш.
+// Вставьте сюда свои ID
 const SUPER_ADMIN_IDS = ['5309814540', '7790411205']; 
 
 const GROUP_CHAT_ID = process.env.GROUP_CHAT_ID || '-1002943886944';
@@ -50,7 +50,7 @@ const BASE_DELIVERY_RADIUS_KM = 2.5;
 const PRICE_PER_EXTRA_KM = 4000;
 const MAX_DELIVERY_RADIUS_KM = 10;
 
-// --- Координаты магазина (Для совместимости) ---
+// --- Координаты магазина (Больше не используются, но оставим для совместимости) ---
 const SHOP_COORDINATES = { latitude: 40.764535, longitude: 72.282204 };
 
 // ================================================================= //
@@ -306,7 +306,6 @@ function showAdminCategoriesMenu(chatId, messageId = null) {
     else bot.sendMessage(chatId, text, { reply_markup: keyboard });
 }
 
-// --- ФУНКЦИИ АДМИНКИ (МАГАЗИНЫ) ---
 function showAdminStoresMenu(chatId, messageId = null) {
     const text = 'Do\'konlarni boshqarish:';
     const keyboard = {
@@ -511,13 +510,25 @@ bot.on('location', async (msg) => {
     const chatId = msg.chat.id;
     const userLocation = msg.location;
 
-    if (isAdmin(chatId) && userStates[chatId] && userStates[chatId].action === 'admin_add_store_location') {
-        userStates[chatId].data.latitude = userLocation.latitude;
-        userStates[chatId].data.longitude = userLocation.longitude;
-        userStates[chatId].action = 'admin_add_store_owner';
-        bot.sendMessage(chatId, 'Manzil qabul qilindi.', { reply_markup: { remove_keyboard: true } });
-        await showOwnerSelectionForAdmin(chatId, null);
-        return;
+    if (isAdmin(chatId) && userStates[chatId]) {
+        if (userStates[chatId].action === 'admin_add_store_location') {
+            userStates[chatId].data.latitude = userLocation.latitude;
+            userStates[chatId].data.longitude = userLocation.longitude;
+            userStates[chatId].action = 'admin_add_store_owner';
+            bot.sendMessage(chatId, 'Manzil qabul qilindi.', { reply_markup: { remove_keyboard: true } });
+            await showOwnerSelectionForAdmin(chatId, null);
+            return;
+        }
+        
+        // --- ЛОГИКА РЕДАКТИРОВАНИЯ ЛОКАЦИИ ---
+        if (userStates[chatId].action === 'admin_edit_store_location') {
+             const storeId = userStates[chatId].store_id;
+             await db.query('UPDATE stores SET latitude = $1, longitude = $2 WHERE id = $3', [userLocation.latitude, userLocation.longitude, storeId]);
+             bot.sendMessage(chatId, '✅ Lokatsiya muvaffaqiyatli o\'zgartirildi.', { reply_markup: { remove_keyboard: true } });
+             delete userStates[chatId];
+             showAdminStoresMenu(chatId);
+             return;
+        }
     }
 
     if (userStates[chatId] && userStates[chatId].action === 'awaiting_location') {
@@ -615,6 +626,18 @@ bot.on('message', async (msg) => {
              await db.query('INSERT INTO owners (chat_id, name, phone) VALUES ($1, $2, $3)', [ownerChatId, state.data.name, state.data.phone]);
              await refreshAdminCache();
              bot.sendMessage(chatId, `✅ Yangi ega "${state.data.name}" qo'shildi.`);
+             delete userStates[chatId];
+             showAdminStoresMenu(chatId);
+        } 
+        // --- ЛОГИКА РЕДАКТИРОВАНИЯ МАГАЗИНА (ИМЯ, АДРЕС) ---
+        else if (state.action === 'admin_edit_store_name') {
+             await db.query('UPDATE stores SET name = $1 WHERE id = $2', [msg.text, state.store_id]);
+             bot.sendMessage(chatId, `✅ Do'kon nomi o'zgartirildi.`);
+             delete userStates[chatId];
+             showAdminStoresMenu(chatId);
+        } else if (state.action === 'admin_edit_store_address') {
+             await db.query('UPDATE stores SET address = $1 WHERE id = $2', [msg.text, state.store_id]);
+             bot.sendMessage(chatId, `✅ Do'kon manzili o'zgartirildi.`);
              delete userStates[chatId];
              showAdminStoresMenu(chatId);
         }
@@ -747,6 +770,90 @@ bot.on('callback_query', async (query) => {
         return;
     }
 
+    // --- РЕДАКТИРОВАНИЕ И УДАЛЕНИЕ МАГАЗИНОВ ---
+
+    if (data === 'admin_edit_store') {
+        showStoreSelectionForAdmin(chatId, 'admin_edit_store_select_', query.message.message_id);
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data.startsWith('admin_edit_store_select_')) {
+        const storeId = parseInt(data.split('_').pop(), 10);
+        // Сохраняем ID магазина и показываем меню выбора поля
+        userStates[chatId] = { store_id: storeId }; 
+        const keyboard = {
+            inline_keyboard: [
+                [{ text: "📝 Nomini o'zgartirish", callback_data: `admin_edit_store_name_${storeId}` }],
+                [{ text: "📍 Manzilni o'zgartirish", callback_data: `admin_edit_store_addr_${storeId}` }],
+                [{ text: "🗺 Lokatsiyani o'zgartirish", callback_data: `admin_edit_store_loc_${storeId}` }],
+                [{ text: "⬅️ Orqaga", callback_data: "admin_edit_store" }]
+            ]
+        };
+        bot.editMessageText('Nimani o\'zgartirmoqchisiz?', { chat_id: chatId, message_id: query.message.message_id, reply_markup: keyboard });
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data.startsWith('admin_edit_store_name_')) {
+        const storeId = parseInt(data.split('_').pop(), 10);
+        userStates[chatId] = { action: 'admin_edit_store_name', store_id: storeId };
+        bot.sendMessage(chatId, "Yangi nomni kiriting:");
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data.startsWith('admin_edit_store_addr_')) {
+        const storeId = parseInt(data.split('_').pop(), 10);
+        userStates[chatId] = { action: 'admin_edit_store_address', store_id: storeId };
+        bot.sendMessage(chatId, "Yangi manzilni kiriting:");
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data.startsWith('admin_edit_store_loc_')) {
+        const storeId = parseInt(data.split('_').pop(), 10);
+        userStates[chatId] = { action: 'admin_edit_store_location', store_id: storeId };
+        bot.sendMessage(chatId, "Yangi geolokatsiyani yuboring (tugma orqali).", { reply_markup: { keyboard: [[{ text: "📍 Manzilni yuborish", request_location: true }]], one_time_keyboard: true, resize_keyboard: true } });
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data === 'admin_delete_store') {
+        showStoreSelectionForAdmin(chatId, 'admin_delete_store_select_', query.message.message_id);
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data.startsWith('admin_delete_store_select_')) {
+        const storeId = parseInt(data.split('_').pop(), 10);
+        const keyboard = {
+            inline_keyboard: [
+                [{ text: "✅ Ha, o'chirish", callback_data: `admin_delete_store_confirm_${storeId}` }],
+                [{ text: "❌ Yo'q", callback_data: "admin_delete_store" }]
+            ]
+        };
+        bot.editMessageText("Haqiqatan ham bu do'konni o'chirmoqchimisiz? (Barcha tovarlar ham o'chib ketishi mumkin)", { chat_id: chatId, message_id: query.message.message_id, reply_markup: keyboard });
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    if (data.startsWith('admin_delete_store_confirm_')) {
+        const storeId = parseInt(data.split('_').pop(), 10);
+        try {
+            await db.query('DELETE FROM stores WHERE id = $1', [storeId]);
+            await refreshAdminCache();
+            bot.editMessageText("✅ Do'kon o'chirildi.", { chat_id: chatId, message_id: query.message.message_id });
+            setTimeout(() => showAdminStoresMenu(chatId), 2000);
+        } catch (e) {
+            bot.editMessageText("❌ Xatolik yuz berdi.", { chat_id: chatId, message_id: query.message.message_id });
+        }
+        bot.answerCallbackQuery(query.id);
+        return;
+    }
+
+    // --- КОНЕЦ РЕДАКТИРОВАНИЯ МАГАЗИНОВ ---
+
     if (data === 'confirm_order') {
         const state = userStates[chatId];
         const cart = userCarts[chatId];
@@ -754,7 +861,7 @@ bot.on('callback_query', async (query) => {
         const newOrderNumber = lastOrder ? lastOrder.order_number + 1 : 1001;
         const { rows: [newOrder] } = await db.query(`INSERT INTO orders (order_number, customer_chat_id, customer_phone, cart, delivery_details, total, latitude, longitude, status, comment, store_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'new', $9, $10) RETURNING order_id, order_number`, [newOrderNumber, chatId, state.phone, JSON.stringify(cart), JSON.stringify(state.deliveryDetails), state.total, state.location.latitude, state.location.longitude, state.comment, state.store_id]);
         
-        bot.sendMessage(SUPER_ADMIN_IDS[0], `🆕 Yangi buyurtma! #${newOrder.order_number}`); // Упрощено
+        bot.sendMessage(SUPER_ADMIN_IDS[0], `🆕 Yangi buyurtma! #${newOrder.order_number}`); 
         bot.editMessageText(`Rahmat! Buyurtma #${newOrder.order_number} qabul qilindi.`, { chat_id: chatId, message_id: query.message.message_id });
         handleStartCommand(query.message);
         userCarts[chatId] = [];
